@@ -1,2 +1,3 @@
 # Project-Teamfit
-course-project-teamfit created by GitHub Classroom
+
+Application to track your health and motivate you to stay healthy
