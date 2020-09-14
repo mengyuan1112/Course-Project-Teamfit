@@ -1,5 +1,9 @@
 #Intellij files
-.idea
+.idea/
+.vscode/
+node_modules/
+build
+.DS_Store
 # Byte-compiled/ optimized/ DLL files
 _pycache__/
 *.py[cod]
