@@ -3,9 +3,8 @@ class User:
     #                      "Name": String,
     #                      "Age": Int,
     #                      "Gender": Char,
-    #                      "Weight": Int,
-    #                      "Height": Int,
-    #                      "BMI": Int,
+    #                      "Weight": Int,   ## unit "lb"   Format "xxx"
+    #                      "Height": List[Int,Int]   ## unit "inch" Format "feet, inch"
     #                      "Email": String,
     #                      "Phone Number", Int
     #                      "Spotters": Dictionary{Key: Email, value: User Object}
@@ -17,10 +16,10 @@ class User:
         self.Gender = user_info["Gender"]
         self.Weight = user_info["Weight"]
         self.Height = user_info["Height"]
-        self.BMI = user_info["BMI"]
         self.Email = user_info["Email"]
         self.Phone_Number = user_info["Phone Number"]
         self.Spotters = user_info["Spotters"]
+        self.BMI = round(703 * (self.get_weight() / ((self.get_height()[0]*12)+self.get_height()[1])**2), 1)
 
     def update_name(self, name):
         self.Name = name
@@ -35,13 +34,23 @@ class User:
         self.Weight = weight
 
     def update_height(self, height):
-        self.Height = height
+        self.Height[0] = height[0]
+        self.Height[1] = height[1]
 
     def update_email(self, email):
         self.Email = email
 
     def update_phone_number(self, phone_number):
         self.Phone_Number = phone_number
+
+    def update_spotter(self, user):
+        self.Spotters[user.get_email] = user
+
+    def update_bmi(self):
+        weight = self.get_weight()
+        feet = self.get_height()[0]
+        inch = self.get_height()[1]
+        self.BMI = round(703 * (weight / ((feet*12)+inch)**2),1)
 
     def get_age(self):
         return self.Age
@@ -64,4 +73,8 @@ class User:
     def get_phone_number(self):
         return self.Phone_Number
 
+    def get_spotter(self):
+        return self.Spotters
 
+    def get_bmi(self):
+        return self.BMI
