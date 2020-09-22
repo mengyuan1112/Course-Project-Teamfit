@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import MainPage from './components/main/mainpage.js'
+import MainPage from './components/main/mainpage.js';
+import Login from './components/logReg/login.js';
+import Register from './components/logReg/register.js';
 import Upload from './components/upload/upload.js';
 
 import {
@@ -37,11 +39,15 @@ class App extends React.Component {
             >
               <Tab label="Home" to="/" component={Link}/>
               <Tab label="Upload" to="/upload" component={Link}/>
+              <Tab label="Login" to="/login" component={Link}/>
+              <Tab label="Register" to="/register" component={Link}/>
             </Tabs>
           </Paper>
           <Switch>
             <Route path="/" render={(props) => <MainPage {... props} />}/>
             <Route path="/upload" render={(props) => <Upload {... props} />}/>
+            <Route path="/login" render={(props) => <Login {... props} />}/>
+            <Route path="/register" render={(props) => <Register {... props} />}/>
           </Switch>
         </div>
       </BrowserRouter>
