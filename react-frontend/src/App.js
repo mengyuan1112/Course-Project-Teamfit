@@ -1,26 +1,62 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ReactDOM from "react-dom";
+import MainPage from './components/main/mainpage.js'
+import Upload from './components/upload/upload.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {
+  BrowserRouter as Router,
+  Switch,
+  Tab, Tabs,
+  Route, BrowserRouter
+} from "react-router-dom";
+import { Paper, Tabs } from '@material-ui/core';
+
+/**
+ * Root Component
+ * -contains child component that swaps out to the other components.
+ */
+class App extends React.Component {
+  state = {
+    currentPage: 'compApp'
+  }
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+  render() {
+    return(
+      <BrowserRouter>
+        <div>
+          <Paper>
+            <Tabs
+              value={this.state.currentPage}
+              onChange={this.handleChange}
+              indicatorColor={"secondary"}
+              centered
+              style={navStyle}
+            >
+              <Tab label="Home" to="/" component={Link}/>
+              <Tab label="Upload" to="/upload" component={Link}/>
+            </Tabs>
+          </Paper>
+          <Switch>
+            <Route path="/" render={(props) => <MainPage {... props} />}/>
+            <Route path="/upload" render={(props) => <Upload {... props} />}/>
+          </Switch>
+        </div>
+      </BrowserRouter>
+
+)};
 }
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode >,
+  document.getElementById('root')
+);
+
+serviceWorker.unregister();
+
 
 export default App;
