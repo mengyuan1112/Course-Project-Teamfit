@@ -1,27 +1,30 @@
 import React from "react";
 import loginImg from "../../logo.svg";
 
+/* function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
 
-  // validate form errors being empty
+  /*  Validates form errors being empty */
   Object.values(formErrors).forEach(val => {
     val.length > 0 && (valid = false);
   });
 
-  // validate the form was filled out
+  /*  Validates the form was filled out */
   Object.values(rest).forEach(val => {
     val === null && (valid = false);
   });
 
     return valid;
 };
-
+/*  Regex to test whether an email is valid */
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
 
 export default class Login extends React.Component {
+
+    /*  Constructor for login class, has 3 states: uEmail and uPassword and formErrors */
 
     constructor(props) {
         super(props);
@@ -34,7 +37,7 @@ export default class Login extends React.Component {
             }
         }
     }
-
+/*   Handles the input from the form when the sign in button is clicked*/
     handleSubmit = e => {
         e.preventDefault();
         if (formValid(this.state)){
@@ -48,6 +51,7 @@ export default class Login extends React.Component {
             console.error("FORM INVALID")
         }
     }
+    /* Handles any change to the form input and determines if valid input is provided*/
     handleChange = e => {
         e.preventDefault();
         const {name,value} = e.target;
@@ -65,7 +69,7 @@ export default class Login extends React.Component {
         }
         this.setState({formErrors, [name]:value}, ()=> console.log(this.state))
     };
-
+/* renders all html for the login page*/
     render(){
         const{formErrors} =this.state;
         return <div className="wrapper">

@@ -1,28 +1,30 @@
 import React from "react";
 import loginImg from "../../logo.svg";
 
+/* function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
 
-  // validate form errors being empty
+  /*  Validates form errors being empty */
   Object.values(formErrors).forEach(val => {
     val.length > 0 && (valid = false);
   });
 
-  // validate the form was filled out
+  /*  Validates the form was filled out */
   Object.values(rest).forEach(val => {
     val === null && (valid = false);
   });
 
   return valid;
 };
-
+/*  Regex to test whether an email is valid */
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
 
 export default class Register extends React.Component {
 
+    /*  Constructor for login class, has 10 states: eMail, password, name, age, heightFt, heightIn, weight, gender, phoneNumber, and formErrors */
     constructor(props) {
         super(props);
 
@@ -31,7 +33,8 @@ export default class Register extends React.Component {
             password: null,
             name: null,
             age: null,
-            height: null,
+            heightFt: null,
+            heightIn: "0",
             weight: null,
             gender: null,
             phoneNumber: null,
@@ -40,13 +43,16 @@ export default class Register extends React.Component {
                 password: "",
                 name: "",
                 age: "",
-                height: "",
+                heightFt: "",
+                heightIn: "",
                 weight: "",
                 gender: "",
                 phoneNumber: "",
             }
         }
     }
+
+    /*Handles the register button and all entered information from the form*/
     handleSubmit = e => {
         e.preventDefault();
         if (formValid(this.state)){
@@ -56,7 +62,8 @@ export default class Register extends React.Component {
             PASSWORD: ${this.state.password}
             NAME: ${this.state.name}
             AGE: ${this.state.age}
-            HEIGHT: ${this.state.height}
+            HEIGHTFT: ${this.state.heightFt}
+            HEIGHTIN: ${this.state.heightIn}
             WEIGHT: ${this.state.weight}
             GENDER: ${this.state.gender}
             PHONENUMBER: ${this.state.phoneNumber}
@@ -66,9 +73,9 @@ export default class Register extends React.Component {
             console.error("FORM INVALID")
         }
     }
-
+    /*Handles all changes in any form entry and checks for possible errors*/
     handleChange = e => {
-        e.preventDefault();
+        //e.preventDefault();
         const {name,value} = e.target;
         let formErrors = this.state.formErrors;
         console.log(name)
@@ -80,28 +87,33 @@ export default class Register extends React.Component {
                 formErrors.password = value.length < 8 ? 'Password must be at least 8 characters':"";
                 break;
             case 'name':
-                formErrors.password = value.length < 3 ? 'Please enter name':"";
+                formErrors.name = value.length < 3 ? 'Please enter name':"";
                 break;
             case 'age':
-                formErrors.password = value.length < 1 ? 'Please enter age':"";
+                formErrors.age = value.length < 1 ? 'Please enter age':"";
                 break;
-            case 'height':
-                formErrors.password = value.length < 0 ? 'Please enter height':"";
+            case 'heightFt':
+                formErrors.heightFt = value.length <= 0 ? 'Please select height(ft)':"";
+                break;
+            case 'heightIn':
+                formErrors.heightIn = value.length <= 0 ? 'Please select height(in)':"";
                 break;
             case 'weight':
-                formErrors.password = value.length < 0 ? 'Please enter weight':"";
+                formErrors.weight = value.length <= 0 ? 'Please enter weight':"";
                 break;
             case 'gender':
-                formErrors.password = !value.includes("M"|| "F") ? 'Please enter M for male or F for female':"";
+                formErrors.gender = value.length <= 0 ? 'Please enter choose a gender':"";
                 break;
             case 'phoneNumber':
-                formErrors.password = value.length < 10 ? 'Please enter valid phone number':"";
+                formErrors.phoneNumber = value.length < 10 ? 'Please enter valid phone number':"";
                 break;
             default:
             break;
         }
         this.setState({formErrors, [name]:value}, ()=> console.log(this.state))
     };
+
+    /*Renders the html for this page*/
 
     render() {
         const{formErrors} =this.state;
@@ -113,7 +125,7 @@ export default class Register extends React.Component {
                             <img src={loginImg} alt="Login Image"/>
                         </div>
                         <h1>Register for An Account</h1>
-                        <form onSubmit={this.handleSubmit} noValidate>
+                        <form id="regForm" onSubmit={this.handleSubmit} noValidate>
                             <div className="allForms">
                                 <div className="eMail">
                                     <label htmlFor="eMail">E-mail</label>
@@ -137,18 +149,61 @@ export default class Register extends React.Component {
                                 </div>
                                 <div className="height">
                                     <label htmlFor="height">Height</label>
-                                    <input className={formErrors.height.length > 0 ? "error" : null} type="text" name="height" placeholder="3' 4''" onChange={this.handleChange}/>
-                                    {formErrors.height.length > 0 && ( <span className="errorMessage">{formErrors.height}</span> )}
+                                    <div className="heightFt">
+                                    <select form="regForm" name="heightFt" id="heightFt" required="true" onChange={this.handleChange}>
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                    <span>ft</span>
+                                    {formErrors.heightFt.length > 0 && ( <span className="errorMessage">{formErrors.heightFt}</span> )}
+                                        </div>
+                                    <div className="heightIn">
+                                    <select form="regForm" name="heightIn" id="heightIn" required="true" onChange={this.handleChange}>
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                    </select>
+                                    <span>in</span>
+                                        {formErrors.heightIn.length > 0 && ( <span className="errorMessage">{formErrors.heightIn}</span> )}
+                                    </div>
                                 </div>
                                 <div className="weight">
-                                    <label htmlFor="weight">Weight</label>
-                                    <input className={formErrors.weight.length > 0 ? "error" : null} type="text" name="weight" placeholder="167"onChange={this.handleChange}/>
+                                    <label htmlFor="weight">Weight(lbs)</label>
+                                    <input className={formErrors.weight.length > 0 ? "error" : null} type="number" name="weight" placeholder="167"onChange={this.handleChange}/>
                                     {formErrors.weight.length > 0 && ( <span className="errorMessage">{formErrors.weight}</span> )}
                                 </div>
                                 <div className="gender">
                                     <label htmlFor="gender">Gender</label>
-                                    <input className={formErrors.gender.length > 0 ? "error" : null} type="text" name="gender" placeholder="M or F"onChange={this.handleChange}/>
-                                    {formErrors.gender.length > 0 && ( <span className="errorMessage">{formErrors.gender}</span> )}
+                                    <div className="genderM">
+                                        <input className={formErrors.gender.length > 0 ? "error" : null} type="radio"
+                                                name="gender" id="Male" value="M" onChange={this.handleChange}/>
+                                        <label htmlFor="Male">Male</label><br/>
+                                        {formErrors.gender.length > 0 && ( <span className="errorMessage">{formErrors.gender}</span> )}
+                                    </div>
+                                    <div className="genderF">
+                                        <input className={formErrors.gender.length > 0 ? "error" : null} type="radio"
+                                                name="gender" id="Female" value="F" onChange={this.handleChange}/>
+                                        <label htmlFor="Female">Female</label><br/>
+                                        {formErrors.gender.length > 0 && ( <span className="errorMessage">{formErrors.gender}</span> )}
+                                    </div>
                                 </div>
                                 <div className="phoneNumber">
                                     <label htmlFor="phoneNumber">Phone Number</label>

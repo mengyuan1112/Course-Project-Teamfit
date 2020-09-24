@@ -101,6 +101,14 @@ input.error {
   margin-left: 1%;
 }
 
+  span {
+    font-size: 1em;
+  margin-bottom: 0.25em;
+  color: #222;
+  font-weight: lighter;
+  }
+
+
 .gender {
   margin-left: 1%;
 }
