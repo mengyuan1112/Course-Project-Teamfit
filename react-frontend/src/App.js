@@ -11,8 +11,32 @@ import Login from './components/logReg/login.js';
  * -contains child component that swaps out to the other components.
  */
 class App extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      name: "root",
+      showNavBar: true,
+      showUpload: false,
+      showLogin: false,
+      showHome: false
+    }
+  }
   state = {
     currentPage: 'compApp'
+  }
+
+  hideComponent(name){
+    console.log(name);
+    switch (name) {
+      case "login":
+        this.setState({showLogin: !this.state.showLogin});
+        break;
+      case "upload" :
+        this.setState({showUpload: !this.state.showUpload});
+        break;
+      default:
+        this.setState({showHome: !this.state.showHome}); 
+    }
   }
 
   handleChange = (event, value) => {
@@ -23,8 +47,8 @@ class App extends React.Component {
     return(
       <HashRouter basename="/SnapScout">
       <div className="container">
+        <Route exact path="/" render={() => <MainPage />}/>
         <Switch>
-          <Route exact path="/" render={() => <MainPage />}/>
           <Route path="/login" render={() => <Login />} />
           <Route path="/upload" render={() => <Upload />} />
         </Switch>
