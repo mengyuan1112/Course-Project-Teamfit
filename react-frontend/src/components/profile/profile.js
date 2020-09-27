@@ -19,4 +19,4 @@ class Profile extends Component{
         </div>
         )};
 }
-export default Upload;
+export default Profile;

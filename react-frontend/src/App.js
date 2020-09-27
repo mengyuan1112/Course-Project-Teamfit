@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import MainPage from './components/main/mainpage.js'
-import Upload from './components/upload/upload.js';
+import HomePage from './components/homepage/home.js'
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 //import { Paper, Tabs } from '@material-ui/core';
 import Login from './components/logReg/login.js';
+import Profile from './components/profile/profile.js';
+
 
 /**
  * Root Component
@@ -16,7 +17,7 @@ class App extends React.Component {
     this.state = {
       name: "root",
       showNavBar: true,
-      showUpload: false,
+      showProfile: false,
       showLogin: false,
       showHome: false
     }
@@ -28,14 +29,14 @@ class App extends React.Component {
   hideComponent(name){
     console.log(name);
     switch (name) {
-      case "login":
-        this.setState({showLogin: !this.state.showLogin});
+      case "home":
+        this.setState({showHome: !this.state.showHome});
         break;
-      case "upload" :
-        this.setState({showUpload: !this.state.showUpload});
+      case "profile" :
+        this.setState({showProfile: !this.state.showProfile});
         break;
       default:
-        this.setState({showHome: !this.state.showHome}); 
+        this.setState({showLogin: !this.state.showLogin}); 
     }
   }
 
@@ -49,7 +50,8 @@ class App extends React.Component {
         <div className="container">
           <Route exact path="/" render={() => <Login />} />
             <Switch>
-              <Route path="/home" render={() => <MainPage />}/>
+              <Route path="/home" render={() => <HomePage />}/>
+              <Route path="/profile" render={() => <Profile />}/>
             </Switch>
         </div>
       </HashRouter>
