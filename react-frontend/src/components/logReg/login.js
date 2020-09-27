@@ -82,6 +82,9 @@ render(){
                 <div className="form-wrapper">
                     <div className="image">
                         <img src={loginImg} width="180" height="180" alt="Login Image" />
+                        <h3>Welcome to TEAMFIT</h3>
+                        <h4>Please Sign In</h4>
+
                     </div>
                     <form onSubmit={this.handleSubmit} noValidate>
                         <div className="allForms">
