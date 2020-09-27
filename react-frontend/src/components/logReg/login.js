@@ -1,5 +1,6 @@
 import React from "react";
-import loginImg from "../../logo.svg";
+import './logReg.css';
+import loginImg from "../../TeamFit_logo.png";
 
 /* function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
@@ -70,37 +71,40 @@ export default class Login extends React.Component {
         this.setState({formErrors, [name]:value}, ()=> console.log(this.state))
     };
 /* renders all html for the login page*/
-    render(){
-        const{formErrors} =this.state;
-        return <div className="wrapper">
-                <div className="header">*Temp* TeamFit Homepage Link/Logo *Temp*</div>
-                    <div className="form-wrapper">
-                        <div className="image">
-                            <img src={loginImg} width="200" height="200" alt="Login Image" />
-                        </div>
-                        <h1>Sign in to Account</h1>
-                        <form onSubmit={this.handleSubmit} noValidate>
-                            <div className="allForms">
-                                <div className="uEmail">
-                                    <label htmlFor="uEmail">E-mail</label>
-                                    <input className={formErrors.uEmail.length > 0 ? "error" : null} type="email" name="uEmail" placeholder="example@gmail.com" onChange={this.handleChange}/>
-                                    {formErrors.uEmail.length > 0 && ( <span className="errorMessage">{formErrors.uEmail}</span> )}
-                                </div>
-                                <div className="uPassword">
-                                    <label htmlFor="uPassword">Password</label>
-                                    <input className={formErrors.uPassword.length > 0 ? "error" : null} type="password" name="uPassword" placeholder="password"onChange={this.handleChange}/>
-                                    {formErrors.uPassword.length > 0 && ( <span className="errorMessage">{formErrors.uPassword}</span> )}
-                                </div>
-                                <div className="loginBtn">
-                                    <button type="submit">Sign-in</button>
-                                </div>
-                            </div>
-                        </form>
+render(){
+    const{formErrors} =this.state;
+    return <div className="wrapper">
+            <div className="header">
+                    <body className="body">
+                        <img src={loginImg} width="180" height="180" alt="Login Image" />
+                    </body>
+                </div>
+                <div className="form-wrapper">
+                    <div className="image">
+                        <img src={loginImg} width="180" height="180" alt="Login Image" />
                     </div>
+                    <form onSubmit={this.handleSubmit} noValidate>
+                        <div className="allForms">
+                            <div className="uEmail">
+                                <label htmlFor="uEmail">E-mail</label>
+                                <input className={formErrors.uEmail.length > 0 ? "error" : null} type="email" name="uEmail" placeholder="example@gmail.com" onChange={this.handleChange}/>
+                                {formErrors.uEmail.length > 0 && ( <span className="errorMessage">{formErrors.uEmail}</span> )}
+                            </div>
+                            <div className="uPassword">
+                                <label htmlFor="uPassword">Password</label>
+                                <input className={formErrors.uPassword.length > 0 ? "error" : null} type="password" name="uPassword" placeholder="password"onChange={this.handleChange}/>
+                                {formErrors.uPassword.length > 0 && ( <span className="errorMessage">{formErrors.uPassword}</span> )}
+                            </div>
+                            <div className="loginBtn">
+                                <button type="submit">Sign In</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             <div className="footer">
                 <small>Don't have an account?</small>
-                <small><p><a href="/register">Register here!</a></p></small>
+                <small><p><a href="/register">Click to sign up!</a></p></small>
             </div>
-        </div>
-    }
+    </div>
+ }
 }

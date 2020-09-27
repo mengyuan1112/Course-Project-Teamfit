@@ -46,14 +46,13 @@ class App extends React.Component {
   render() {
     return(
       <HashRouter basename="/SnapScout">
-      <div className="container">
-        <Route exact path="/" render={() => <MainPage />}/>
-        <Switch>
-          <Route path="/login" render={() => <Login />} />
-          <Route path="/upload" render={() => <Upload />} />
-        </Switch>
-      </div>
-    </HashRouter>
+        <div className="container">
+          <Route exact path="/" render={() => <Login />} />
+            <Switch>
+              <Route path="/home" render={() => <MainPage />}/>
+            </Switch>
+        </div>
+      </HashRouter>
     )};
 }
 
