@@ -16,17 +16,17 @@ class Feed extends Component {
 
     handleNewPost(post) {
         this.setState({
-            posts: this.state.posts.push([post]) //Might need to tweak to make sure new posts get pushed to the top as most social media
+            posts: this.state.posts.concat([post]) //Might need to tweak to make sure new posts get pushed to the top as most social media
         });
     }
     render() {
-        const posts = this.state.posts.map((post, index) =>
+        const posts = this.state.posts.slice(0).reverse().map((post, index) =>
             <Post key={index} value={post} />
         );
         return (
             <div className="feed">
-                {posts}
                 <Form onSubmit={this.handleNewPost} />
+                {posts}
             </div>
         )
     }

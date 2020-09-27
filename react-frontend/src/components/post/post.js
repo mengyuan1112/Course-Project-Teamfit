@@ -4,7 +4,7 @@ class Post extends Component {
     render() {
         return (
             <div className="post">
-                <span>{this.props.value.content}</span>
+                <span className="content">{this.props.value.content}</span>
             </div>
         )
     }

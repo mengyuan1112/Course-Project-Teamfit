@@ -7,6 +7,7 @@ class Form extends Component {
     }
 
     handleSubmit(event) {
+        this.props.onSubmit({content: this.content.value});
         this.content.value = "";
         event.preventDefault();
     }
