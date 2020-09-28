@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import './feed.css';
+import './post.css';
+import './form.css';
 
 class Post extends Component {
     render() {
