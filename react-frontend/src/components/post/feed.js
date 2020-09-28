@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Post from './post.js';
 import Form from './form.js';
+import './feed.css';
+import './post.css';
+import './form.css';
 
 class Feed extends Component {
     constructor(props) {
