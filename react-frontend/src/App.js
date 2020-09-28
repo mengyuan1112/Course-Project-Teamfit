@@ -1,27 +1,12 @@
 import React from 'react';
-<<<<<<< HEAD
-import logo from './logo.svg';
-import './App.css';
-import ReactDOM, { render } from "react-dom";
-// import './components/post/post.js';
-import Feed from './components/post/feed.js';
-// import Post from './components/post/post.js';
-
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <Feed/>
-      </div>
-    );
-  }
-=======
-import ReactDOM from "react-dom";
 import HomePage from './components/homepage/home.js'
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 //import { Paper, Tabs } from '@material-ui/core';
+import './App.css';
+import ReactDOM, { render } from "react-dom";
 import Login from './components/logReg/login.js';
 import Profile from './components/profile/profile.js';
+import Feed from './components/post/feed.js';
 
 
 /**
@@ -68,12 +53,12 @@ class App extends React.Component {
           <Route exact path="/" render={() => <Login />} />
             <Switch>
               <Route path="/home" render={() => <HomePage />}/>
+              <Route path="/feed" render={() => <Feed />}/>
               <Route path="/profile" render={() => <Profile />}/>
             </Switch>
         </div>
       </HashRouter>
     )};
->>>>>>> 7ffd433e9835dc54a2a40de176dc0375f3466900
 }
 
 ReactDOM.render(<App/>, document.getElementById('root'));
