@@ -40,6 +40,9 @@ export default function ButtonAppBar() {
           <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={ event => window.location.href = "/login" }>
             Login            
           </IconButton>
+          <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={ event => window.location.href = "/register" }>
+            Register
+          </IconButton>
 
         </Toolbar>
       </AppBar>

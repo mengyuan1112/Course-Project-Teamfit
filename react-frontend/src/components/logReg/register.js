@@ -120,7 +120,6 @@ export default class Register extends React.Component {
 
         return <div className="wrapper">
                 <div className="header"></div>
-                    <small><p><a href="#/">Homepage</a></p></small>
                     <div className="form-wrapper">
                         <div className="image">
                             <img src={loginImg} width="180" height="180" alt="Login Image"/>
@@ -219,7 +218,7 @@ export default class Register extends React.Component {
                     </div>
             <div className="footer">
                 <small>Already have an account?</small>
-                <small><p><a href="#/">Login here!</a></p></small>
+                <small><p><a href="/login">Login here!</a></p></small>
             </div>
             </div>
     }

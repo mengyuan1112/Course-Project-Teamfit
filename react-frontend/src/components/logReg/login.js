@@ -106,7 +106,7 @@ render(){
                 </div>
             <div className="footer">
                 <small>Don't have an account?</small>
-                <small><p><a href="#/register">Click to sign up!</a></p></small>
+                <small><p><a href="/register">Click to sign up!</a></p></small>
             </div>
     </div>
  }
