@@ -61,6 +61,7 @@ class App extends React.Component {
           <Route exact path="/home" render={() => <Home />}/>
           <Route path="/login" render={() => <Login />} />
           <Route path="/upload" render={() => <Upload />} />
+          <Route path="/register" render={() => <Register />} />
         </Switch>
       </div>
     </BrowserRouter>
