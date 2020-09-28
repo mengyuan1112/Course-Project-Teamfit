@@ -7,7 +7,6 @@ import NavBar from './components/navBar/navBar';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 //import { Paper, Tabs } from '@material-ui/core';
 import './App.css';
-import ReactDOM, { render } from "react-dom";
 import Login from './components/logReg/login.js';
 import Register from './components/logReg/register.js'
 import Profile from './components/profile/profile.js';
@@ -65,6 +64,7 @@ class App extends React.Component {
           <Route path="/login" render={() => <Login />} />
           <Route path="/upload" render={() => <Upload />} />
           <Route path="/register" render={() => <Register />} />
+          <Route path="/feed" render={() => <Feed />} />
         </Switch>
       </div>
     </BrowserRouter>
