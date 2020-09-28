@@ -64,6 +64,7 @@ class App extends React.Component {
           <Route path="/login" render={() => <Login />} />
           <Route path="/upload" render={() => <Upload />} />
           <Route path="/register" render={() => <Register />} />
+          <Route path="/feed" render={() => <Feed />} />
         </Switch>
       </div>
     </BrowserRouter>
