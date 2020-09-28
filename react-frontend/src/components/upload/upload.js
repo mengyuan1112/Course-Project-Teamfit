@@ -20,14 +20,11 @@ class Upload extends Component{
     render() {
         return (
         <div>{this.state.currentComponent == "compUpload"}
-            <Button variant="contained" color="primary">
-                Upload Button says Hello!
-            </Button>
-            <Button variant="contained" color="primary">
-                Home Page
+            <Button variant="contained" component="label" color="primary">
+                Upload
+                <input type="file" style={{display:"none"}}/>
             </Button>
         
         </div>
-        )};
-}
+        )};}
 export default Upload;

@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import HomePage from './components/homepage/home.js'
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+
+import Home from './components/homepage/home.js'
+import Upload from './components/upload/upload.js';
+import NavBar from './components/navBar/navBar';
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 //import { Paper, Tabs } from '@material-ui/core';
 import Login from './components/logReg/login.js';
 import Register from './components/logReg/register.js'
@@ -51,16 +54,16 @@ class App extends React.Component {
 
   render() {
     return(
-      <HashRouter basename="/SnapScout">
-        <div className="container">
-          <Route exact path="/" render={() => <Login />} />
-            <Switch>
-              <Route path="/home" render={() => <HomePage />}/>
-              <Route path="/profile" render={() => <Profile />}/>
-              <Route path="/register" render={() => <Register />}/>
-            </Switch>
-        </div>
-      </HashRouter>
+      <BrowserRouter basename="/SnapScout">
+      <div className="container">
+        <Route exact path="" render={() => <NavBar />}/>
+        <Switch>
+          <Route exact path="/home" render={() => <Home />}/>
+          <Route path="/login" render={() => <Login />} />
+          <Route path="/upload" render={() => <Upload />} />
+        </Switch>
+      </div>
+    </BrowserRouter>
     )};
 }
 
