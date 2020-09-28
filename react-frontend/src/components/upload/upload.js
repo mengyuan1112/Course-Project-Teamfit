@@ -24,7 +24,9 @@ class Upload extends Component{
                 Upload
                 <input type="file" style={{display:"none"}}/>
             </Button>
-        
+            <Button variant="contained" component="label" color="primary">
+                History
+            </Button>
         </div>
         )};}
 export default Upload;
