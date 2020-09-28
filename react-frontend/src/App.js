@@ -4,7 +4,7 @@ import MainPage from './components/main/mainpage.js'
 import Upload from './components/upload/upload.js';
 import NavBar from './components/navBar/navBar';
 
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 //import { Paper, Tabs } from '@material-ui/core';
 import Login from './components/logReg/login.js';
 
@@ -47,7 +47,7 @@ class App extends React.Component {
 
   render() {
     return(
-      <HashRouter basename="/SnapScout">
+      <BrowserRouter basename="/SnapScout">
       <div className="container">
         <Route exact path="" render={() => <NavBar />}/>
         <Switch>
@@ -56,7 +56,7 @@ class App extends React.Component {
           <Route path="/upload" render={() => <Upload />} />
         </Switch>
       </div>
-    </HashRouter>
+    </BrowserRouter>
     )};
 }
 
