@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,34 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+#root {
+  margin: 1em auto;
+  width: 650px;
+}
+
+.post {
+  background: #FFFFFF;
+  border: 1px solid #ccc;
+  min-height: 68px;
+  padding: 20px;
+  display: flex;
+  font-size: 14px;
+  margin: 10px 0 10px 0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.10);
+}
+
+.feed {
+  position: relative;
+  top: 120px; left: 40px;
+}
+
+.form {
+  background: #58828b; 
+  padding: 20px;
+}
+
+.content {
+  margin-left: 5px;
 }
