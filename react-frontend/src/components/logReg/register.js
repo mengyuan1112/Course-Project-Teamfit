@@ -1,5 +1,5 @@
 import React from "react";
-import loginImg from "../../logo.svg";
+import loginImg from "../../TeamFit_logo.png";
 
 /* function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
@@ -119,10 +119,10 @@ export default class Register extends React.Component {
         const{formErrors} =this.state;
 
         return <div className="wrapper">
-                <div className="header">*Temp* TeamFit Homepage Link/Logo</div>
+                <div className="header"></div>
                     <div className="form-wrapper">
                         <div className="image">
-                            <img src={loginImg} alt="Login Image"/>
+                            <img src={loginImg} width="180" height="180" alt="Login Image"/>
                         </div>
                         <h1>Register for An Account</h1>
                         <form id="regForm" onSubmit={this.handleSubmit} noValidate>

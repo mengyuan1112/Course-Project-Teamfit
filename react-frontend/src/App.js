@@ -1,10 +1,15 @@
 import React from 'react';
-import HomePage from './components/homepage/home.js'
-import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import ReactDOM from "react-dom";
+
+import Home from './components/homepage/home.js'
+import Upload from './components/upload/upload.js';
+import NavBar from './components/navBar/navBar';
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 //import { Paper, Tabs } from '@material-ui/core';
 import './App.css';
 import ReactDOM, { render } from "react-dom";
 import Login from './components/logReg/login.js';
+import Register from './components/logReg/register.js'
 import Profile from './components/profile/profile.js';
 import Feed from './components/post/feed.js';
 
@@ -21,7 +26,8 @@ class App extends React.Component {
       showNavBar: true,
       showProfile: false,
       showLogin: false,
-      showHome: false
+      showHome: false,
+      showRegister: false
     }
   }
   state = {
@@ -37,6 +43,9 @@ class App extends React.Component {
       case "profile" :
         this.setState({showProfile: !this.state.showProfile});
         break;
+        case "register" :
+        this.setState({showRegister: !this.state.showRegister});
+        break;
       default:
         this.setState({showLogin: !this.state.showLogin}); 
     }
@@ -48,16 +57,17 @@ class App extends React.Component {
 
   render() {
     return(
-      <HashRouter basename="/SnapScout">
-        <div className="container">
-          <Route exact path="/" render={() => <Login />} />
-            <Switch>
-              <Route path="/home" render={() => <HomePage />}/>
-              <Route path="/feed" render={() => <Feed />}/>
-              <Route path="/profile" render={() => <Profile />}/>
-            </Switch>
-        </div>
-      </HashRouter>
+      <BrowserRouter basename="/SnapScout">
+      <div className="container">
+        <Route exact path="" render={() => <NavBar />}/>
+        <Switch>
+          <Route exact path="/home" render={() => <Home />}/>
+          <Route path="/login" render={() => <Login />} />
+          <Route path="/upload" render={() => <Upload />} />
+          <Route path="/register" render={() => <Register />} />
+        </Switch>
+      </div>
+    </BrowserRouter>
     )};
 }
 
