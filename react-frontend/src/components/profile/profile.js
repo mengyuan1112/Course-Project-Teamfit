@@ -27,6 +27,9 @@ class Profile extends React.Component{
                     <h4 className="gender">Gender: Male</h4>
                     <h4 className="number">Phone Number: 911</h4>
                     <h4 className="email">Email: marcos@teamfit.com</h4>
+                    <a href="/profile/nutrition">
+                    <button>Nutrition History</button>
+                    </a>
                 </div>
                 <div className="row">
                     <Feed />
