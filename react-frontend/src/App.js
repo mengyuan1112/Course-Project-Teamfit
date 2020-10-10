@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from "react-dom";
 
 import Home from './components/homepage/home.js'
-import Upload from './components/upload/upload.js';
 import NavBar from './components/navBar/navBar';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 //import { Paper, Tabs } from '@material-ui/core';
@@ -62,9 +61,8 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/home" render={() => <Home />}/>
           <Route path="/login" render={() => <Login />} />
-          <Route path="/upload" render={() => <Upload />} />
+          <Route path="/profile" render={() => <Profile />} />
           <Route path="/register" render={() => <Register />} />
-          <Route path="/feed" render={() => <Feed />} />
         </Switch>
       </div>
     </BrowserRouter>
