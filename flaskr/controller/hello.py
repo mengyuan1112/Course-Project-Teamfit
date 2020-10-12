@@ -5,17 +5,25 @@ app = Flask(__name__, template_folder='template', )
 
 userName_Password = {}  #temporary storage for user and password
 
-@app.route("/register", methods=['POST','GET'])
+
+@app.route("/register", methods=['GET'])
 def register():
-    if request.method == 'POST':
-        data = request.get_json()
-        user = User.User(data)
-        userName_Password[data['eMail']] = data['password']
-        print(data)
-        return "haha, succeful"#render_template()  # success register
+    data = request.get_json()
+    #user = User.User(data)
+    #userName_Password[data['eMail']] = data['password']
+    print(data)
+    return "hahha"
+
+
+@app.route("/register", methods=['POST'])
+def creat_register():
+
+    data = request.get_json()
+    #user = User.User(data)
+    #userName_Password[data['eMail']] = data['password']
+    print(data)
+    return "haha, succeful"#render_template()  # success register
         # reload register page
-    else:
-        return "aishd"
 
 
 @app.route("/login", methods=['POST', 'GET'])
@@ -33,4 +41,4 @@ def login():
 
 
 if __name__ == '__main__':
-    app.run(port=3001, debug=True)
+    app.run(port=3000, debug=True)

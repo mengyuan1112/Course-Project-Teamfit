@@ -1,6 +1,6 @@
 import React from "react";
 import loginImg from "../../TeamFit_logo.png";
-// import axios from 'axios';
+ import axios from 'axios';
 import axiosConfig from "axios"
 
 
@@ -58,12 +58,18 @@ export default class Register extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     axiosConfig.get('/posts')
-    //         .then(response => {
-    //             this.setState({data: response});
-    //         })
-    // }
+    componentDidMount() {
+        axios.post('register',{
+            method: "GET",
+            body : JSON.stringify(this.state),
+            headers:{"Content-Type":"application/json",},
+            cache: "no-cache",
+        })
+            .then(response => {
+                 this.setState({data: response});
+            })
+    }
+
 
     /*Handles the register button and all entered information from the form*/
     handleSubmit = e => {
@@ -81,6 +87,7 @@ export default class Register extends React.Component {
             GENDER: ${this.state.gender}
             PHONENUMBER: ${this.state.phoneNumber}
             `)
+            this.componentDidMount()
             // fetch('http://localhost:3001/register',{
             //     method: "POST",
             //     cache: "no-cache",
@@ -91,10 +98,10 @@ export default class Register extends React.Component {
             //     body:JSON.stringify(this.state)
             // }).then(response => response.json())
 
-            axiosConfig.get('register')
-                .then(function (response) {
-                    console.log("hello");
-                })
+            // axiosConfig.get('register')
+            //     .then(function(response) {
+            //         return
+            //     })
         }
         else{
             console.error("FORM INVALID")
