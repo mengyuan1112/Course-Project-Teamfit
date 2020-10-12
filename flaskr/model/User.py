@@ -18,7 +18,7 @@ class User:
         self.Height = [int(user_info["heightIn"]), int(user_info["heightFt"])]
         self.Email = user_info["eMail"]
         self.Phone_Number = {}
-        self.messages = dict
+        self.messages = {}
         #self.Spotters = user_info["Spotters"]
         self.BMI = round(703 * (int(self.get_weight()) / ((self.get_height()[0]*12)+self.get_height()[1])**2), 1)
 
