@@ -11,15 +11,15 @@ class User:
     #                      }
 
     def __init__(self, user_info):
-        self.Name = user_info["Name"]
-        self.Age = user_info["Age"]
-        self.Gender = user_info["Gender"]
-        self.Weight = user_info["Weight"]
-        self.Height = user_info["Height"]
-        self.Email = user_info["Email"]
-        self.Phone_Number = user_info["Phone Number"]
-        self.Spotters = user_info["Spotters"]
-        self.BMI = round(703 * (self.get_weight() / ((self.get_height()[0]*12)+self.get_height()[1])**2), 1)
+        self.Name = user_info["name"]
+        self.Age = user_info["age"]
+        self.Gender = user_info["gender"]
+        self.Weight = user_info["weight"]
+        self.Height = [int(user_info["heightIn"]), int(user_info["heightFt"])]
+        self.Email = user_info["eMail"]
+        self.Phone_Number = user_info["phoneNumber"]
+        #self.Spotters = user_info["Spotters"]
+        self.BMI = round(703 * (int(self.get_weight()) / ((self.get_height()[0]*12)+self.get_height()[1])**2), 1)
 
     def update_name(self, name):
         self.Name = name
@@ -50,7 +50,7 @@ class User:
         weight = self.get_weight()
         feet = self.get_height()[0]
         inch = self.get_height()[1]
-        self.BMI = round(703 * (weight / ((feet*12)+inch)**2),1)
+        self.BMI = round(703 * (int(weight) / ((feet*12)+inch)**2), 1)
 
     def get_age(self):
         return self.Age
@@ -62,7 +62,7 @@ class User:
         return self.Gender
 
     def get_weight(self):
-        return self.Weight
+        return int(self.Weight)
 
     def get_height(self):
         return self.Height
