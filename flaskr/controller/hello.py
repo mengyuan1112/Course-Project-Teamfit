@@ -5,7 +5,7 @@ app = Flask(__name__, template_folder='template', )
 
 userName_Password = {}  #temporary storage for user and password
 
-@app.route("/register", methods=['POST'])
+@app.route("/register", methods=['POST','GET'])
 def register():
     if request.method == 'POST':
         data = request.get_json()
@@ -14,6 +14,8 @@ def register():
         print(data)
         return "haha, succeful"#render_template()  # success register
         # reload register page
+    else:
+        return "aishd"
 
 
 @app.route("/login", methods=['POST', 'GET'])

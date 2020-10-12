@@ -1,5 +1,8 @@
 import React from "react";
 import loginImg from "../../TeamFit_logo.png";
+// import axios from 'axios';
+import axiosConfig from "axios"
+
 
 /* function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
@@ -21,6 +24,9 @@ const formValid = ({ formErrors, ...rest }) => {
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
+// const instance = axios.create({
+//     baseURL: 'http://localhost:3001/'
+// });
 
 export default class Register extends React.Component {
 
@@ -53,20 +59,16 @@ export default class Register extends React.Component {
     }
 
     // componentDidMount() {
-    //     fetch("/register",{
-    //         method: "POST",
-    //         cache: "no-cache",
-    //         headers:{"content_type":"application/json",},
-    //         body:JSON.stringify(this.state)
-    //     }).then(response => {
-    //         return response.json()
-    //     })
+    //     axiosConfig.get('/posts')
+    //         .then(response => {
+    //             this.setState({data: response});
+    //         })
     // }
 
     /*Handles the register button and all entered information from the form*/
     handleSubmit = e => {
         e.preventDefault();
-        if (formValid(this.state)){
+        if (formValid(this.state)) {
             console.log(`
             --SUBMITTING-- 
             E-MAIL: ${this.state.eMail}
@@ -79,15 +81,20 @@ export default class Register extends React.Component {
             GENDER: ${this.state.gender}
             PHONENUMBER: ${this.state.phoneNumber}
             `)
-            fetch('http://localhost:3001/register',{
-                method: "POST",
-                cache: "no-cache",
-                headers:{"Content-Type":"application/json",
-                        "Access-Control-Allow-Origin": "*",
-                        'Access-Control-Allow-Headers': "*",
-                    },
-                body:JSON.stringify(this.state)
-            }).then(response => response.json())
+            // fetch('http://localhost:3001/register',{
+            //     method: "POST",
+            //     cache: "no-cache",
+            //     headers:{"Content-Type":"application/json",
+            //             "Access-Control-Allow-Origin": "*",
+            //             'Access-Control-Allow-Headers': "*",
+            //         },
+            //     body:JSON.stringify(this.state)
+            // }).then(response => response.json())
+
+            axiosConfig.get('register')
+                .then(function (response) {
+                    console.log("hello");
+                })
         }
         else{
             console.error("FORM INVALID")
