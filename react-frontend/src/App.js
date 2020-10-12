@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from "react-dom";
 
 import Home from './components/homepage/home.js'
-import Upload from './components/upload/upload.js';
 import NavBar from './components/navBar/navBar';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 //import { Paper, Tabs } from '@material-ui/core';
@@ -11,6 +10,7 @@ import Login from './components/logReg/login.js';
 import Register from './components/logReg/register.js'
 import Profile from './components/profile/profile.js';
 import Feed from './components/post/feed.js';
+import Message from './components/message/message.js';
 
 
 /**
@@ -62,9 +62,10 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/home" render={() => <Home />}/>
           <Route path="/login" render={() => <Login />} />
-          <Route path="/upload" render={() => <Upload />} />
+          <Route path="/profile" render={() => <Profile />} />
           <Route path="/register" render={() => <Register />} />
           <Route path="/feed" render={() => <Feed />} />
+          <Route path="/message" render={() => <Message />} />
         </Switch>
       </div>
     </BrowserRouter>

@@ -31,11 +31,8 @@ export default function ButtonAppBar() {
           <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={ event => window.location.href = "/home" }>
             Home
           </IconButton>
-          <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={ event => window.location.href = "/upload" }>
-            Upload
-          </IconButton>
-          <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={ event => window.location.href = "/feed" }>
-            Feed            
+          <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={ event => window.location.href = "/profile" }>
+            Profile
           </IconButton>
           <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={ event => window.location.href = "/login" }>
             Login            
@@ -43,7 +40,9 @@ export default function ButtonAppBar() {
           <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={ event => window.location.href = "/register" }>
             Register
           </IconButton>
-
+          <IconButton edge="end" className={classes.menuButton} color="inherit" aria-label="menu" onClick={ event => window.location.href = "/message" }>
+            Message
+          </IconButton>
         </Toolbar>
       </AppBar>
     </div>
