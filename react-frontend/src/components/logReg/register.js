@@ -52,6 +52,17 @@ export default class Register extends React.Component {
         }
     }
 
+    // componentDidMount() {
+    //     fetch("/register",{
+    //         method: "POST",
+    //         cache: "no-cache",
+    //         headers:{"content_type":"application/json",},
+    //         body:JSON.stringify(this.state)
+    //     }).then(response => {
+    //         return response.json()
+    //     })
+    // }
+
     /*Handles the register button and all entered information from the form*/
     handleSubmit = e => {
         e.preventDefault();
@@ -68,6 +79,12 @@ export default class Register extends React.Component {
             GENDER: ${this.state.gender}
             PHONENUMBER: ${this.state.phoneNumber}
             `)
+            fetch('http://localhost:3000/register',{
+                method: "POST",
+                cache: "no-cache",
+                headers:{"Content-Type":"application/json",},
+                body:JSON.stringify(this.state)
+            }).then(response => response.json())
         }
         else{
             console.error("FORM INVALID")
@@ -117,6 +134,7 @@ export default class Register extends React.Component {
 
     render() {
         const{formErrors} =this.state;
+        var seeds_page = this.state.template;
 
         return <div className="wrapper">
                 <div className="header"></div>
