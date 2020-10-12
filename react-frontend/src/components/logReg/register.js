@@ -79,10 +79,13 @@ export default class Register extends React.Component {
             GENDER: ${this.state.gender}
             PHONENUMBER: ${this.state.phoneNumber}
             `)
-            fetch('http://localhost:3000/register',{
+            fetch('http://localhost:3001/register',{
                 method: "POST",
                 cache: "no-cache",
-                headers:{"Content-Type":"application/json",},
+                headers:{"Content-Type":"application/json",
+                        "Access-Control-Allow-Origin": "*",
+                        'Access-Control-Allow-Headers': "*",
+                    },
                 body:JSON.stringify(this.state)
             }).then(response => response.json())
         }

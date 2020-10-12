@@ -1,12 +1,11 @@
-from flask import Flask, request, render_template, redirect, url_for, flash
-import User
-
+from flask import Flask, request, render_template
+from model import User
 
 app = Flask(__name__, template_folder='template', )
 
 userName_Password = {}  #temporary storage for user and password
 
-@app.route("/register", methods=['POST', 'GET'])
+@app.route("/register", methods=['POST'])
 def register():
     if request.method == 'POST':
         data = request.get_json()
@@ -14,8 +13,7 @@ def register():
         userName_Password[data['eMail']] = data['password']
         print(data)
         return "haha, succeful"#render_template()  # success register
-    if request.method == 'GET':
-        return render_template()  # reload register page
+        # reload register page
 
 
 @app.route("/login", methods=['POST', 'GET'])
@@ -33,4 +31,4 @@ def login():
 
 
 if __name__ == '__main__':
-    app.run(port=3000,debug=True)
+    app.run(port=3001, debug=True)
