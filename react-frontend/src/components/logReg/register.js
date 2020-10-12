@@ -1,7 +1,11 @@
 import React from "react";
 import loginImg from "../../TeamFit_logo.png";
- import axios from 'axios';
+import axios from 'axios';
 import axiosConfig from "axios"
+
+
+
+
 
 
 /* function to check whether a form is valid or not*/
@@ -58,15 +62,15 @@ export default class Register extends React.Component {
         }
     }
 
+
     componentDidMount() {
-        axios.post('register',{
-            method: "GET",
-            body : JSON.stringify(this.state),
+        axiosConfig.post('register',{
+            body : this.state,
             headers:{"Content-Type":"application/json",},
             cache: "no-cache",
         })
             .then(response => {
-                 this.setState({data: response});
+                 this.setState(response);
             })
     }
 
@@ -88,20 +92,9 @@ export default class Register extends React.Component {
             PHONENUMBER: ${this.state.phoneNumber}
             `)
             this.componentDidMount()
-            // fetch('http://localhost:3001/register',{
-            //     method: "POST",
-            //     cache: "no-cache",
-            //     headers:{"Content-Type":"application/json",
-            //             "Access-Control-Allow-Origin": "*",
-            //             'Access-Control-Allow-Headers': "*",
-            //         },
-            //     body:JSON.stringify(this.state)
-            // }).then(response => response.json())
 
-            // axiosConfig.get('register')
-            //     .then(function(response) {
-            //         return
-            //     })
+
+
         }
         else{
             console.error("FORM INVALID")
@@ -151,7 +144,6 @@ export default class Register extends React.Component {
 
     render() {
         const{formErrors} =this.state;
-        var seeds_page = this.state.template;
 
         return <div className="wrapper">
                 <div className="header"></div>
