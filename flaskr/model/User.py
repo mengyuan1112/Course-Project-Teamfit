@@ -17,7 +17,8 @@ class User:
         self.Weight = user_info["weight"]
         self.Height = [int(user_info["heightIn"]), int(user_info["heightFt"])]
         self.Email = user_info["eMail"]
-        self.Phone_Number = user_info["phoneNumber"]
+        self.Phone_Number = {}
+        self.messages = dict
         #self.Spotters = user_info["Spotters"]
         self.BMI = round(703 * (int(self.get_weight()) / ((self.get_height()[0]*12)+self.get_height()[1])**2), 1)
 
@@ -27,6 +28,12 @@ class User:
     def update_age(self, age):
         self.Age = age
 
+    def get_messages(self):
+        return self.messages
+    
+    def set_messages(self, messages):
+        self.messages = messages
+        
     def update_gender(self, gender):
         self.Gender = gender
 
