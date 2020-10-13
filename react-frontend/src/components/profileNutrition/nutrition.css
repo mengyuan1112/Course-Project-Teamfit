@@ -7,20 +7,21 @@
   padding-bottom: 100px;
   overflow-x:hidden;
   overflow-y: hidden;
+  background-color: floralwhite;
 }
 
 .nutrition-form-wrapper {
-  width: 400px;
+  width: 500px;
   flex-direction: column;
   padding: 10px 40px;
-  background-color: floralwhite;
   float: left;
   border-style: solid;
+  background-color: lightblue;
 }
 
 form {
   width: 100%;
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   text-align: left;
   padding-left: 30%;
@@ -59,7 +60,7 @@ input.error {
 
 .Cal {
   font-size: larger;
-  font-weight: bold;
+  font-weight: bolder;
   text-align: left;
 }
 
@@ -68,17 +69,15 @@ input.error {
   font-weight: 1000;
   text-align: center;
   align-content: center;
+
 }
 
 .date {
   margin-right: 1%;
-  display: inline-block;
-
 }
 
 .protein {
   margin-right: 1%;
-  display: inline;
 }
 text {
     font-size: 1em;
@@ -150,4 +149,8 @@ text {
   color: #2b2b2b;
   background-color: #fff;
   border: 2px solid #2b2b2b;
+}
+
+.nutritionGraph {
+  float: right;
 }

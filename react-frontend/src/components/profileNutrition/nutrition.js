@@ -1,6 +1,6 @@
 import React from "react";
 import './nutrition.css';
-import graph from'./example.svg';
+
 
 /* function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
@@ -26,13 +26,11 @@ export default class Nutrition extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: null,
             protein: null,
             carbs: null,
             fat: null,
             weight: null,
             formErrors: {
-                date: "",
                 protein: "",
                 carbs: "",
                 fat: "",
@@ -44,7 +42,17 @@ export default class Nutrition extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         if (formValid(this.state)){
-        }
+            fetch('http://localhost:5000/profile/nutrition/submit', {
+            method: "POST",
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(this.state)
+        }).then(response => response.json())
+            window.location.reload()
+    }
         else{
             console.error("FORM INVALID")
         }
@@ -56,9 +64,6 @@ export default class Nutrition extends React.Component {
         let formErrors = this.state.formErrors;
         console.log(name)
         switch (name) {
-            case 'date':
-                formErrors.date = value.length < 1 ? 'Please enter todays date' : "";
-                break;
             case 'protein':
                 formErrors.protein = value.length < 1 ? 'Please enter grams of protein':"";
                 break;
@@ -69,7 +74,7 @@ export default class Nutrition extends React.Component {
                 formErrors.fat = value.length < 1 ? 'Please enter grams of fat':"";
                 break;
             case 'weight':
-                formErrors.weight = value.length < 1 ? '':"Please enter current weight";
+                formErrors.weight = value.length < 1 ? "Please enter current weight": "";
                 break;
             default:
             break;
@@ -80,22 +85,17 @@ export default class Nutrition extends React.Component {
 render(){
     const{formErrors} =this.state;
     return <div className="nutritionWrapper">
-                <div className="nutrition-form-wrapper">
-                    <a href="/profile">
+        <a href="/profile">
                     <button>Return to Profile</button>
                     </a>
-                    <form onSubmit={this.handleSubmit} action="/profile/nutrition/submit" method="get" noValidate>
-                        <div className="allForms">
-                            <div className="nutritionHeader">
+                    <div className="nutritionHeader">
                                 <h1>Nutrition History</h1>
-                            </div>
-                            <div className="date">
-                                <label htmlFor="date">Date</label>
-                                <input className={formErrors.date.length > 0 ? "error" : null} type="text" name="date" placeholder="mm/dd/yy" onChange={this.handleChange}/>
-                                {formErrors.date.length > 0 && ( <span className="errorMessage">{formErrors.date}</span> )}
-                            </div>
+                    </div>
+                <div className="nutrition-form-wrapper">
+                    <form onSubmit={this.handleSubmit} noValidate>
+                        <div className="allForms">
                             <div className="Cal"><text>
-                                Caloric Information
+                                Please enter your caloric intake for the day.
                             </text>
                             </div>
                             <div className="protein">
@@ -103,7 +103,6 @@ render(){
                                 <input className={formErrors.protein.length > 0 ? "error" : null} type="text" name="protein" placeholder="11"onChange={this.handleChange}/>
                                 {formErrors.protein.length > 0 && ( <span className="errorMessage">{formErrors.protein}</span> )}
                                 <text>grams</text>
-
                             </div>
                             <div className="carbs">
                                 <label htmlFor="carbs">Carbohydrates</label>
@@ -117,6 +116,10 @@ render(){
                                 {formErrors.fat.length > 0 && ( <span className="errorMessage">{formErrors.fat}</span> )}
                                 <text>grams</text>
                             </div>
+                            <div className="Cal">
+                                <text>Please enter your weight.</text>
+                            </div>
+
                             <div className="weight">
                                 <label htmlFor="weight">Current Weight</label>
                                 <input className={formErrors.weight.length > 0 ? "error" : null} type="text" name="weight" placeholder="165"onChange={this.handleChange}/>
@@ -130,7 +133,7 @@ render(){
                     </form>
                 </div>
                 <div className="nutritionGraph">
-                <img src={graph} width="900" height="900" alt="example" />
+
                 </div>
             </div>
 
