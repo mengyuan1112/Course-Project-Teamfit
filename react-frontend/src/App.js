@@ -10,6 +10,7 @@ import Login from './components/logReg/login.js';
 import Register from './components/logReg/register.js'
 import Profile from './components/profile/profile.js';
 import Feed from './components/post/feed.js';
+import Message from './components/message/message.js';
 import Nutrition from "./components/profileNutrition/nutrition";
 
 
@@ -65,6 +66,8 @@ class App extends React.Component {
           <Route path="/profile/nutrition" render={() => <Nutrition />}/>
           <Route path="/profile" render={() => <Profile />} />
           <Route path="/register" render={() => <Register />} />
+          <Route path="/feed" render={() => <Feed />} />
+          <Route path="/message" render={() => <Message />} />
         </Switch>
       </div>
     </BrowserRouter>

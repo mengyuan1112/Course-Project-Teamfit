@@ -1,16 +1,18 @@
 .rows{
-    display: flex;
+    /* display: flex; */
     margin-top: 2em;
     list-style: none;
 }
 
 .rows .row{
     flex: 1 1 100%;
+    display: inline-block;
 }
 
 .rows .row1{
     flex: 1 1 100%;
     text-align: center;
+    /* display: inline-flex; */
 }
 
 .image{

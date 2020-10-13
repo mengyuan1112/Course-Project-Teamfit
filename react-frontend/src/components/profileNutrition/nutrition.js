@@ -84,7 +84,7 @@ render(){
                     <a href="/profile">
                     <button>Return to Profile</button>
                     </a>
-                    <form onSubmit={this.handleSubmit} noValidate>
+                    <form onSubmit={this.handleSubmit} action="/profile/nutrition/submit" method="get" noValidate>
                         <div className="allForms">
                             <div className="nutritionHeader">
                                 <h1>Nutrition History</h1>

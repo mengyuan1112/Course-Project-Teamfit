@@ -1,5 +1,8 @@
 import React from "react";
 import loginImg from "../../TeamFit_logo.png";
+ import axios from 'axios';
+import axiosConfig from "axios"
+
 
 /* function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
@@ -21,6 +24,9 @@ const formValid = ({ formErrors, ...rest }) => {
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
+// const instance = axios.create({
+//     baseURL: 'http://localhost:3001/'
+// });
 
 export default class Register extends React.Component {
 
@@ -52,10 +58,23 @@ export default class Register extends React.Component {
         }
     }
 
+    componentDidMount() {
+        axios.post('register',{
+            method: "GET",
+            body : JSON.stringify(this.state),
+            headers:{"Content-Type":"application/json",},
+            cache: "no-cache",
+        })
+            .then(response => {
+                 this.setState({data: response});
+            })
+    }
+
+
     /*Handles the register button and all entered information from the form*/
     handleSubmit = e => {
         e.preventDefault();
-        if (formValid(this.state)){
+        if (formValid(this.state)) {
             console.log(`
             --SUBMITTING-- 
             E-MAIL: ${this.state.eMail}
@@ -68,6 +87,21 @@ export default class Register extends React.Component {
             GENDER: ${this.state.gender}
             PHONENUMBER: ${this.state.phoneNumber}
             `)
+            this.componentDidMount()
+            // fetch('http://localhost:3001/register',{
+            //     method: "POST",
+            //     cache: "no-cache",
+            //     headers:{"Content-Type":"application/json",
+            //             "Access-Control-Allow-Origin": "*",
+            //             'Access-Control-Allow-Headers': "*",
+            //         },
+            //     body:JSON.stringify(this.state)
+            // }).then(response => response.json())
+
+            // axiosConfig.get('register')
+            //     .then(function(response) {
+            //         return
+            //     })
         }
         else{
             console.error("FORM INVALID")
@@ -117,6 +151,7 @@ export default class Register extends React.Component {
 
     render() {
         const{formErrors} =this.state;
+        var seeds_page = this.state.template;
 
         return <div className="wrapper">
                 <div className="header"></div>

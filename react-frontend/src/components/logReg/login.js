@@ -41,13 +41,19 @@ export default class Login extends React.Component {
 /*   Handles the input from the form when the sign in button is clicked*/
     handleSubmit = e => {
         e.preventDefault();
-        if (formValid(this.state)){
+        if (formValid(this.state)) {
             console.log(`
             --SUBMITTING-- 
             E-MAIL: ${this.state.uEmail}
             PASSWORD: ${this.state.uPassword}
             `)
-        }
+        fetch('http://localhost:3000/login', {
+            method: "POST",
+            cache: "no-cache",
+            headers: {"Content-Type": "application/json",},
+            body: JSON.stringify(this.state)
+        }).then(response => response.json())
+    }
         else{
             console.error("FORM INVALID")
         }
