@@ -1,7 +1,11 @@
 import React from "react";
 import loginImg from "../../TeamFit_logo.png";
- import axios from 'axios';
+import axios from 'axios';
 import axiosConfig from "axios"
+
+
+
+
 
 
 /* function to check whether a form is valid or not*/
@@ -44,6 +48,7 @@ export default class Register extends React.Component {
             weight: null,
             gender: null,
             phoneNumber: null,
+            message: "",
             formErrors: {
                 eMail: "",
                 password: "",
@@ -58,16 +63,9 @@ export default class Register extends React.Component {
         }
     }
 
+
     componentDidMount() {
-        axios.post('register',{
-            method: "GET",
-            body : JSON.stringify(this.state),
-            headers:{"Content-Type":"application/json",},
-            cache: "no-cache",
-        })
-            .then(response => {
-                 this.setState({data: response});
-            })
+
     }
 
 
@@ -87,21 +85,20 @@ export default class Register extends React.Component {
             GENDER: ${this.state.gender}
             PHONENUMBER: ${this.state.phoneNumber}
             `)
-            this.componentDidMount()
-            // fetch('http://localhost:3001/register',{
-            //     method: "POST",
-            //     cache: "no-cache",
-            //     headers:{"Content-Type":"application/json",
-            //             "Access-Control-Allow-Origin": "*",
-            //             'Access-Control-Allow-Headers': "*",
-            //         },
-            //     body:JSON.stringify(this.state)
-            // }).then(response => response.json())
+            //this.componentDidMount()
+            axiosConfig.post('http://127.0.0.1:5000/register',{
+                body : this.state,
+                headers:{"Content-Type":"application/json",},
+                cache: "no-cache",
+            })
+                .then(response => {
+                    let res = response.data
+                    this.setState({message: res['state']})
+                    //this.setState(response);
+                })
 
-            // axiosConfig.get('register')
-            //     .then(function(response) {
-            //         return
-            //     })
+
+
         }
         else{
             console.error("FORM INVALID")
@@ -151,7 +148,6 @@ export default class Register extends React.Component {
 
     render() {
         const{formErrors} =this.state;
-        var seeds_page = this.state.template;
 
         return <div className="wrapper">
                 <div className="header"></div>
@@ -247,6 +243,7 @@ export default class Register extends React.Component {
                                 </div>
                                 <div className="registerBtn">
                                     <button type="submit">Register</button>
+                                    { this.state.message && <h3 className="error"> { this.state.message } </h3> }
                                 </div>
                             </div>
                         </form>
