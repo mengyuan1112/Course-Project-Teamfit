@@ -48,6 +48,7 @@ export default class Register extends React.Component {
             weight: null,
             gender: null,
             phoneNumber: null,
+            message: "",
             formErrors: {
                 eMail: "",
                 password: "",
@@ -64,14 +65,7 @@ export default class Register extends React.Component {
 
 
     componentDidMount() {
-        axiosConfig.post('register',{
-            body : this.state,
-            headers:{"Content-Type":"application/json",},
-            cache: "no-cache",
-        })
-            .then(response => {
-                 this.setState(response);
-            })
+
     }
 
 
@@ -91,7 +85,17 @@ export default class Register extends React.Component {
             GENDER: ${this.state.gender}
             PHONENUMBER: ${this.state.phoneNumber}
             `)
-            this.componentDidMount()
+            //this.componentDidMount()
+            axiosConfig.post('http://127.0.0.1:5000/register',{
+                body : this.state,
+                headers:{"Content-Type":"application/json",},
+                cache: "no-cache",
+            })
+                .then(response => {
+                    let res = response.data
+                    this.setState({message: res['state']})
+                    //this.setState(response);
+                })
 
 
 
@@ -239,6 +243,7 @@ export default class Register extends React.Component {
                                 </div>
                                 <div className="registerBtn">
                                     <button type="submit">Register</button>
+                                    { this.state.message && <h3 className="error"> { this.state.message } </h3> }
                                 </div>
                             </div>
                         </form>

@@ -33,21 +33,12 @@ export default class Login extends React.Component {
         this.state = {
             uEmail: null,
             uPassword: null,
+            message: "",
             formErrors: {
                 uEmail: "",
                 uPassword: "",
             }
         }
-    }
-    componentDidMount() {
-        axiosConfig.post('//login',{
-            body : this.state,
-            headers:{"Content-Type":"application/json",},
-            cache: "no-cache",
-        })
-            .then(response => {
-                this.setState(response);
-            })
     }
 /*   Handles the input from the form when the sign in button is clicked*/
     handleSubmit = e => {
@@ -58,7 +49,16 @@ export default class Login extends React.Component {
             E-MAIL: ${this.state.uEmail}
             PASSWORD: ${this.state.uPassword}
             `)
-            this.componentDidMount()
+            axiosConfig.post('http://127.0.0.1:5000/login',{
+                body : this.state,
+                headers:{"Content-Type":"application/json",},
+                cache: "no-cache",
+            })
+                .then(response => {
+                    let res = response.data
+                    this.setState({message: res['state']})
+                    console.log(this.state)
+                });
         // fetch('http://localhost:3000/login', {
         //     method: "POST",
         //     cache: "no-cache",
@@ -118,6 +118,7 @@ render(){
                             </div>
                             <div className="loginBtn">
                                 <button type="submit">Sign In</button>
+                                { this.state.message && <h3 className="error"> { this.state.message } </h3> }
                             </div>
                         </div>
                     </form>
