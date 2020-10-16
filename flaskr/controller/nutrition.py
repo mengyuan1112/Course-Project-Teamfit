@@ -17,12 +17,11 @@ def nutritionSubmit():
         carbs = nutritionInfo['carbs']
         fat = nutritionInfo['fat']
         weight = nutritionInfo['weight']
+        email = nutritionInfo['userEmail']
         today = date.today()
         dateformat = today.strftime("%m/%d/%y")
         calories = ((9 * int(fat)) + (4 * int(protein)) + (4 * int(carbs)))
         # Save this info to user  in database
-        email = "test@test.com"
-
         conn = psycopg2.connect(
             database='teamfit',
             user='aidan',
@@ -34,7 +33,6 @@ def nutritionSubmit():
             port=26257,
             host='localhost'
         )
-
         with conn.cursor() as cur:
             cur.execute("SELECT * FROM teamfit.nutrition")
             row = cur.fetchall()
@@ -47,10 +45,24 @@ def nutritionSubmit():
                     jsonData['calories'].append(calories)
                     jsonData['weight'].append(weight)
                     finishedData = json.dumps(jsonData)
-                sql = 'INSERT INTO teamfit.nutrition (id, history) VALUES (%s,%s)'
-                val = (email, finishedData)
-                cur.execute(sql, val)
-        conn.commit()
+                    sql = 'UPDATE nutrition set history = %s WHERE id =%s'
+                    val = (finishedData, email)
+                    cur.execute(sql, val)
+                    conn.commit()
+                    return "Info has been processed"
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM teamfit.nutrition")
+            newData = """{"calories": [], "date": [], "weight": []}"""
+            newjsonData = json.loads(newData)
+            newjsonData['date'].append(dateformat)
+            newjsonData['calories'].append(calories)
+            newjsonData['weight'].append(weight)
+            finaljsonData = json.dumps(newjsonData)
+            sql2 = 'INSERT INTO teamfit.nutrition (id, history) VALUES (%s,%s)'
+            val2 = (email, finaljsonData)
+            cur.execute(sql2, val2)
+            conn.commit()
+        return "User added to database with new info"
 
     return "This is for processing"
 

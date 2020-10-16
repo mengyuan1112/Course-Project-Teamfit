@@ -25,7 +25,10 @@ class Upload extends Component{
                 <input type="file" style={{display:"none"}}/>
             </Button>
             <Button variant="contained" component="label" color="primary">
-                History
+                Message History
+            </Button>
+            <Button variant="contained" color="primary" href="/profile/nutrition">
+                Nutrition History
             </Button>
         </div>
         )};}

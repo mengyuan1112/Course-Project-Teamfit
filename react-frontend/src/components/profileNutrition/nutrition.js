@@ -1,5 +1,7 @@
 import React from "react";
 import './nutrition.css';
+import '../logReg/login';
+
 
 
 /* function to check whether a form is valid or not*/
@@ -21,7 +23,7 @@ const formValid = ({ formErrors, ...rest }) => {
 
 export default class Nutrition extends React.Component {
 
-    /*  Constructor for login class, has 3 states: uEmail and protein and formErrors */
+    /*  Constructor for Nutrition class, has 6 states: protein, carbs, fat, weight, username and formErrors */
 
     constructor(props) {
         super(props);
@@ -30,6 +32,7 @@ export default class Nutrition extends React.Component {
             carbs: null,
             fat: null,
             weight: null,
+            userEmail: "grader@cse442.com",
             formErrors: {
                 protein: "",
                 carbs: "",
@@ -38,7 +41,9 @@ export default class Nutrition extends React.Component {
             }
         }
     }
-/*   Handles the input from the form when the sign in button is clicked*/
+
+
+/*   Handles the input from the form when the submit button is clicked*/
     handleSubmit = e => {
         e.preventDefault();
         if (formValid(this.state)){
