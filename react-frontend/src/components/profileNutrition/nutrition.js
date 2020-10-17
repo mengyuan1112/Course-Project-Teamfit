@@ -1,7 +1,6 @@
 import React from "react";
 import './nutrition.css';
-import '../logReg/login';
-
+import Axios from 'axios';
 
 
 /* function to check whether a form is valid or not*/
@@ -24,7 +23,6 @@ const formValid = ({ formErrors, ...rest }) => {
 export default class Nutrition extends React.Component {
 
     /*  Constructor for Nutrition class, has 6 states: protein, carbs, fat, weight, username and formErrors */
-
     constructor(props) {
         super(props);
         this.state = {
@@ -32,7 +30,7 @@ export default class Nutrition extends React.Component {
             carbs: null,
             fat: null,
             weight: null,
-            userEmail: "grader@cse442.com",
+            history: Axios.get('http://localhost:5000/profile/nutrition/submit').then(response=> { this.setState({history: response.data});}),
             formErrors: {
                 protein: "",
                 carbs: "",
@@ -64,10 +62,10 @@ export default class Nutrition extends React.Component {
     }
     /* Handles any change to the form input and determines if valid input is provided*/
     handleChange = e => {
+    console.log(this.state.history.date.length)
         e.preventDefault();
         const {name,value} = e.target;
         let formErrors = this.state.formErrors;
-        console.log(name)
         switch (name) {
             case 'protein':
                 formErrors.protein = value.length < 1 ? 'Please enter grams of protein':"";
@@ -86,9 +84,12 @@ export default class Nutrition extends React.Component {
         }
         this.setState({formErrors, [name]:value}, ()=> console.log(this.state))
     };
+
+
 /* renders all html for the login page*/
 render(){
     const{formErrors} =this.state;
+
     return <div className="nutritionWrapper">
         <a href="/profile">
                     <button>Return to Profile</button>
@@ -138,9 +139,35 @@ render(){
                     </form>
                 </div>
                 <div className="nutritionGraph">
-
+                    <div className="nutrition-graph-wrapper">
+                        <table className="date-table" id="table">
+                            <thead>
+                            Date:
+                            </thead>
+                            <tbody>
+                            {this.state.history.date}
+                            </tbody>
+                        </table>
+                        <table className="calorie-table" id="table">
+                            <thead>
+                            Calories:
+                            </thead>
+                            <tbody>
+                            {this.state.history.calories}
+                            </tbody>
+                        </table>
+                        <table className="weight-table" id="table">
+                            <thead>
+                            Weight:
+                            </thead>
+                            <tbody>
+                            {this.state.history.weight}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
  }
 }
+

@@ -1,9 +1,6 @@
 .nutritionWrapper {
   height: 100%;
   width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: end;
   padding-bottom: 100px;
   overflow-x:hidden;
   overflow-y: hidden;
@@ -154,3 +151,29 @@ text {
 .nutritionGraph {
   float: right;
 }
+.nutrition-graph-wrapper{
+  width: 500px;
+  padding: 10px 40px;
+  border-style: solid;
+  background-color: lightblue;
+  flex-direction: row;
+}
+
+.date-table{
+  flex-flow: row;
+  border-style: solid;
+  border-color: black;
+}
+
+.calorie-table{
+  flex-flow: row;
+  border-style: solid;
+  border-color: black;
+}
+
+.weight-table{
+  flex-flow: row;
+  border-style: solid;
+  border-color: black;
+}
+

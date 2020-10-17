@@ -3,21 +3,44 @@ from flask_cors import CORS
 from datetime import date
 import psycopg2
 import json
+from .hello import _userEmail
 
 app = Flask(__name__, template_folder='template', )
-
+print(_userEmail)
 CORS(app)
 
-
-@app.route('/profile/nutrition/submit', methods=['POST'])
+@app.route('/profile/nutrition/submit', methods=['POST','GET'])
 def nutritionSubmit():
+    if request.method == 'GET':
+        email = _userEmail
+        conn = psycopg2.connect(
+            database='teamfit',
+            user='aidan',
+            password='roach',
+            sslmode='require',
+            sslrootcert='certs/ca.crt',
+            sslkey='certs/client.aidan.key',
+            sslcert='certs/client.aidan.crt',
+            port=26257,
+            host='localhost'
+        )
+        with conn.cursor() as cur:
+            cur.execute("SELECT * FROM teamfit.nutrition")
+            row = cur.fetchall()
+            for i in range(len(row)):
+                if email in row[i]:
+                    idXtra, nutHistory = row[i]
+                    data = json.dumps(nutHistory)
+                    jsonData = json.loads(data)
+                    finishedData = json.dumps(jsonData)
+                    return finishedData
     if request.method == 'POST':
         nutritionInfo = request.get_json()
         protein = nutritionInfo['protein']
         carbs = nutritionInfo['carbs']
         fat = nutritionInfo['fat']
         weight = nutritionInfo['weight']
-        email = nutritionInfo['userEmail']
+        email = _userEmail
         today = date.today()
         dateformat = today.strftime("%m/%d/%y")
         calories = ((9 * int(fat)) + (4 * int(protein)) + (4 * int(carbs)))
@@ -63,9 +86,5 @@ def nutritionSubmit():
             cur.execute(sql2, val2)
             conn.commit()
         return "User added to database with new info"
-
     return "This is for processing"
 
-
-if __name__ == '__main__':
-    app.run(debug=True)
