@@ -1,0 +1,179 @@
+.nutritionWrapper {
+  height: 100%;
+  width: 100%;
+  padding-bottom: 100px;
+  overflow-x:hidden;
+  overflow-y: hidden;
+  background-color: floralwhite;
+}
+
+.nutrition-form-wrapper {
+  width: 500px;
+  flex-direction: column;
+  padding: 10px 40px;
+  float: left;
+  border-style: solid;
+  background-color: lightblue;
+}
+
+form {
+  width: 100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  text-align: left;
+  padding-left: 30%;
+  padding-top: 2%;
+}
+
+label {
+  font-size: 1em;
+  margin-bottom: 0.25em;
+  color: #222;
+  font-weight: lighter;
+}
+
+input {
+  padding: 10px 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #cfcfcf;
+}
+
+input::placeholder {
+  font-size: 1em;
+  font-weight: lighter;
+  color: #999;
+}
+
+input.error {
+  border: 1px solid red;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.75em;
+  display: relative;
+}
+
+.Cal {
+  font-size: larger;
+  font-weight: bolder;
+  text-align: left;
+}
+
+.nutritionHeader {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 1000;
+  text-align: center;
+  align-content: center;
+
+}
+
+.date {
+  margin-right: 1%;
+}
+
+.protein {
+  margin-right: 1%;
+}
+text {
+    font-size: 1em;
+  margin-bottom: 0.25em;
+  color: #222;
+  font-weight: lighter;
+  }
+
+.carbs {
+  margin-left: 1%;
+}
+
+.fat {
+  margin-left: 1%;
+}
+
+.weight {
+  margin-left: 1%;
+}
+
+  span {
+  font-size: 1em;
+  margin-bottom: 0.25em;
+  color: #222;
+  font-weight: lighter;
+  }
+
+
+.date,
+.protein,
+.carbs,
+.fat,
+.weight {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.date,
+.protein,
+.carbs,
+.weight,
+.fat{
+  width: 55%;
+}
+
+
+.nutritionSubmitBtn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nutritionSubmitBtn button {
+  background-color: #2b2b2b;
+  color: #fff;
+  border: 2px solid #fff;
+  width: 100%;
+  margin-top: 1em;
+  padding: 8px 0px;
+  font-size: 1em;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  margin-bottom: 0.25em;
+}
+
+.nutritionSubmitBtn button:hover {
+  color: #2b2b2b;
+  background-color: #fff;
+  border: 2px solid #2b2b2b;
+}
+
+.nutritionGraph {
+  float: right;
+}
+.nutrition-graph-wrapper{
+  width: 500px;
+  padding: 10px 40px;
+  border-style: solid;
+  background-color: lightblue;
+  flex-direction: row;
+}
+
+.date-table{
+  flex-flow: row;
+  border-style: solid;
+  border-color: black;
+}
+
+.calorie-table{
+  flex-flow: row;
+  border-style: solid;
+  border-color: black;
+}
+
+.weight-table{
+  flex-flow: row;
+  border-style: solid;
+  border-color: black;
+}
+
