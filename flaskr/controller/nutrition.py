@@ -6,10 +6,10 @@ import json
 from .hello import _userEmail
 
 app = Flask(__name__, template_folder='template', )
-print(_userEmail)
 CORS(app)
 
-@app.route('/profile/nutrition/submit', methods=['POST','GET'])
+
+@app.route('/profile/nutrition/submit', methods=['POST', 'GET'])
 def nutritionSubmit():
     if request.method == 'GET':
         email = _userEmail
@@ -87,4 +87,3 @@ def nutritionSubmit():
             conn.commit()
         return "User added to database with new info"
     return "This is for processing"
-

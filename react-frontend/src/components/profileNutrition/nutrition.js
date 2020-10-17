@@ -2,6 +2,9 @@ import React from "react";
 import './nutrition.css';
 import Axios from 'axios';
 
+const dateRows = [];
+const calRows = [];
+const weightRows = [];
 
 /* function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
@@ -30,7 +33,10 @@ export default class Nutrition extends React.Component {
             carbs: null,
             fat: null,
             weight: null,
-            history: Axios.get('http://localhost:5000/profile/nutrition/submit').then(response=> { this.setState({history: response.data});}),
+            history: {},
+            dbDate:[],
+            dbCal: [],
+            dbWeight:[],
             formErrors: {
                 protein: "",
                 carbs: "",
@@ -39,7 +45,30 @@ export default class Nutrition extends React.Component {
             }
         }
     }
+    /*GET request to nutrition.py. Updates history to be object with 3 arrays*/
+    componentDidMount() {
+    Axios.get('http://localhost:5000/profile/nutrition/submit').then(response=> { this.setState({history: response.data});})
 
+    }
+
+    addDateRows() {
+        for (var i = 0; i < this.state.history.date.length; i++){
+            dateRows.push(<tr>{this.state.history.date[`${i}`]}</tr>)
+            dateRows.push(<tr>{'---------'}</tr>)
+        }
+    }
+    addCalRows() {
+        for (var i = 0; i < this.state.history.calories.length; i++){
+            calRows.push(<tr>{this.state.history.calories[`${i}`]}</tr>)
+            calRows.push(<tr>{'---------'}</tr>)
+        }
+    }
+    addWeightRows() {
+        for (var i = 0; i < this.state.history.weight.length; i++){
+            weightRows.push(<tr>{this.state.history.weight[`${i}`]}</tr>)
+            weightRows.push(<tr>{'---------'}</tr>)
+        }
+    }
 
 /*   Handles the input from the form when the submit button is clicked*/
     handleSubmit = e => {
@@ -62,8 +91,14 @@ export default class Nutrition extends React.Component {
     }
     /* Handles any change to the form input and determines if valid input is provided*/
     handleChange = e => {
-    console.log(this.state.history.date.length)
+        console.log(e.toString())
         e.preventDefault();
+        if (this.refs.historybtn.getAttribute("disabled") !== "disabled" && e.target.name === "historybtn"){
+            this.addDateRows();
+            this.addCalRows();
+            this.addWeightRows();
+            this.refs.historybtn.setAttribute("disabled", "disabled");
+        }
         const {name,value} = e.target;
         let formErrors = this.state.formErrors;
         switch (name) {
@@ -85,18 +120,17 @@ export default class Nutrition extends React.Component {
         this.setState({formErrors, [name]:value}, ()=> console.log(this.state))
     };
 
-
 /* renders all html for the login page*/
 render(){
     const{formErrors} =this.state;
-
     return <div className="nutritionWrapper">
         <a href="/profile">
-                    <button>Return to Profile</button>
-                    </a>
-                    <div className="nutritionHeader">
-                                <h1>Nutrition History</h1>
-                    </div>
+            <button className="back-to-profile">Return to Profile</button>
+        </a>
+        <button className="show-table" ref="historybtn" name="historybtn" onClick={this.handleChange}>Show History</button>
+        <div className="nutritionHeader">
+            <h1>Nutrition History</h1>
+        </div>
                 <div className="nutrition-form-wrapper">
                     <form onSubmit={this.handleSubmit} noValidate>
                         <div className="allForms">
@@ -145,7 +179,7 @@ render(){
                             Date:
                             </thead>
                             <tbody>
-                            {this.state.history.date}
+                            {dateRows}
                             </tbody>
                         </table>
                         <table className="calorie-table" id="table">
@@ -153,7 +187,7 @@ render(){
                             Calories:
                             </thead>
                             <tbody>
-                            {this.state.history.calories}
+                            {calRows}
                             </tbody>
                         </table>
                         <table className="weight-table" id="table">
@@ -161,7 +195,7 @@ render(){
                             Weight:
                             </thead>
                             <tbody>
-                            {this.state.history.weight}
+                            {weightRows}
                             </tbody>
                         </table>
                     </div>

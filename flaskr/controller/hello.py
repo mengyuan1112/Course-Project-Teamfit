@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
-from model import User
+# from model import User
 from flask_cors import CORS
 
-app = Flask(__name__, template_folder='public',)
+app = Flask(__name__, template_folder='public', )
 CORS(app)
 
 userName_Password = {}  # temporary storage for user and password
