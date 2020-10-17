@@ -2,11 +2,12 @@ import React from "react";
 import './nutrition.css';
 import Axios from 'axios';
 
+/*Constants that store the table entries for the nutrition history table*/
 const dateRows = [];
 const calRows = [];
 const weightRows = [];
 
-/* function to check whether a form is valid or not*/
+/* Function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
 
@@ -25,7 +26,7 @@ const formValid = ({ formErrors, ...rest }) => {
 
 export default class Nutrition extends React.Component {
 
-    /*  Constructor for Nutrition class, has 6 states: protein, carbs, fat, weight, username and formErrors */
+    /*  Constructor for Nutrition class, has 6 states: protein, carbs, fat, weight, history and formErrors */
     constructor(props) {
         super(props);
         this.state = {
@@ -34,9 +35,6 @@ export default class Nutrition extends React.Component {
             fat: null,
             weight: null,
             history: {},
-            dbDate:[],
-            dbCal: [],
-            dbWeight:[],
             formErrors: {
                 protein: "",
                 carbs: "",
@@ -50,19 +48,21 @@ export default class Nutrition extends React.Component {
     Axios.get('http://localhost:5000/profile/nutrition/submit').then(response=> { this.setState({history: response.data});})
 
     }
-
+    /*Helper function to add the date rows to html render*/
     addDateRows() {
         for (var i = 0; i < this.state.history.date.length; i++){
             dateRows.push(<tr>{this.state.history.date[`${i}`]}</tr>)
             dateRows.push(<tr>{'---------'}</tr>)
         }
     }
+    /*Helper function to add the calorie rows to html render*/
     addCalRows() {
         for (var i = 0; i < this.state.history.calories.length; i++){
             calRows.push(<tr>{this.state.history.calories[`${i}`]}</tr>)
             calRows.push(<tr>{'---------'}</tr>)
         }
     }
+    /*Helper function to add the weight rows to html render*/
     addWeightRows() {
         for (var i = 0; i < this.state.history.weight.length; i++){
             weightRows.push(<tr>{this.state.history.weight[`${i}`]}</tr>)
@@ -91,7 +91,6 @@ export default class Nutrition extends React.Component {
     }
     /* Handles any change to the form input and determines if valid input is provided*/
     handleChange = e => {
-        console.log(e.toString())
         e.preventDefault();
         if (this.refs.historybtn.getAttribute("disabled") !== "disabled" && e.target.name === "historybtn"){
             this.addDateRows();
