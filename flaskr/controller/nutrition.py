@@ -9,6 +9,8 @@ app = Flask(__name__, template_folder='template', )
 CORS(app)
 
 
+# Function handles GET and POST requests from react. POST updates database with new user info. GET returns current
+# user history
 @app.route('/profile/nutrition/submit', methods=['POST', 'GET'])
 def nutritionSubmit():
     if request.method == 'GET':
@@ -86,4 +88,5 @@ def nutritionSubmit():
             cur.execute(sql2, val2)
             conn.commit()
         return "User added to database with new info"
-    return "This is for processing"
+    newHistory = """{"calories": [], "date": [], "weight": []}"""
+    return newHistory
