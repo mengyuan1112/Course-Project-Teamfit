@@ -12,8 +12,6 @@ import Profile from './components/profile/profile.js';
 // import friends from './components/friends/friends.js';
 import Friends from './components/Friends/Friends.js';
 import Feed from './components/post/feed.js';
-import Message from './components/message/message.js';
-import Nutrition from "./components/profileNutrition/nutrition";
 
 
 /**
@@ -43,7 +41,7 @@ class App extends React.Component {
         this.setState({showHome: !this.state.showHome});
         break;
       case "Friends":
-          this.setState({showfriends: !this.state.showfriends});
+          this.setState({shofriends: !this.state.showfriends});
           break;
       case "profile" :
         this.setState({showProfile: !this.state.showProfile});
@@ -69,11 +67,8 @@ class App extends React.Component {
           <Route exact path="/home" render={() => <Home />}/>
           <Route path="/friends" render={() => <Friends />} />
           <Route path="/login" render={() => <Login />} />
-          <Route path="/profile/nutrition" render={() => <Nutrition />}/>
           <Route path="/profile" render={() => <Profile />} />
-          <Route path="/register" render={() => <Register />} />
-          <Route path="/feed" render={() => <Feed />} />
-          <Route path="/message" render={() => <Message />} />
+          <Route path="/register" render={() => <Register />} /> 
         </Switch>
       </div>
     </BrowserRouter>
