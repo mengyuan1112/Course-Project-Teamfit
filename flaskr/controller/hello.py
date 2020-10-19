@@ -8,7 +8,9 @@ CORS(app)
 userName_Password = {}  # temporary storage for user and password
 _userEmail = "grader@cse442.com"
 
-
+@app.route('/', methods=['GET'])
+def index():
+    return "Hello, World!"
 @app.route("/register", methods=['POST'])
 def creat_register():
     data = request.get_json()
