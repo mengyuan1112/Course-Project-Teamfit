@@ -2,25 +2,24 @@ from flask import Flask, request, Blueprint
 from datetime import date
 import psycopg2
 import json
-from .hello import _userEmail
+from .hello import _getUsername
 
 nutrition_page = Blueprint('nutrition_page', __name__, template_folder='templates')
 
 
 # Function handles GET and POST requests from react. POST updates database with new user info. GET returns current
 # user history
-print(_userEmail)
 @nutrition_page.route('/profile/nutrition/submit', methods=['POST', 'GET'])
 def nutritionSubmit():
     if request.method == 'GET':
-        print(_userEmail)
-        email = _userEmail
+        email = _getUsername()
         conn = psycopg2.connect(
             database='teamfit',
             user='aidan',
             password='roach',
             port=26257,
-            host='localhost'
+            host='localhost',
+            sslmode='disable'
         )
         with conn.cursor() as cur:
             cur.execute("SELECT * FROM teamfit.nutrition")
@@ -38,7 +37,7 @@ def nutritionSubmit():
         carbs = nutritionInfo['carbs']
         fat = nutritionInfo['fat']
         weight = nutritionInfo['weight']
-        email = _userEmail
+        email = _getUsername()
         today = date.today()
         dateformat = today.strftime("%m/%d/%y")
         calories = ((9 * int(fat)) + (4 * int(protein)) + (4 * int(carbs)))
