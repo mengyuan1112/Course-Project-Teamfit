@@ -1,0 +1,49 @@
+.rows{
+    display: flex;
+    margin-top: 2em;
+    list-style: none;
+}
+
+.rows .row{
+    flex: 1 1 100%;
+}
+
+.rows .row1{
+    flex: 1 1 100%;
+    text-align: center;
+}
+
+.image{
+    border-radius: 60px;
+    width: 25px;
+    height: 25px;
+    margin: 18px 18px;
+}
+
+.name{
+    display: flex;
+    margin: 7px 20px;
+}
+.age{
+    display: flex;
+    margin: 12px 38px;
+}
+.height{
+    margin: 7px 20px;
+}
+.weight{
+    display: flex;
+    margin: 7px 20px;
+}
+.gender{
+    display: flex;
+    margin: 7px 20px;
+}
+.number{
+    display: flex;
+    margin: 7px 20px;
+}
+.email{
+    display: flex;
+    margin: 7px 20px;
+}
