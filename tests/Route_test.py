@@ -62,7 +62,7 @@ class FlaskTest(unittest.TestCase):
                          "message": ""}}
 
         response = client.post(url, data=json.dumps(mock_request_data), headers=mock_request_header)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, b'{\n  "state": "Account already exist"\n}')
 
     def test_login_route(self):
@@ -78,7 +78,7 @@ class FlaskTest(unittest.TestCase):
                                       "message": ""}}
 
         response = client.post(url, data=json.dumps(mock_request_data), headers=mock_request_header)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data, b'{\n  "state": "Account not exist"\n}')
 
 
