@@ -15,8 +15,7 @@ def nutritionSubmit():
         email = _getUsername()
         conn = psycopg2.connect(
             database='teamfit',
-            user='aidan',
-            password='roach',
+            user='teamfit',
             port=26257,
             host='localhost',
             sslmode='disable'
