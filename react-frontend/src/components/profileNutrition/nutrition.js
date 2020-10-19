@@ -46,8 +46,12 @@ export default class Nutrition extends React.Component {
     /*GET request to nutrition.py. Updates history to be object with 3 arrays*/
     componentDidMount() {
     Axios.get('http://localhost:5000/profile/nutrition/submit').then(response=> { this.setState({history: response.data});})
+    }
+
+    componentWillUnmount() {
 
     }
+
     /*Helper function to add the date rows to html render*/
     addDateRows() {
         for (var i = 0; i < this.state.history.date.length; i++){

@@ -43,14 +43,10 @@ def nutritionSubmit():
         # Save this info to user  in database
         conn = psycopg2.connect(
             database='teamfit',
-            user='aidan',
-            password='roach',
-            sslmode='require',
-            sslrootcert='certs/ca.crt',
-            sslkey='certs/client.aidan.key',
-            sslcert='certs/client.aidan.crt',
+            user='teamfit',
             port=26257,
-            host='localhost'
+            host='localhost',
+            slmode='disable'
         )
         with conn.cursor() as cur:
             cur.execute("SELECT * FROM teamfit.nutrition")
