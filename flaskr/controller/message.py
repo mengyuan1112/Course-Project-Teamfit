@@ -6,55 +6,59 @@ import time
 import logging
 import random
 
-app = Flask(__name__, template_folder='template', )
-CORS(app)
+message_page = Blueprint('message_page', __name__, template_folder='templates')
 
 conn = psycopg2.connect(
-    database ='teamfit',
+    database='teamfit',
     user='teamfit',
     port='26257',
     host='localhost',
     sslmode='disable'
-    )
+)
 
-@app.route("/makeMessageTable", methods=['POST'])
+
+@message_page.route("/makeMessageTable", methods=['POST'])
 def makeMessageTable():
     with conn.cursor() as cur:
         query = 'CREATE TABLE IF NOT EXISTS messages (messageID SERIAL PRIMARY KEY, sourceID VARCHAR(320) NOT NULL, recieverID VARCHAR(320) NOT NULL, content TEXT NOT NULL,header VARCHAR(150),parentMessageID INT );'
         cur.execute(query)
     conn.commit()
-    return Response(status = 200) 
+    return Response(status=200)
 
-@app.route("/createMessage", methods=["POST"])
+
+@message_page.route("/createMessage", methods=["POST"])
 def createMessage():
     data = request.get_json()
     if data.get('userID') == "":
-            return jsonify({'Bad request': False, 'message':'No userID passed'})
+        return jsonify({'Bad request': False, 'message': 'No userID passed'})
     message = Message(data)
     print(message)
     insertMessageIntoTable(message)
-    #insert a new row into the message table containing this message.
+    # insert a new row into the message table containing this message.
     return jsonify({'ok': True, 'message': 'Message created successfully!'}), 200
 
 
-@app.route("/listMessages", methods=["GET"])
+@message_page.route("/listMessages", methods=["GET"])
 def listMessages():
     userID = request.headers.get('messageID')
     if userID == None or userID == '':
-        return (json.dumps('There is no parentID how can you expect me to list these messages.'), 400, {'content-type': 'application/json'})
+        return (json.dumps('There is no parentID how can you expect me to list these messages.'), 400,
+                {'content-type': 'application/json'})
     query = 'SELECT * FROM messages WHERE sourceid=\'' + userID + '\''
     cur = conn.cursor()
     cur.execute(query)
-    rows = cur.fetchall()    #make call to db to list all of the Message rows that have the userId as the source
+    rows = cur.fetchall()  # make call to db to list all of the Message rows that have the userId as the source
     conn.commit()
     return json_response(rows)
 
-@app.route("/listParentMessages", methods=["GET"])
+
+@message_page.route("/listParentMessages", methods=["GET"])
 def listParents():
     parentID = request.headers.get('parentID')
     if parentID == None or parentID == '':
-        return (json.dumps('There is no parentID how can you expect me to list these messages.'), 400, {'content-type': 'application/json'})
-    query = 'SELECT * FROM messages WHERE parentMessageID=' + parentID 
+        return (json.dumps('There is no parentID how can you expect me to list these messages.'), 400,
+                {'content-type': 'application/json'})
+    query = 'SELECT * FROM messages WHERE parentMessageID=' + parentID
     cur = conn.cursor()
     cur.execute(query)
     rows = cur.fetchall()
@@ -62,7 +66,7 @@ def listParents():
     return json_response(rows)
 
 
-@app.route("/deleteMessages", methods=["DELETE"])
+@message_page.route("/deleteMessages", methods=["DELETE"])
 def deleteMessage():
     data = request.get_json()
     messageID = data.get('messageID')
@@ -78,27 +82,29 @@ def deleteMessage():
         cur = conn.cursor()
         cur.execute(query)
         conn.commit()
-        return json_response("Deleted all messages with parentMessageID="+ str(parentMessageID))
-    return (json.dumps('There is no messageID how can you expect me to delete this message.'), 400, {'content-type': 'application/json'})
+        return json_response("Deleted all messages with parentMessageID=" + str(parentMessageID))
+    return (json.dumps('There is no messageID how can you expect me to delete this message.'), 400,
+            {'content-type': 'application/json'})
+
 
 def insertMessageIntoTable(message):
     with conn.cursor() as cur:
-        cur.execute('INSERT into messages (header, parentMessageID, sourceID, recieverID, content) VALUES (%s,%s,%s,%s,%s)', ( message.header, message.parentMessageID, message.sourceID, message.recieverID, message.content))    
+        cur.execute(
+            'INSERT into messages (header, parentMessageID, sourceID, recieverID, content) VALUES (%s,%s,%s,%s,%s)',
+            (message.header, message.parentMessageID, message.sourceID, message.recieverID, message.content))
     conn.commit()
+
 
 def json_response(payload, status=200):
     return (json.dumps(payload), status, {'content-type': 'application/json'})
 
 
 class Message:
-    
+
     def __init__(self, data):
-        self.messageID=""
+        self.messageID = ""
         self.header = data['header']
         self.parentMessageID = data['parentMessageID']
-        self.sourceID = data['userID'] #email address of user that is sending message
-        self.recieverID = data['recieverID'] #email address of user that is recieving the message.
-        self.content = data['data'] #the actual message data
-        
-if __name__ == '__main__':
-    app.run(debug=True)
+        self.sourceID = data['userID']  # email address of user that is sending message
+        self.recieverID = data['recieverID']  # email address of user that is recieving the message.
+        self.content = data['data']  # the actual message data

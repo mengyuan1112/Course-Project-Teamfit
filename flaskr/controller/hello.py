@@ -1,17 +1,18 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Blueprint
 # from model import User
 from flask_cors import CORS
 
-app = Flask(__name__, template_folder='public', )
-CORS(app)
+hello_page = Blueprint('hello_page', __name__, template_folder='templates')
 
 userName_Password = {}  # temporary storage for user and password
-_userEmail = "grader@cse442.com"
 
-@app.route('/', methods=['GET'])
+
+@hello_page.route('/', methods=['GET'])
 def index():
     return "Hello, World!"
-@app.route("/register", methods=['POST'])
+
+
+@hello_page.route("/register", methods=['POST'])
 def creat_register():
     data = request.get_json()
     # user = User.User(data)
@@ -26,7 +27,11 @@ def creat_register():
             {'state': "Register successful"}), 200  # or use render to shows the login page  # shows register page
 
 
-@app.route("/login", methods=['POST'])
+def _getUsername():
+    return _userEmail
+
+
+@hello_page.route("/login", methods=['POST'])
 def login():
     global _userEmail
     data = request.get_json()
@@ -41,7 +46,3 @@ def login():
             return jsonify({'state': "Password wrong"}), 400
     else:
         return jsonify({'state': "Account not exist"}), 400  # fail login and will stay this page
-
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0",debug=True)
