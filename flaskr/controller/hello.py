@@ -20,7 +20,7 @@ def creat_register():
     user_email = user_info['eMail']
     use_password = user_info['password']
     if user_email in userName_Password:
-        return jsonify({'state': "Account already exist"}), 400
+        return jsonify({'state': "Account already exist"}), 200
     else:
         userName_Password[user_email] = use_password
         return jsonify(
@@ -43,6 +43,6 @@ def login():
             _userEmail = user_email
             return jsonify({'state': "Successful login"}), 200  # success login and go to home page
         else:
-            return jsonify({'state': "Password wrong"}), 400
+            return jsonify({'state': "Password wrong"}), 200
     else:
-        return jsonify({'state': "Account not exist"}), 400  # fail login and will stay this page
+        return jsonify({'state': "Account not exist"}), 200  # fail login and will stay this page
