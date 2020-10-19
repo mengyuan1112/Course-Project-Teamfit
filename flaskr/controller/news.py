@@ -1,13 +1,12 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, Blueprint
 # from model import News # figure out how to fix this for the news article_info fields
+from flask_cors import CORS
 from newsapi import NewsApiClient
 import json
 
-app = Flask(__name__, template_folder='public',)
+news_page = Blueprint('news_page', __name__,  template_folder='templates' )
 
-
-
-@app.route("/home", methods=['GET'])
+@news_page.route('/home', methods=['GET'])
 def get_news():
     
     # with app.app_context():
@@ -18,9 +17,10 @@ def get_news():
         articles_json = json.dumps(articles)
         return articles_json
         
+        
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     news_page.run(debug=True)
     
 
 
