@@ -46,6 +46,3 @@ def login():
             return jsonify({'state': "Password wrong"}), 400
     else:
         return jsonify({'state': "Account not exist"}), 400  # fail login and will stay this page
-    
-if __name__ == '__main__':
-    app.run(prot="0.0.0.0", debug=True)
