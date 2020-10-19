@@ -10,7 +10,8 @@ message_page = Blueprint('message_page', __name__, template_folder='templates')
 
 conn = psycopg2.connect(
     database='teamfit',
-    user='teamfit',
+    user='aidan',
+    password='roach',
     port='26257',
     host='localhost',
     sslmode='disable'
