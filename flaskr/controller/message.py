@@ -1,57 +1,104 @@
-from flask import Flask, jsonify, request, render_template, Blueprint
-from flaskr.model import User, Message
+from flask import Flask, jsonify, json, request, render_template, Blueprint, Response
+from flask_cors import CORS
+import psycopg2
+import psycopg2.errorcodes
+import time
+import logging
+import random
 
-message_page = Blueprint('message_page', __name__, template_folder='templates')
+app = Flask(__name__, template_folder='template', )
+CORS(app)
 
-# every email is the key to a list of messages that will contain the user its going too
-messages = {}
+conn = psycopg2.connect(
+    database ='teamfit',
+    user='teamfit',
+    port='26257',
+    host='localhost',
+    sslmode='disable'
+    )
 
+@app.route("/makeMessageTable", methods=['POST'])
+def makeMessageTable():
+    with conn.cursor() as cur:
+        query = 'CREATE TABLE IF NOT EXISTS messages (messageID SERIAL PRIMARY KEY, sourceID VARCHAR(320) NOT NULL, recieverID VARCHAR(320) NOT NULL, content TEXT NOT NULL,header VARCHAR(150),parentMessageID INT );'
+        cur.execute(query)
+    conn.commit()
+    return Response(status = 200) 
 
-@message_page.route("/", methods=['POST'])
-def hellowWorld():
+@app.route("/createMessage", methods=["POST"])
+def createMessage():
+    data = request.get_json()
+    if data.get('userID') == "":
+            return jsonify({'Bad request': False, 'message':'No userID passed'})
+    message = Message(data)
+    print(message)
+    insertMessageIntoTable(message)
+    #insert a new row into the message table containing this message.
     return jsonify({'ok': True, 'message': 'Message created successfully!'}), 200
 
 
-@message_page.route("/createMessage", methods=['POST'])
-def createMessage():
-    data = request.get_json()
-    email = data.get('email', None)
-    message = data.get('message', None)
-    if email is None or message is None:
-        return jsonify({'ok': False,
-                        'message': 'Bad request parameters! Make sure to include email and message keys in your body'}), 400
-    else:
-        createMessage(data)
-        return jsonify({'ok': True, 'message': 'Message created successfully!'}), 200
-
-
-@message_page.route("/listMessages", methods=['GET'])
+@app.route("/listMessages", methods=["GET"])
 def listMessages():
-    if request.view_args('messageId', None) is None:
-        return jsonify({'ok': False, 'message': 'Bad request parameters!'}), 400
-    resp = jsonify(messages[request.view_args('messageId', None)])
-    resp.status_code = 200
-    print(resp)
-    return resp
+    userID = request.headers.get('messageID')
+    if userID == None or userID == '':
+        return (json.dumps('There is no parentID how can you expect me to list these messages.'), 400, {'content-type': 'application/json'})
+    query = 'SELECT * FROM messages WHERE sourceid=\'' + userID + '\''
+    cur = conn.cursor()
+    cur.execute(query)
+    rows = cur.fetchall()    #make call to db to list all of the Message rows that have the userId as the source
+    conn.commit()
+    return json_response(rows)
+
+@app.route("/listParentMessages", methods=["GET"])
+def listParents():
+    parentID = request.headers.get('parentID')
+    if parentID == None or parentID == '':
+        return (json.dumps('There is no parentID how can you expect me to list these messages.'), 400, {'content-type': 'application/json'})
+    query = 'SELECT * FROM messages WHERE parentMessageID=' + parentID 
+    cur = conn.cursor()
+    cur.execute(query)
+    rows = cur.fetchall()
+    conn.commit()
+    return json_response(rows)
 
 
-@message_page.route("/deleteMessage", methods=['DELETE'])
+@app.route("/deleteMessages", methods=["DELETE"])
 def deleteMessage():
     data = request.get_json()
-    id = data.get('messageId', None)
-    if id is None:
-        return jsonify({'ok': False, 'message': 'No Message ID passed to the server!'}), 400
-    else:
-        arrmessages = messages[id]
+    messageID = data.get('messageID')
+    parentMessageID = data.get('parentMessageID')
+    if messageID is not None:
+        query = 'DELETE FROM messages WHERE messageID=' + str(messageID)
+        cur = conn.cursor()
+        cur.execute(query)
+        conn.commit()
+        return json_response("Deleted messageID " + str(messageID))
+    if parentMessageID is not None:
+        query = 'DELETE FROM messages WHERE parentID=' + str(parentMessageID)
+        cur = conn.cursor()
+        cur.execute(query)
+        conn.commit()
+        return json_response("Deleted all messages with parentMessageID="+ str(parentMessageID))
+    return (json.dumps('There is no messageID how can you expect me to delete this message.'), 400, {'content-type': 'application/json'})
+
+def insertMessageIntoTable(message):
+    with conn.cursor() as cur:
+        cur.execute('INSERT into messages (header, parentMessageID, sourceID, recieverID, content) VALUES (%s,%s,%s,%s,%s)', ( message.header, message.parentMessageID, message.sourceID, message.recieverID, message.content))    
+    conn.commit()
+
+def json_response(payload, status=200):
+    return (json.dumps(payload), status, {'content-type': 'application/json'})
 
 
-def createMessage(data):
-    message = Message(data)
-    if message.sourceId in messages:
-        messages[message.sourceId].message_pageend(message)
-    else:
-        messages[message.sourceId] = [message]
-    if message.destId in messages:
-        messages[message.destId].message_pageend(message)
-    else:
-        messages[message.destId] = [message]
+class Message:
+    
+    def __init__(self, data):
+        self.messageID=""
+        self.header = data['header']
+        self.parentMessageID = data['parentMessageID']
+        self.sourceID = data['userID'] #email address of user that is sending message
+        self.recieverID = data['recieverID'] #email address of user that is recieving the message.
+        self.content = data['data'] #the actual message data
+        
+if __name__ == '__main__':
+    app.run(debug=True)
