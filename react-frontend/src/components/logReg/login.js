@@ -49,7 +49,7 @@ export default class Login extends React.Component {
             E-MAIL: ${this.state.uEmail}
             PASSWORD: ${this.state.uPassword}
             `)
-            axiosConfig.post('http://3.86.76.27:5000/login',{
+            axiosConfig.post('http://0.0.0.0:5000/login',{
                 body : this.state,
                 headers:{"Content-Type":"application/json",},
                 cache: "no-cache",
