@@ -29,7 +29,8 @@ class App extends React.Component {
       showProfile: false,
       showLogin: false,
       showHome: false,
-      showRegister: false
+      showRegister: false,
+      showfriends:false
     }
   }
   state = {

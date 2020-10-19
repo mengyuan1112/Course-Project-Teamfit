@@ -1,7 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import '../post/feed'
-import './Friends.css'
+//import './Friends.css'
 import Feed from '../post/feed';
 
 class friends extends React.Component{
