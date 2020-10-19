@@ -9,6 +9,8 @@ import './App.css';
 import Login from './components/logReg/login.js';
 import Register from './components/logReg/register.js'
 import Profile from './components/profile/profile.js';
+// import friends from './components/friends/friends.js';
+import Friends from './components/Friends/Friends.js';
 import Feed from './components/post/feed.js';
 
 
@@ -38,6 +40,9 @@ class App extends React.Component {
       case "home":
         this.setState({showHome: !this.state.showHome});
         break;
+      case "Friends":
+          this.setState({shofriends: !this.state.showfriends});
+          break;
       case "profile" :
         this.setState({showProfile: !this.state.showProfile});
         break;
@@ -60,9 +65,10 @@ class App extends React.Component {
         <Route exact path="" render={() => <NavBar />}/>
         <Switch>
           <Route exact path="/home" render={() => <Home />}/>
+          <Route path="/friends" render={() => <Friends />} />
           <Route path="/login" render={() => <Login />} />
           <Route path="/profile" render={() => <Profile />} />
-          <Route path="/register" render={() => <Register />} />
+          <Route path="/register" render={() => <Register />} /> 
         </Switch>
       </div>
     </BrowserRouter>
