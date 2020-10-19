@@ -1,28 +1,24 @@
-from flask import Flask, request
-from flask_cors import CORS
+from flask import Flask, request, Blueprint
 from datetime import date
 import psycopg2
 import json
 from .hello import _userEmail
 
-app = Flask(__name__, template_folder='template', )
-CORS(app)
+nutrition_page = Blueprint('nutrition_page', __name__, template_folder='templates')
 
 
 # Function handles GET and POST requests from react. POST updates database with new user info. GET returns current
 # user history
-@app.route('/profile/nutrition/submit', methods=['POST', 'GET'])
+print(_userEmail)
+@nutrition_page.route('/profile/nutrition/submit', methods=['POST', 'GET'])
 def nutritionSubmit():
     if request.method == 'GET':
+        print(_userEmail)
         email = _userEmail
         conn = psycopg2.connect(
             database='teamfit',
             user='aidan',
             password='roach',
-            sslmode='require',
-            sslrootcert='certs/ca.crt',
-            sslkey='certs/client.aidan.key',
-            sslcert='certs/client.aidan.crt',
             port=26257,
             host='localhost'
         )

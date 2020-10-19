@@ -1,27 +1,31 @@
-from flask import Flask, jsonify, request, render_template
-from model import User, Message
+from flask import Flask, jsonify, request, render_template, Blueprint
+from flaskr.model import User, Message
 
-app = Flask(__name__, template_folder='template', )
+message_page = Blueprint('message_page', __name__, template_folder='templates')
 
-#every email is the key to a list of messages that will contain the user its going too 
-messages = {}  
+# every email is the key to a list of messages that will contain the user its going too
+messages = {}
 
-@app.route("/", methods=['POST'])
+
+@message_page.route("/", methods=['POST'])
 def hellowWorld():
     return jsonify({'ok': True, 'message': 'Message created successfully!'}), 200
-        
-@app.route("/createMessage", methods=['POST'])
+
+
+@message_page.route("/createMessage", methods=['POST'])
 def createMessage():
     data = request.get_json()
     email = data.get('email', None)
     message = data.get('message', None)
     if email is None or message is None:
-        return jsonify({'ok': False, 'message': 'Bad request parameters! Make sure to include email and message keys in your body'}), 400
+        return jsonify({'ok': False,
+                        'message': 'Bad request parameters! Make sure to include email and message keys in your body'}), 400
     else:
-        createMessage(data)         
+        createMessage(data)
         return jsonify({'ok': True, 'message': 'Message created successfully!'}), 200
-    
-@app.route("/listMessages", methods=['GET'])
+
+
+@message_page.route("/listMessages", methods=['GET'])
 def listMessages():
     if request.view_args('messageId', None) is None:
         return jsonify({'ok': False, 'message': 'Bad request parameters!'}), 400
@@ -30,7 +34,8 @@ def listMessages():
     print(resp)
     return resp
 
-@app.route("/deleteMessage", methods=['DELETE'])
+
+@message_page.route("/deleteMessage", methods=['DELETE'])
 def deleteMessage():
     data = request.get_json()
     id = data.get('messageId', None)
@@ -38,18 +43,15 @@ def deleteMessage():
         return jsonify({'ok': False, 'message': 'No Message ID passed to the server!'}), 400
     else:
         arrmessages = messages[id]
-        
+
+
 def createMessage(data):
     message = Message(data)
     if message.sourceId in messages:
-        messages[message.sourceId].append(message)
+        messages[message.sourceId].message_pageend(message)
     else:
         messages[message.sourceId] = [message]
     if message.destId in messages:
-        messages[message.destId].append(message)
+        messages[message.destId].message_pageend(message)
     else:
-        messages[message.destId] = [message]    
-    
-
-if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+        messages[message.destId] = [message]
