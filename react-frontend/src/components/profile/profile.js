@@ -118,7 +118,7 @@ class Profile extends React.Component{
                 <div className="row1">
                 <Upload />
                     <Feed />
-                   
+
                 </div>
             </div>
          
