@@ -8,6 +8,10 @@ userName_Password = {}  # temporary storage for user and password
 
 
 @hello_page.route("/register", methods=['POST'])
+@app.route('/', methods=['GET'])
+def index():
+    return "Hello, World!"
+@app.route("/register", methods=['POST'])
 def creat_register():
     data = request.get_json()
     # user = User.User(data)
