@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template, Blueprint
 # from model import News # figure out how to fix this for the news article_info fields
 from flask_cors import CORS
-from newsapi import NewsApiClient
+from newsapi.newsapi_client import NewsApiClient
 import json
 
 news_page = Blueprint('news_page', __name__,  template_folder='templates' )
