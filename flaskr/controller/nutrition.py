@@ -46,7 +46,7 @@ def nutritionSubmit():
             user='teamfit',
             port=26257,
             host='localhost',
-            slmode='disable'
+            sslmode='disable'
         )
         with conn.cursor() as cur:
             cur.execute("SELECT * FROM teamfit.nutrition")
