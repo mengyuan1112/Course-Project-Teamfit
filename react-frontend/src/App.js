@@ -9,7 +9,6 @@ import './App.css';
 import Login from './components/logReg/login.js';
 import Register from './components/logReg/register.js'
 import Profile from './components/profile/profile.js';
-// import friends from './components/friends/friends.js';
 import Friends from './components/Friends/Friends.js';
 import Feed from './components/post/feed.js';
 import Message from './components/message/message.js';
@@ -75,6 +74,7 @@ class App extends React.Component {
           <Route path="/register" render={() => <Register />} />
           <Route path="/feed" render={() => <Feed />} />
           <Route path="/message" render={() => <Message />} />
+          <Route path="/friends" render={() => <Message />} />
         </Switch>
       </div>
     </BrowserRouter>

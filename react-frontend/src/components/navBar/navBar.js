@@ -31,6 +31,9 @@ export default function ButtonAppBar() {
           <IconButton edge="end" className={classes.menuButton} color="white" aria-label="menu" onClick={ event => window.location.href = "/profile" }>
             Profile
           </IconButton>
+          <IconButton edge="end" className={classes.menuButton} color="white" aria-label="menu" onClick={ event => window.location.href = "/friends" }>
+            Friends
+          </IconButton>
           <IconButton edge="end" className={classes.menuButton} color="white" aria-label="menu" onClick={ event => window.location.href = "/message" }>
             Message
           </IconButton>
