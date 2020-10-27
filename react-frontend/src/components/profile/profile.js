@@ -4,6 +4,7 @@ import Upload from '../upload/upload'
 import './profile.css'
 import Feed from '../post/feed';
 import avatar from "../../avatar.jpg";
+import loginImg from "../../TeamFit_logo.png";
 
 
 class Profile extends React.Component{
@@ -17,8 +18,9 @@ class Profile extends React.Component{
           gender: "male",
           number: 7167167167,
           email: "fit@teamfit.com",
+          image: avatar,
+          loading: false,
           isInEditMode: false,
-          isPPInEditMode: false
         };
       }
 
@@ -84,49 +86,75 @@ class Profile extends React.Component{
     renderDefaultView = () => {
         return (
         <>
+            <img src={this.state.image} width="190" height="190" alt="ProfileImage" />
             <div >
-              <p>Name: {this.state.name}</p> 
+              <h2>{this.state.name}</h2> 
             </div>
             <div >
-              <p>Age: {this.state.age}</p>
+              <h4>Age: {this.state.age} Height: {this.state.height} Weight: {this.state.weight} Gender: {this.state.gender}</h4>
             </div>
             <div >
-              <p>Height: {this.state.height}</p>
+              <h4>Number: {this.state.number}</h4>
             </div>
             <div >
-              <p>Weight: {this.state.weight}</p>
-            </div>
-            <div >
-              <p>Gender: {this.state.gender}</p>
-            </div>
-            <div >
-              <p>Number: {this.state.number}</p>
-            </div>
-            <div >
-              <p>Email: {this.state.email}</p>
+              <h4>Email: {this.state.email}</h4>
             </div>
             <button onClick={this.ChangeEditMode}>Edit</button>
-            <button onClick={this.ChangePPEditMode}>Change Picture</button>
+            <p>Update Picture:</p>
+            <input
+                type="file"
+                name="file"
+                placeholder="Upload an image"
+                onChange={this.uploadIamge}
+            />
+            {this.state.loading ? (<p>Loading...</p>)
+                : (
+                    <b></b>
+                )
+            }
             </>
         )
     }
 
+    uploadIamge = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'teamfit')
+        this.setState({loading: !this.state.loading})
+        const res = await fetch(
+            'https://api.cloudinary.com/v1_1/zayedahm/image/upload',
+            {
+                method: 'POST',
+                body: data
+            }
+        )
+
+        console.log(res)
+
+        const file = await res.json()
+
+        this.setState({image: file.secure_url})
+        this.setState({loading: !this.state.loading})
+    }
+
     render() {
         return (
-            
          <>
+        <img src={loginImg} width="180" height="180" alt="Login Image" className="logo"/>
           <div className="rows">
-                <div className="row">
-                <img src={avatar} width="180" height="180" alt="Login Image" />
+               
+                <div className="details">
+                
                 {this.state.isInEditMode ? 
                     this.renderEditView() : this.renderDefaultView()
-                }  
-                </div>
+                }
+                </div>  
                 <div className="row1">
-                <Upload />
+                    <Upload />
                     <Feed />
-
                 </div>
+
             </div>
          
         </>
