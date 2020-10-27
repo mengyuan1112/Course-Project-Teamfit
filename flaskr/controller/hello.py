@@ -26,7 +26,6 @@ def creat_register():
         return jsonify(
             {'state': "Register successful"}), 200  # or use render to shows the login page  # shows register page
 
-
 def _getUsername():
     return _userEmail
 
