@@ -3,6 +3,8 @@ import '../post/feed'
 import Upload from '../upload/upload'
 import './profile.css'
 import Feed from '../post/feed';
+import avatar from "../../avatar.jpg";
+
 
 class Profile extends React.Component{
     constructor(props) {
@@ -15,7 +17,8 @@ class Profile extends React.Component{
           gender: "male",
           number: 7167167167,
           email: "fit@teamfit.com",
-          isInEditMode: false
+          isInEditMode: false,
+          isPPInEditMode: false
         };
       }
 
@@ -26,6 +29,11 @@ class Profile extends React.Component{
     ChangeEditMode = () => {
         this.setState({
             isInEditMode: !this.state.isInEditMode
+        })
+    }
+    ChangePPEditMode = () => {
+        this.setState({
+            isPPInEditMode: !this.state.isPPInEditMode
         })
     }
 
@@ -98,6 +106,7 @@ class Profile extends React.Component{
               <p>Email: {this.state.email}</p>
             </div>
             <button onClick={this.ChangeEditMode}>Edit</button>
+            <button onClick={this.ChangePPEditMode}>Change Picture</button>
             </>
         )
     }
@@ -108,9 +117,7 @@ class Profile extends React.Component{
          <>
           <div className="rows">
                 <div className="row">
-                <img className="image" alt="profilepic" src="https://images.unsplash.com/photo-1514218698632-ef079aeae842?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"></img>
-                </div>
-                <div className="row">
+                <img src={avatar} width="180" height="180" alt="Login Image" />
                 {this.state.isInEditMode ? 
                     this.renderEditView() : this.renderDefaultView()
                 }  
