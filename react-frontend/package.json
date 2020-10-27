@@ -1,8 +1,7 @@
 {
   "name": "react-frontend",
   "version": "0.1.0",
-  "private": false,
-  "proxy": "https://api.cloudinary.com",
+  "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -13,12 +12,11 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.0",
-    "sequelize": "^6.3.5",
-    "sequelize-cockroachdb": "^1.1.0"
+    "react-scripts": "3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-all": "(cd ../flaskr && flask run) & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
