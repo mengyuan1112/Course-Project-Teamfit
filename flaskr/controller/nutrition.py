@@ -2,7 +2,7 @@ from flask import Flask, request, Blueprint
 from datetime import date
 import psycopg2
 import json
-from .hello import _getUsername
+from .logReg import _getUsername
 
 nutrition_page = Blueprint('nutrition_page', __name__, template_folder='templates')
 
