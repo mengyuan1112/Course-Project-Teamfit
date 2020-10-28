@@ -28,7 +28,7 @@ def creat_register():
     user_name = user_info['name']
     user_email = user_info['eMail']
 
-        # add info to DB
+    # add info to DB
     try:
         conn = psycopg2.connect(
             database='teamfit',
@@ -67,7 +67,6 @@ def _getUsername():
 
 @logReg_page.route("/login", methods=['POST'])
 def login():
-    print("hello")
     global _userEmail
     data = request.get_json()
     user_info = data['body']
@@ -82,9 +81,10 @@ def login():
             host='localhost',
             sslmode='disable'
         )
-        with conn.cursor as cur:
+        print(conn.get_dsn_parameters(), "\n")
+        with conn.cursor() as cur:
             cur.execute("SELECT * FROM teamfit.user")
-            row = cur.fetchall
+            row = cur.fetchall()
             for i in row:
                 if i[0] == int(user_number) and i[1] == use_password:
                     cur.close()
