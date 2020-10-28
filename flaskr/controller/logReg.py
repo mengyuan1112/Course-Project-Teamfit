@@ -86,11 +86,11 @@ def login():
             cur.execute("SELECT * FROM teamfit.user")
             row = cur.fetchall()
             for i in row:
-                if i[0] == user_number and i[1] == use_password:
+                if i[0] == int(user_number) and i[1] == use_password:
                     cur.close()
                     conn.close()
                     return jsonify({'state': "Successful login"}), 200
-                elif i[0] == user_number and i[1] != use_password:
+                elif i[0] == int(user_number) and i[1] != use_password:
                     cur.close()
                     conn.close()
                     return jsonify({'state': "Password wrong"}), 200
