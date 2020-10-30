@@ -94,12 +94,12 @@ render(){
     return <div className="wrapper">
             <div className="header">
                     <body className="body">
-                        <img src={loginImg} width="180" height="180" alt="Login Image" />
+                        <img src={loginImg} width="180" height="180" alt="LoginImage" />
                     </body>
                 </div>
                 <div className="form-wrapper">
                     <div className="image">
-                        <img src={loginImg} width="180" height="180" alt="Login Image" />
+                        <img src={loginImg} width="180" height="180" alt="LoginImage" />
                         <h3>Welcome to TEAMFIT</h3>
                         <h4>Please Sign In</h4>
 

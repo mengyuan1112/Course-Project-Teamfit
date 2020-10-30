@@ -4,7 +4,7 @@ from flask_cors import CORS
 import psycopg2
 
 logReg_page = Blueprint('logReg_page', __name__, template_folder='templates')
-
+_userNumber=""
 userName_Password = {}  # temporary storage for user and password
 
 
@@ -16,6 +16,7 @@ def index():
 @logReg_page.route("/register", methods=['POST'])
 def creat_register():
     # generate register info
+    global _userNumber
     data = request.get_json()
     user_info = data['body']
     user_phone = user_info['phoneNumber']
@@ -27,7 +28,7 @@ def creat_register():
     user_heightIn = user_info['heightIn']
     user_name = user_info['name']
     user_email = user_info['eMail']
-
+    _userNumber = user_phone
     # add info to DB
     try:
         conn = psycopg2.connect(
@@ -62,17 +63,18 @@ def creat_register():
     # or use render to shows the login page  # shows register page
 
 def _getUsername():
-    return _userEmail
+    return _userNumber
 
 
 @logReg_page.route("/login", methods=['POST'])
 def login():
-    global _userEmail
+    global _userNumber
     data = request.get_json()
     user_info = data['body']
     user_number = user_info['uNumber']
     use_password = user_info['uPassword']
-
+    _userNumber = user_info['uNumber']
+    print(_userNumber)
     try:
         conn = psycopg2.connect(
             database='teamfit',
