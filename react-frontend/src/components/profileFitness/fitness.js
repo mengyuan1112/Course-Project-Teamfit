@@ -26,7 +26,7 @@ const formValid = ({ formErrors, ...rest }) => {
 
 export default class Fitness extends React.Component {
 
-    /*  Constructor for Nutrition class, has 4 states: cardio, weights, history and formErrors */
+    /*  Constructor for Fitness class, has 4 states: cardio, weights, history and formErrors */
     constructor(props) {
         super(props);
         this.state = {
