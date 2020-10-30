@@ -1,51 +1,28 @@
-.rows{
-    /* display: flex; */
-    margin-top: 2em;
-    list-style: none;
+body {
+    background-color: #58828b;
+    overflow: hidden;
 }
 
-.rows .row{
-    flex: 1 1 100%;
-    display: inline-block;
+.logo {
+    position: absolute;
+    top: 13%;
+    left: 80%;
+    transform: translate(-10%, -50%);
 }
 
-.rows .row1{
-    flex: 1 1 100%;
-    text-align: center;
-    /* display: inline-flex; */
+.details {
+    padding: 40px;
 }
 
-.image{
-    border-radius: 60px;
-    width: 250px;
-    height: 250px;
-    margin: 18px 18px;
+.row1 {
+    position: static;
+    padding-left: 40px;
 }
 
-.name{
-    display: flex;
-    margin: 18px 38px;
+.rows .pp {
+    border-radius: 70px;
 }
-.age{
-    display: flex;
-    margin: 12px 38px;
-}
-.height{
-    margin: 12px 38px;
-}
-.weight{
-    display: flex;
-    margin: 12px 38px;
-}
-.gender{
-    display: flex;
-    margin: 12px 38px;
-}
-.number{
-    display: flex;
-    margin: 12px 38px;
-}
-.email{
-    display: flex;
-    margin: 12px 38px;
+
+.name {
+    padding: 010c;
 }

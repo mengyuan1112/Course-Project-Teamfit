@@ -20,8 +20,8 @@ const formValid = ({ formErrors, ...rest }) => {
     return valid;
 };
 /*  Regex to test whether an email is valid */
-const emailRegex = RegExp(
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+const numberRegex = RegExp(
+    /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
 );
 
 export default class Login extends React.Component {
@@ -31,11 +31,11 @@ export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            uEmail: null,
+            uNumber: null,
             uPassword: null,
             message: "",
             formErrors: {
-                uEmail: "",
+                uNumber: "",
                 uPassword: "",
             }
         }
@@ -46,7 +46,7 @@ export default class Login extends React.Component {
         if (formValid(this.state)) {
             console.log(`
             --SUBMITTING-- 
-            E-MAIL: ${this.state.uEmail}
+            E-MAIL: ${this.state.uNumber}
             PASSWORD: ${this.state.uPassword}
             `)
             axiosConfig.post('http://127.0.0.1:5000/login',{
@@ -77,8 +77,8 @@ export default class Login extends React.Component {
         let formErrors = this.state.formErrors;
         console.log(name)
         switch (name) {
-            case 'uEmail':
-                formErrors.uEmail = emailRegex.test(value) ? "":'Please enter E-mail address';
+            case 'uNumber':
+                formErrors.uNumber = numberRegex.test(value) ? "":'Please enter Phone number';
                 break;
             case 'uPassword':
                 formErrors.uPassword = value.length < 1 ? 'Please enter password':"";
@@ -94,22 +94,22 @@ render(){
     return <div className="wrapper">
             <div className="header">
                     <body className="body">
-                        <img src={loginImg} width="180" height="180" alt="Login Image" />
+                        <img src={loginImg} width="180" height="180" alt="LoginImage" />
                     </body>
                 </div>
                 <div className="form-wrapper">
                     <div className="image">
-                        <img src={loginImg} width="180" height="180" alt="Login Image" />
+                        <img src={loginImg} width="180" height="180" alt="LoginImage" />
                         <h3>Welcome to TEAMFIT</h3>
                         <h4>Please Sign In</h4>
 
                     </div>
                     <form onSubmit={this.handleSubmit} noValidate>
                         <div className="allForms">
-                            <div className="uEmail">
-                                <label htmlFor="uEmail">E-mail</label>
-                                <input className={formErrors.uEmail.length > 0 ? "error" : null} type="email" name="uEmail" placeholder="example@gmail.com" onChange={this.handleChange}/>
-                                {formErrors.uEmail.length > 0 && ( <span className="errorMessage">{formErrors.uEmail}</span> )}
+                            <div className="uNumber">
+                                <label htmlFor="uNumber">Phone Number:</label>
+                                <input className={formErrors.uNumber.length > 0 ? "error" : null} type="number" name="uNumber" placeholder="7167167166" onChange={this.handleChange}/>
+                                {formErrors.uNumber.length > 0 && ( <span className="errorMessage">{formErrors.uNumber}</span> )}
                             </div>
                             <div className="uPassword">
                                 <label htmlFor="uPassword">Password</label>
