@@ -20,14 +20,14 @@ class Upload extends Component{
     render() {
         return (
         <div>{this.state.currentComponent == "compUpload"}
-            <Button variant="contained" component="label" color="primary">
+            <Button variant="contained" component="label" >
                 Upload
                 <input type="file" style={{display:"none"}}/>
             </Button>
-            <Button variant="contained" component="label" color="primary">
+            <Button variant="contained" component="label" >
                 Message History
             </Button>
-            <Button variant="contained" color="primary" href="/profile/nutrition">
+            <Button variant="contained" href="/profile/nutrition">
                 Nutrition History
             </Button>
         </div>
