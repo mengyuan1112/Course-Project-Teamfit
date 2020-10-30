@@ -74,7 +74,6 @@ def login():
     user_number = user_info['uNumber']
     use_password = user_info['uPassword']
     _userNumber = user_info['uNumber']
-    print(_userNumber)
     try:
         conn = psycopg2.connect(
             database='teamfit',
