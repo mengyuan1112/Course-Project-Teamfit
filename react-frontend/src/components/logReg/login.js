@@ -59,12 +59,6 @@ export default class Login extends React.Component {
                     this.setState({message: res['state']})
                     console.log(this.state)
                 });
-        // fetch('http://localhost:3000/login', {
-        //     method: "POST",
-        //     cache: "no-cache",
-        //     headers: {"Content-Type": "application/json",},
-        //     body: JSON.stringify(this.state)
-        // }).then(response => response.json())
     }
         else{
             console.error("FORM INVALID")

@@ -33,15 +33,6 @@ class Home extends Component{
         }
     }
 
-    // componentDidMount(){
-    //     Axios.get('http://127.0.0.1:5000/home')
-    //     .then(response => {
-    //         const articles = response.data
-    //         this.setState({articles: articles})
-    //         });
-    //     console.log(this.state.articles)
-    // }
-
     handleShows = e =>{
         Axios.get('http://127.0.0.1:5000/home')
             .then(response => {
@@ -168,29 +159,28 @@ class Home extends Component{
         <div>
             <h1>Welcome to the homepage</h1>
 
+            {/*button for show*/}
             <div className="show">
                 <button onClick={this.handleShows}>Show Article</button>
             </div>
+
+            {/*button for unshow*/}
             <div className="Unshow">
                 <button onClick={this.handleUnshow}>Unshow Article</button>
             </div>
 
+            {/*searchBar for show*/}
             <input className="searchBar"
                    type = "text"
                    placeholder="Search...."
                    onChange={this.handleChange}
             />
-
+            {/*search button*/}
             <div className="foodSearch">
                 <button onClick={this.handleSubmit}>Search Food!</button>
             </div>
 
-            {/*<div onSubmit={this.handleSubmit} noValidate>*/}
-            {/*    <div className="foodSearch">*/}
-            {/*        <button type="submit">Search Food !</button>*/}
-            {/*    </div>*/}
-
-            {/*</div>*/}
+            {/*display the context*/}
             <body>
             <div className="context">
                 <h2>{this.state.articles.map(response => {
@@ -206,16 +196,6 @@ class Home extends Component{
                     { this.state.carbs + this.state.carbsVal}<br/>
                     { this.state.carbsRange + this.state.carbsRangeVal}
                 </h2>
-                {/*<p>{this.state.caloriesRange + this.state.caloriesRangeVal}</p>*/}
-
-                {/*{ this.state.calories && <h2 className="foodInfomation"> { this.state.calories + this.state.caloriesVal} </h2> }*/}
-                {/*{ this.state.caloriesRange && <h2 className="foodInfomation"> { this.state.caloriesRange + this.state.caloriesRangeVal} </h2> }*/}
-                {/*{ this.state.calories && <h2 className="foodInfomation">{ this.state.protein + this.state.proteinVal}</h2> }*/}
-                {/*{ this.state.caloriesRange && <h2 className="foodInfomation"> { this.state.proteinRange + this.state.proteinRangeVal} </h2> }*/}
-                {/*{ this.state.fat && <h2 className="foodInfomation"> { this.state.fat +this.state.fatVal } </h2> }*/}
-                {/*{ this.state.fatRange && <h2 className="foodInfomation"> { this.state.fatRange+ this.state.fatRangeVal} </h2> }*/}
-                {/*{ this.state.carbs && <h2 className="foodInfomation"> { this.state.carbs + this.state.carbsVal} </h2> }*/}
-                {/*{ this.state.carbsRange && <h2 className="foodInfomation"> { this.state.carbsRange + this.state.carbsRangeVal} </h2> }*/}
             </div>
             </body>
         </div>
