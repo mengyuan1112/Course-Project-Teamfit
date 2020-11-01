@@ -96,7 +96,7 @@ export default class Fitness extends React.Component {
             this.addDateRows();
             this.addCardioRows();
             this.addWeightsRows();
-            this.refs.historybtn.setAttribute("disabled", "disabled");
+            this.refs.fitHistorybtn.setAttribute("disabled", "disabled");
         }
         const {name,value} = e.target;
         let formErrors = this.state.formErrors;

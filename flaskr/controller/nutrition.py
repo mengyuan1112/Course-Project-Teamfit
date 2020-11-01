@@ -28,10 +28,10 @@ def nutritionSubmit():
                     idXtra, nutHistory = row[i]
                     data = json.dumps(nutHistory)
                     jsonData = json.loads(data)
-                    print(jsonData)
                     finishedData = json.dumps(jsonData)
-                    print(finishedData)
                     return finishedData
+        newHistory = """{"calories": [], "date": [], "weight": []}"""
+        return newHistory
     if request.method == 'POST':
         nutritionInfo = request.get_json()
         protein = nutritionInfo['protein']
