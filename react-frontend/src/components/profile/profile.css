@@ -1,11 +1,13 @@
 body {
     background-color: #58828b;
+    overflow: hidden;
+    overflow-y: auto;
 }
 
 .logo {
     position: absolute;
     top: 13%;
-    left: 70%;
+    left: 80%;
     transform: translate(-10%, -50%);
 }
 
@@ -16,4 +18,12 @@ body {
 .row1 {
     position: static;
     padding-left: 40px;
+}
+
+.rows .pp {
+    border-radius: 70px;
+}
+
+.name {
+    padding: 010c;
 }
