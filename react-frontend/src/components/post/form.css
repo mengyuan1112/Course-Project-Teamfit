@@ -2,8 +2,14 @@
     background: #58828b; 
     padding: 20px;
     margin: 5px 100px 10px 5px;
+    min-width: 68px;
+    display: flex;
   }
   
   .content {
     margin-left: 5px;
+  }
+
+  body {
+    overflow: auto;
   }
