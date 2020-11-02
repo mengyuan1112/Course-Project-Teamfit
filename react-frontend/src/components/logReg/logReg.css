@@ -215,3 +215,6 @@ input.error {
   color: black;
   text-align: center;
 }
+.body{
+  overflow-y: auto;
+}
