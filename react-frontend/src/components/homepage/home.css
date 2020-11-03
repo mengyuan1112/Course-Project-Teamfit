@@ -1,0 +1,35 @@
+body {
+    overflow: hidden;
+}
+.foodSearch{
+    /*background-color:  ; !* blue *!*/
+    border: green;
+    color: red;
+    border-radius: 12px;
+    padding: 8px 8px;
+    text-align: justify-all;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0px;
+}
+
+.show{
+    margin-left: 82%;
+}
+
+.searchBar{
+    margin-left: 70%;
+    margin-bottom: 10%;
+
+}
+
+
+.context {
+    height: 50vh; /* Magic here */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Unshow{
+    margin-left: 82%;
+}
