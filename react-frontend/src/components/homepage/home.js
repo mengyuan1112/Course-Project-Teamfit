@@ -6,7 +6,7 @@ import Articles from "./articles.js";
 import axiosConfig from "axios";
 import loginImg from "../../TeamFit_logo.png";
 import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
+
 
 
 
@@ -166,7 +166,7 @@ class Home extends Component{
             <img src={loginImg} width="180" height="180" alt="LoginImage" className="logo"/>
             
 
-                <div style={{height: "180px", marginTop: "5%", marginLeft: "30%"}}>
+                <div style={{height: "180px", marginTop: "5%", marginLeft: "5%"}}>
 
                 {/*searchBar for show*/}
                 <h2>Nutrition Info:</h2>
@@ -176,7 +176,7 @@ class Home extends Component{
                     onChange={this.handleChange}
                 />
                 {/*search button*/}           
-                <Button onClick={this.handleSubmit} variant="primary">Search Food!</Button>
+                <button onClick={this.handleSubmit} className="foodSearch">Search Food!</button>
 
 
                 {/*display the context*/}
