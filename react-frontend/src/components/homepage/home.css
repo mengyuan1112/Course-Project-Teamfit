@@ -14,12 +14,12 @@ body {
 }
 
 .show{
-    margin-left: 82%;
+    /* margin-left: 82%; */
 }
 
 .searchBar{
-    margin-left: 70%;
-    margin-bottom: 10%;
+    /* margin-left: 70%;
+    margin-bottom: 10%; */
 
 }
 
@@ -31,5 +31,5 @@ body {
     align-items: center;
 }
 .Unshow{
-    margin-left: 82%;
+    /* margin-left: 82%; */
 }
