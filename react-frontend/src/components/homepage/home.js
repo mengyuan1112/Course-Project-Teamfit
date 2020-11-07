@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
 // import Newsfeed from './../newsfeed.js';
 import Axios from "axios";
-import './home.css';
+import "./home.css";
+import Articles from "./articles.js";
 import axiosConfig from "axios";
+import loginImg from "../../TeamFit_logo.png";
+import Card from 'react-bootstrap/Card'
+
+
+
 
 
 class Home extends Component{
@@ -157,47 +163,45 @@ class Home extends Component{
     render() {
         return (
         <div>
-            <h1>Welcome to the homepage</h1>
+            <img src={loginImg} width="180" height="180" alt="LoginImage" className="logo"/>
+            
 
-            {/*button for show*/}
-            <div className="show">
-                <button onClick={this.handleShows}>Show Article</button>
-            </div>
+                <div style={{height: "180px", marginTop: "5%", marginLeft: "5%"}}>
 
-            {/*button for unshow*/}
-            <div className="Unshow">
-                <button onClick={this.handleUnshow}>Unshow Article</button>
-            </div>
+                {/*searchBar for show*/}
+                <h2>Nutrition Info:</h2>
+                <input className="searchBar"
+                    type = "text"
+                    placeholder="Search...."
+                    onChange={this.handleChange}
+                />
+                {/*search button*/}           
+                <button onClick={this.handleSubmit} className="foodSearch">Search Food!</button>
 
-            {/*searchBar for show*/}
-            <input className="searchBar"
-                   type = "text"
-                   placeholder="Search...."
-                   onChange={this.handleChange}
-            />
-            {/*search button*/}
-            <div className="foodSearch">
-                <button onClick={this.handleSubmit}>Search Food!</button>
-            </div>
 
-            {/*display the context*/}
-            <body>
-            <div className="context">
-                <h2>{this.state.articles.map(response => {
-                    return <li>{response.title}</li>;
-                })}<br/>
-                    { this.state.message}<br/>
-                    { this.state.calories + this.state.caloriesVal}<br/>
-                    { this.state.caloriesRange + this.state.caloriesRangeVal}<br/>
-                    { this.state.protein + this.state.proteinVal}<br/>
-                    { this.state.proteinRange + this.state.proteinRangeVal}<br/>
-                    { this.state.fat +this.state.fatVal}<br/>
-                    { this.state.fatRange+ this.state.fatRangeVal}<br/>
-                    { this.state.carbs + this.state.carbsVal}<br/>
-                    { this.state.carbsRange + this.state.carbsRangeVal}
-                </h2>
-            </div>
-            </body>
+                {/*display the context*/}
+                    {this.state.articles.map(response => {
+                          return <li>{response.title}</li>;
+                        })}
+                    <Card style={{width: '50rem'}}>
+                        <Card.Body>
+                        {this.state.articles.map(response => {
+                        return <li>{response.title}</li>;
+                        })}
+                        { this.state.message}<br/>
+                        { this.state.calories + this.state.caloriesVal}<br/>
+                        { this.state.caloriesRange + this.state.caloriesRangeVal}<br/>
+                        { this.state.protein + this.state.proteinVal}<br/>
+                        { this.state.proteinRange + this.state.proteinRangeVal}<br/>
+                        { this.state.fat +this.state.fatVal}<br/>
+                        { this.state.fatRange+ this.state.fatRangeVal}<br/>
+                        { this.state.carbs + this.state.carbsVal}<br/>
+                        { this.state.carbsRange + this.state.carbsRangeVal}
+                        </Card.Body>
+                    </Card>
+                    
+                </div>
+                <Articles />
         </div>
 
 
