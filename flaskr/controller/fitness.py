@@ -32,7 +32,7 @@ def fitnessSubmit():
                     finishedData = json.dumps(jsonData)
                     print(finishedData)
                     return finishedData
-        newHistory = """{"date": [], "cardio": [], "weights": []}"""
+        newHistory = """{"date": [], "cardio": [], "weights": [], "cals": []}"""
         return newHistory
     if request.method == 'POST':
         fitnessInfo = request.get_json()
@@ -40,6 +40,9 @@ def fitnessSubmit():
         weights = fitnessInfo['weights']
         number = _getUsername()
         today = date.today()
+        print(weights)
+        print(type(weights))
+        approxCal = round(((int(weights)/30)*120)+((int(cardio)/30)*270))
         dateformat = today.strftime("%m/%d/%y")
         # Save this info to user  in database
         conn = psycopg2.connect(
@@ -60,6 +63,7 @@ def fitnessSubmit():
                     jsonData['date'].append(dateformat)
                     jsonData['cardio'].append(cardio)
                     jsonData['weights'].append(weights)
+                    jsonData['cals'].append(approxCal)
                     finishedData = json.dumps(jsonData)
                     sql = 'UPDATE fitness set history = %s WHERE id =%s'
                     val = (finishedData, number)
@@ -68,16 +72,17 @@ def fitnessSubmit():
                     return "Info has been processed"
         with conn.cursor() as cur:
             cur.execute("SELECT * FROM teamfit.nutrition")
-            newData = """{"cardio": [], "date": [], "weights": []}"""
+            newData = """{"cardio": [], "date": [], "weights": [], "cals": []}"""
             newjsonData = json.loads(newData)
             newjsonData['date'].append(dateformat)
             newjsonData['cardio'].append(cardio)
             newjsonData['weights'].append(weights)
+            newjsonData['cals'].append(approxCal)
             finaljsonData = json.dumps(newjsonData)
             sql2 = 'INSERT INTO teamfit.fitness (id, history) VALUES (%s,%s)'
             val2 = (number, finaljsonData)
             cur.execute(sql2, val2)
             conn.commit()
         return "User added to database with new info"
-    newHistory = """{"cardio": [], "date": [], "weights": []}"""
+    newHistory = """{"cardio": [], "date": [], "weights": [], "cals": []}"""
     return newHistory

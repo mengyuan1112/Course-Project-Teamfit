@@ -6,6 +6,7 @@ import Axios from 'axios';
 const dateRows = [];
 const cardioRows = [];
 const weightsRows = [];
+const calRows = [];
 
 /* Function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
@@ -66,7 +67,14 @@ export default class Fitness extends React.Component {
     addWeightsRows() {
         for (var i = 0; i < this.state.history.weights.length; i++){
             weightsRows.push(<tr>{this.state.history.weights[`${i}`]}</tr>)
-            weightsRows.push(<tr>{'---------'}</tr>)
+            weightsRows.push(<tr>{'---------------'}</tr>)
+        }
+    }
+    /*Helper function to add the approx. calorie rows to html render*/
+    addCalsRows() {
+        for (var i = 0; i < this.state.history.cals.length; i++){
+            calRows.push(<tr>{this.state.history.cals[`${i}`]}</tr>)
+            calRows.push(<tr>{'-----------------'}</tr>)
         }
     }
 
@@ -96,6 +104,7 @@ export default class Fitness extends React.Component {
             this.addDateRows();
             this.addCardioRows();
             this.addWeightsRows();
+            this.addCalsRows();
             this.refs.fitHistorybtn.setAttribute("disabled", "disabled");
         }
         const {name,value} = e.target;
@@ -173,6 +182,14 @@ render(){
                             </thead>
                             <tbody>
                             {weightsRows}
+                            </tbody>
+                        </table>
+                        <table className="cals-table" id="table">
+                            <thead>
+                            Calories Burned:
+                            </thead>
+                            <tbody>
+                            {calRows}
                             </tbody>
                         </table>
                     </div>
