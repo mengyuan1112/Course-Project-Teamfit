@@ -51,7 +51,7 @@ def creat_register():
                     cur.close()
                     conn.close()
                     return jsonify({'state': "Account already exist"})
-            cur.execute("INSERT INTO teamfit.user(PhoneNumber, PassWord, Email, UserName, Age, HeightFt , HeightIn, Weight, Gender, Friends) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (user_phone, user_password, user_email, user_name, user_age, user_heightFt, user_heightIn, user_weight, user_gender, ["hello", "Bye"]))
+            cur.execute("INSERT INTO teamfit.user(PhoneNumber, PassWord, Email, UserName, Age, HeightFt , HeightIn, Weight, Gender) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (user_phone, user_password, user_email, user_name, user_age, user_heightFt, user_heightIn, user_weight, user_gender,))
             conn.commit()
             return jsonify({'state': "Register successful"}), 200  #or use render to shows the login page  # shows register page
         cur.close()
