@@ -10,7 +10,7 @@ export default class Messages extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      sourceEmail: "jacobgol@buffalo.edu",
+      sourceEmail: "",
       password:"",
       destEmail: "",
       header: "",
@@ -30,23 +30,35 @@ export default class Messages extends React.Component {
         this.state.parentList.push(data)
       })
   }
-  handleChange = (e) => this.setState({ 
-    sourceEmail: e.target.sourceEmail
-  }) 
-  //handles form button being clicked.
- 
+
+  handleChange = ({ target }) => {
+    this.setState({ [target.name]: target.value });
+ };
   componentDidMount() {
     console.log(this.state.sourceEmail)
   }
 
   render() {
+    const renderList = this.state.sourceEmail;
+    let list;
+    let create = <CreateMessage sourceEmail={this.state.sourceEmail}/>;
+    if(this.state.sourceEmail.length > 0){
+      list = <ListMessage sourceEmail={this.state.sourceEmail}/>
+    }else{
+      create = <CreateMessage sourceEmail={this.state.sourceEmail}/>
+    }
     return (
+      <React.Fragment>
       <div>
         <h2>Enter your Username below before proceeding</h2>
-        <TextField id="standrd-basic" onChange={this.handleChange} label="UserName"/>
-        <CreateMessage data={this.state.sourceEmail}/>
-        <ListMessage data ={this.state.sourceEmail}/>
+        <form>
+          <input type="text" name="sourceEmail" value={this.state.sourceEmail} onChange={this.handleChange}/>
+        </form>
       </div>
+      <div>{create}</div>
+    <div>{list}</div>
+      <h2>Your username is: {this.state.sourceEmail}</h2>
+      </React.Fragment>
     )
   }
 }

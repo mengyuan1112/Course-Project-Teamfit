@@ -8,12 +8,11 @@ export default class CreateMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sourceEmail: "hello@buffalo.edu",
-      password:"helloworld",
-      destEmail: "hello@gmail.com",
+      destEmail: "destination@gmail.com",
       header: "Good day sir!",
       messageList: [],
       parentCounter: 0,
+      content:"",
       formErrors: {
         sourceEmail: "",
         destEmail: "",
@@ -25,7 +24,7 @@ export default class CreateMessage extends React.Component {
   }
 
   listMessages() {
-    axios.get('http://localhost:5000/listMessages', { headers: { "userID": this.state.sourceEmail } })
+    axios.get('http://localhost:5000/listMessages', { headers: { "userID": this.props.sourceEmail } })
       .then(function (data) {
         this.state.messageList.push(data)
       })
@@ -36,9 +35,9 @@ export default class CreateMessage extends React.Component {
     return {
       header: this.state.header,
       parentMessageID: this.state.parentCounter,
-      userID: this.state.sourceEmail,
+      userID: this.props.sourceEmail,
       recieverID: this.state.recieverID,
-      content: this.state.content
+      content: this.state.body
     }
 
   }
@@ -99,23 +98,22 @@ export default class CreateMessage extends React.Component {
             name="username"
             type="text"
             onChange={this.onInputChange}
-            value={this.state.sourceEmail.value}
+            value={this.props.sourceEmail}
             required
           />
           <input
-            placeholder="Email"
+            placeholder="Destination Username"
             name="email"
             type="email"
             onChange={this.onInputChange}
-            value={this.state.sourceEmail.value}
             required
           />
           <input
-            placeholder="Password"
-            name="password"
-            type="password"
+            placeholder="Content"
+            name="content"
+            type="text"
             onChange={this.onInputChange}
-            value={this.state.password.value}
+            value={this.state.content.value}
             required
           />
           <button>Submit</button>
