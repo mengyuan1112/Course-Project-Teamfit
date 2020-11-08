@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import CreateMessage from './createMessageForm.js';
 import ListMessage from './listMessage'
+import DeleteMessage from './deleteMessage.js'
 const axios = require('axios');
 
 export default class Messages extends React.Component {
@@ -41,9 +42,11 @@ export default class Messages extends React.Component {
   render() {
     const renderList = this.state.sourceEmail;
     let list;
+    let del;
     let create = <CreateMessage sourceEmail={this.state.sourceEmail}/>;
     if(this.state.sourceEmail.length > 0){
       list = <ListMessage sourceEmail={this.state.sourceEmail}/>
+      del = <DeleteMessage sourceEmail={this.state.sourceEmail}/>
     }else{
       create = <CreateMessage sourceEmail={this.state.sourceEmail}/>
     }
@@ -52,11 +55,12 @@ export default class Messages extends React.Component {
       <div>
         <h2>Enter your Username below before proceeding</h2>
         <form>
-          <input type="text" name="sourceEmail" value={this.state.sourceEmail} onChange={this.handleChange}/>
+          <input type="email" name="sourceEmail" value={this.state.sourceEmail} onChange={this.handleChange}/>
         </form>
       </div>
       <div>{create}</div>
-    <div>{list}</div>
+      <div>{list}</div>
+    <div>{del}</div>
       <h2>Your username is: {this.state.sourceEmail}</h2>
       </React.Fragment>
     )

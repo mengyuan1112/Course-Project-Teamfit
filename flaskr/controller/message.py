@@ -3,6 +3,7 @@ from flask_cors import CORS
 import psycopg2
 import psycopg2.errorcodes
 import time
+import sys
 import logging
 import random
 
@@ -29,10 +30,11 @@ def makeMessageTable():
 @message_page.route("/createMessage", methods=["POST"])
 def createMessage():
     data = request.get_json()
+    print(request.get_json(), file=sys.stderr)
     if data.get('userID') == "":
         return jsonify({'Bad request': False, 'message': 'No userID passed'})
     message = Message(data)
-    print(message)
+    print(message, file=sys.stderr)
     insertMessageIntoTable(message)
     # insert a new row into the message table containing this message.
     return jsonify({'ok': True, 'message': 'Message created successfully!'}), 200

@@ -3,39 +3,28 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from "react";
 import style from './message.css'
 const axios = require('axios');
-export default class CreateMessage extends React.Component {
+export default class DeleteMessage extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      destEmail: "destination@gmail.com",
-      header: "Good day sir!",
-      messageList: [],
-      parentCounter: 0,
-      content:"",
-      formErrors: {
-        sourceEmail: "",
-        destEmail: "",
-        header: "",
-      }
+      messageID:"",
     }
     this.onInputChange = this.onInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.createBody = this.createBody.bind(this);
+    this.deleteMessage = this.deleteMessage.bind(this);
   }
 
-  listMessages() {
-    axios.get('http://localhost:5000/listMessages', { headers: { "userID": this.props.sourceEmail } })
+  deleteMessage() {
+    var payload = {
+        messageID: this.state.messageID
+    }
+    axios.delete('http://localhost:5000/listMessages',{data:payload} )
       .then(function (data) {
         this.state.messageList.push(data)
       })
   }
 
-  //handles form button being clicked.
-  createBody = (n) => {
-    return 
-
-  }
   onInputChange(event) {
     this.setState({
       [event.target.name]: { value: event.target.value }
@@ -44,18 +33,13 @@ export default class CreateMessage extends React.Component {
     
   handleSubmit = e => {
     e.preventDefault();
-    fetch('http://localhost:5000/createMessage', {
+    fetch('http://localhost:5000/deleteMessage', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
       },
-      data: {
-        header: this.state.header,
-        parentMessageID: "2",
-        userID: "hello",
-        recieverID: "hello",
-        data: "hello"
+      body: {
+        messageID: this.state.messageID
       }
     }).then(response => response.json())
     window.location.reload()
@@ -92,17 +76,10 @@ export default class CreateMessage extends React.Component {
     }));
     return (
       <div>
-          <h1>Send a Message!</h1>
+          <h2>Delete the message!</h2>
         <form onSubmit={this.handleSubmit}>
           <input
-            placeholder="Destination Username"
-            name="destEmail"
-            type="email"
-            onChange={this.onInputChange}
-            required
-          />
-          <input
-            placeholder="Content"
+            placeholder="MessageID"
             name="content"
             type="text"
             onChange={this.onInputChange}
