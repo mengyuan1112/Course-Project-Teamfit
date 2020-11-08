@@ -52,6 +52,7 @@ class Home extends Component{
                         message: res['state'],
                         foodId: [],
                         foodNutrition: [],
+                        recipeInfo: [],
                         articles: []})
                 }
                 else this.setState(
@@ -59,6 +60,7 @@ class Home extends Component{
                         message: "",
                         foodNutrition: res['state'],
                         foodId: [],
+                        recipeInfo: [],
                         articles: []}
                         )
             })
@@ -77,6 +79,7 @@ class Home extends Component{
                     foodInfo: [],
                     foodNutrition:[],
                     message: "",
+                    recipeInfo: [],
                     foodId: res['state'],
                 })
                 console.log(this.state.foodId);
@@ -95,22 +98,6 @@ class Home extends Component{
                 let res = response.data
                 this.setState({
                     foodInfo: [],
-                    // calories: "",
-                    // caloriesVal: "",
-                    // caloriesRangeVal:[],
-                    // caloriesRange:"",
-                    // fat:"",
-                    // fatVal:"",
-                    // fatRangeVal:[],
-                    // fatRange:"",
-                    // carbs: "",
-                    // carbsVal:"",
-                    // carbsRangeVal:[],
-                    // carbsRange:"",
-                    // protein: "",
-                    // proteinVal: "",
-                    // proteinRange: "",
-                    // proteinRangeVal:[],
                     foodNutrition:[],
                     foodName: "",
                     message: "",

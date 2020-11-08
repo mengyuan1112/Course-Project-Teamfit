@@ -37,6 +37,8 @@ def get_id():
     response = api.autocomplete_recipe_search(food_name, 7)
     food_list = response.json()  # return a list of food with dictionary: [{},{}]
     list = []
+    if(len(food_list) == 0):
+        return jsonify({"state": ["No Such Food"]})
     for i in food_list:
         food_id = i['id']
         food_title = i['title']
