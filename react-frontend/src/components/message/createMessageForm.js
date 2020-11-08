@@ -50,13 +50,13 @@ export default class CreateMessage extends React.Component {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       },
-      data: {
+      body: JSON.stringify({
         header: this.state.header,
         parentMessageID: "2",
         userID: "hello",
         recieverID: "hello",
         data: "hello"
-      }
+      })
     }).then(response => response.json())
     window.location.reload()
   }
@@ -108,7 +108,7 @@ export default class CreateMessage extends React.Component {
             onChange={this.onInputChange}
             required
           />
-          <button>Submit</button>
+          <button>Submit Message</button>
         </form>
       </div>
     );

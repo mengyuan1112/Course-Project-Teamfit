@@ -8,6 +8,7 @@ export default class ListMessage extends React.Component {
     super(props)
     this.state = {
       randomCounter:0,
+      
       messageList: []
     }
     this.listMessages = this.listMessages.bind(this);
@@ -40,10 +41,14 @@ export default class ListMessage extends React.Component {
     return (
       <div className="message">
         <h2>Which of your messages do you want to list</h2>
-        <TextField>Enter the recipient email</TextField>
-        <p></p>
-        <Button onClick={this.handleChange} variant="contained">Update username</Button>
-        <Button onClick={this.listMessages} variant="contained">Refresh</Button>
+        <input
+            placeholder="Destination Username"
+            name="destEmail"
+            type="email"
+            onChange={this.onInputChange}
+            required
+          />
+        <Button onClick={this.listMessages} variant="contained">List</Button>
 
         <div>
         <ul>{this.state.messageList}</ul>

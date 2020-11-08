@@ -68,15 +68,15 @@ def listParents():
     return json_response(rows)
 
 
-@message_page.route("/deleteMessages", methods=["DELETE"])
+@message_page.route("/deleteMessage", methods=["DELETE"])
 def deleteMessage():
     data = request.get_json()
     messageID = data.get('messageID')
     parentMessageID = data.get('parentMessageID')
     if messageID is not None:
-        query = 'DELETE FROM messages WHERE messageID=' + str(messageID)
+        query = 'DELETE FROM messages WHERE messageID=%s'
         cur = conn.cursor()
-        cur.execute(query)
+        cur.execute(query, (messageID))
         conn.commit()
         return json_response("Deleted messageID " + str(messageID))
     if parentMessageID is not None:
