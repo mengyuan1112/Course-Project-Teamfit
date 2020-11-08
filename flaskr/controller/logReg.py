@@ -40,7 +40,7 @@ def creat_register():
         )
         print(conn.get_dsn_parameters(), "\n")
         with conn.cursor() as cur:
-            cur.execute("CREATE TABLE IF NOT EXISTS teamfit.user(PhoneNumber INTEGER PRIMARY KEY, PassWord VARCHAR, Email VARCHAR, UserName VARCHAR, Age INT, HeightFt INT , HeightIn INT ,Weight INT , Gender VARCHAR, Image VARCHAR);")
+            cur.execute("CREATE TABLE IF NOT EXISTS teamfit.user(PhoneNumber INTEGER PRIMARY KEY, PassWord VARCHAR, Email VARCHAR, UserName VARCHAR, Age INT, HeightFt INT , HeightIn INT ,Weight INT , Gender VARCHAR, Image VARCHAR, Friends VARCHAR ARRAY, Posts STRING ARRAY);")
             cur.execute("SELECT PhoneNumber from teamfit.user")
             rows = cur.fetchall()
 
@@ -77,7 +77,7 @@ def login():
     try:
         conn = psycopg2.connect(
             database='teamfit',
-            user='root',
+            user='root', # was 'root'
             port='26257',
             host='localhost',
             sslmode='disable'

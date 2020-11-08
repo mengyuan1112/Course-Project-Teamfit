@@ -1,24 +1,24 @@
-# from flask import Flask, request, jsonify, render_template, Blueprint
-# # from model import News # figure out how to fix this for the news article_info fields
-# from flask_cors import CORS
-# from newsapi.newsapi_client import NewsApiClient
-# import json
-#
-# news_page = Blueprint('news_page', __name__,  template_folder='templates' )
-#
-# @news_page.route('/home', methods=['GET'])
-# def get_news():
-#
-#     # with app.app_context():
-#         newsapi = NewsApiClient(api_key = '29b0d1fda8b6452fb4df7d86a3dc5b9a')
-#         data = newsapi.get_everything(q='health and fitness', language='en', page_size=20)
-#         articles = data['articles']
-#         # print(type(articles[0])) It showed that it is of dict type.
-#         articles_json = json.dumps(articles)
-#         return articles_json
-#
-#
-#
+from flask import Flask, request, jsonify, render_template, Blueprint
+# from model import News # figure out how to fix this for the news article_info fields
+from flask_cors import CORS
+from newsapi.newsapi_client import NewsApiClient
+import json
+
+news_page = Blueprint('news_page', __name__,  template_folder='templates' )
+
+@news_page.route('/home', methods=['GET'])
+def get_news():
+
+    # with app.app_context():
+        newsapi = NewsApiClient(api_key = '29b0d1fda8b6452fb4df7d86a3dc5b9a')
+        data = newsapi.get_everything(q='health and fitness', language='en', page_size=20)
+        articles = data['articles']
+        # print(type(articles[0])) It showed that it is of dict type.
+        articles_json = json.dumps(articles)
+        return articles_json
+
+
+
 # # if __name__ == '__main__':
 # #     news_page.run(debug=True)
 #

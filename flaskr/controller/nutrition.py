@@ -45,7 +45,7 @@ def nutritionSubmit():
         # Save this info to user  in database
         conn = psycopg2.connect(
             database='teamfit',
-            user='teamfit',
+            user='root',
             port=26257,
             host='localhost',
             slmode='disable'

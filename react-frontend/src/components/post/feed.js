@@ -10,16 +10,41 @@ class Feed extends Component {
         super();
         this.state = {
             posts: [
-                {content: "Welcome to your feed!"},
+                {content: ""},
             ]
         }
         this.handleNewPost = this.handleNewPost.bind(this);
     }
+    componentWillMount() {
+        // this.fetchMyPosts();
+      }      
 
+    fetchMyPosts() {
+        fetch('http://127.0.0.1:5000/profile/getPost', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        }).then((res) =>{
+            let response = res.data;
+            this.setState({posts: response});
+            console.log(this.state.posts);
+        })//.then((posts) => {
+        //     this.setState({posts});
+        // })
+    }
     handleNewPost(post) {
-        this.setState({
-            posts: this.state.posts.concat([post]) //Might need to tweak to make sure new posts get pushed to the top as most social media
+        fetch('http://127.0.0.1:5000/profile/makePost', {
+           method: 'POST',
+           body: JSON.stringify(post),
+           headers: {'Content-Type': 'application/json'} 
+        }).then(function(res) {
+            return res;
+        }).then(function(data) {
+            console.log('server respone:', data)
         });
+
+        const posts = this.state.posts.concat([post]);
+
+        this.setState({posts});
     }
     render() {
         const posts = this.state.posts.slice(0).reverse().map((post, index) =>

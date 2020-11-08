@@ -62,3 +62,60 @@ def profile_post():
     else:
         print("No number provided")
     return "image added to database with new info"
+
+# Makes a new post and appends it to the "top" of the list.
+
+@profile_page.route("/profile/makePost", methods=["POST"])
+def make_post():    
+        new_post = request.get_json()
+        made_post = []
+        # made_post.append(new_post)
+        number = _getUsername()
+        conn = psycopg2.connect(
+            database='teamfit',
+            user='root',
+            port=26257,
+            host='localhost',
+            sslmode='disable'
+        )
+        with conn.cursor() as cur:
+            # sql_query1 = 'SELECT * FROM teamfit.user' 
+            # cur.execute(sql_query1)
+            cur.execute('SELECT * FROM teamfit.user')
+            row = cur.fetchall()
+            for i in range(len(row)):
+                if number in row[i]:
+                    post = json.dumps(row[i])
+                    post_data = json.loads(posts)
+                    data = json.dumps(post_data)
+                    data.append(new_post)
+                    # sql_query = 'INSERT INTO teamfit.user (Posts) VALUES (%s)', (made_post) 
+                    sql_query = 'UPDATE teamfit.user SET Posts = array_append(Posts, data) WHERE PhoneNumber = number'
+                    # query_val = (data, number)
+                    cur.execute(sql_query)
+                    conn.commit()
+        return "New Post Has Been Added"
+
+
+@profile_page.route("/profile/getPost", methods=["GET"])
+def display_posts():
+        number = _getUsername()
+        conn = psycopg2.connect(
+                database='teamfit',
+                user='root',
+                port=26257,
+                host='localhost',
+                sslmode='disable'
+            )
+        with conn.cursor() as cur:
+                cur.execute("SELECT * teamfit.user")
+                col = cur.fetchall()
+                for i in col:
+                    if i[0] == number:
+                        return json.dumps(i[11])
+        return "Returning my posts" 
+                # for i in range(len(col)):
+                #     if number in col[i]:
+                #         post = json.dumps(col[i])
+                #         post_data = json.loads(post)
+                #         return json.dumps(post_data)
