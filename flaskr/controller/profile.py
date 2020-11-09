@@ -66,11 +66,16 @@ def profile_post():
 # Makes a new post and appends it to the "top" of the list.
 
 @profile_page.route("/profile/makePost", methods=["POST"])
-def make_post():    
+def make_post():
         new_post = request.get_json()
-        made_post = []
-        # made_post.append(new_post)
-        number = _getUsername()
+        new_post = new_post['content'] + '|'
+        my_string = new_post
+        # number = _getUsername()
+        number = 1234567890 # change to _getUsername when DB works
+        # print('Length of number is:')
+        # print(len(number))
+        # print(type(number))
+        # print(number)
         conn = psycopg2.connect(
             database='teamfit',
             user='root',
@@ -83,18 +88,16 @@ def make_post():
             # cur.execute(sql_query1)
             cur.execute('SELECT * FROM teamfit.user')
             row = cur.fetchall()
-            for i in range(len(row)):
-                if number in row[i]:
-                    post = json.dumps(row[i])
-                    post_data = json.loads(posts)
-                    data = json.dumps(post_data)
-                    data.append(new_post)
-                    # sql_query = 'INSERT INTO teamfit.user (Posts) VALUES (%s)', (made_post) 
-                    sql_query = 'UPDATE teamfit.user SET Posts = array_append(Posts, data) WHERE PhoneNumber = number'
-                    # query_val = (data, number)
-                    cur.execute(sql_query)
-                    conn.commit()
+            print(row)
+            if number == row[0][0]:
+                old_string = row[0][11]
+                my_string += old_string
+                # cur.execute("INSERT INTO teamfit.user (Posts) VALUES (%s) WHERE PhoneNumber = 1234567890 ", ('asd',))
+                cur.execute("UPDATE teamfit.user SET Posts = (%s) WHERE PhoneNumber = 1234567890 ", (my_string,))
+                conn.commit()
+
         return "New Post Has Been Added"
+
 
 
 @profile_page.route("/profile/getPost", methods=["GET"])
