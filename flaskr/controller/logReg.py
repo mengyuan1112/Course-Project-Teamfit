@@ -40,7 +40,7 @@ def creat_register():
         )
         print(conn.get_dsn_parameters(), "\n")
         with conn.cursor() as cur:
-            cur.execute("CREATE TABLE IF NOT EXISTS teamfit.user(PhoneNumber INTEGER PRIMARY KEY, PassWord VARCHAR, Email VARCHAR, UserName VARCHAR, Age INT, HeightFt INT , HeightIn INT ,Weight INT , Gender VARCHAR, Image VARCHAR, Friends VARCHAR ARRAY, Posts STRING ARRAY);")
+            cur.execute("CREATE TABLE IF NOT EXISTS teamfit.user(PhoneNumber INTEGER PRIMARY KEY, PassWord VARCHAR, Email VARCHAR, UserName VARCHAR, Age INT, HeightFt INT , HeightIn INT ,Weight INT , Gender VARCHAR, Image VARCHAR, Friends VARCHAR ARRAY, Posts VARCHAR);")
             cur.execute("SELECT PhoneNumber from teamfit.user")
             rows = cur.fetchall()
 
