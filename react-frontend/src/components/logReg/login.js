@@ -59,12 +59,6 @@ export default class Login extends React.Component {
                     this.setState({message: res['state']})
                     console.log(this.state)
                 });
-        // fetch('http://localhost:3000/login', {
-        //     method: "POST",
-        //     cache: "no-cache",
-        //     headers: {"Content-Type": "application/json",},
-        //     body: JSON.stringify(this.state)
-        // }).then(response => response.json())
     }
         else{
             console.error("FORM INVALID")
@@ -94,12 +88,12 @@ render(){
     return <div className="wrapper">
             <div className="header">
                     <body className="body">
-                        <img src={loginImg} width="180" height="180" alt="LoginImage" />
+                        <img src={loginImg} width="180" height="180" alt="Login Image" />
                     </body>
                 </div>
                 <div className="form-wrapper">
                     <div className="image">
-                        <img src={loginImg} width="180" height="180" alt="LoginImage" />
+                        <img src={loginImg} width="180" height="180" alt="Login Image" />
                         <h3>Welcome to TEAMFIT</h3>
                         <h4>Please Sign In</h4>
 
