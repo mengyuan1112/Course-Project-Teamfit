@@ -12,7 +12,9 @@ class Feed extends Component {
             posts: [
                 {content: ""},
             ],
-            oldPosts: []
+            oldPosts: [
+                
+            ]
         }
         this.handleNewPost = this.handleNewPost.bind(this);
     }
@@ -67,7 +69,7 @@ class Feed extends Component {
     
                 <Form onSubmit={this.handleNewPost} />
                 
-                {this.state.oldPosts.map((response, index) => {
+                {this.state.oldPosts.map(response => {
                     return <ul>{response}</ul> //If all else fails, this works
                     // <ul><Post content={response}/></ul>
                     // return <Post><li>{response}</li></Post>
