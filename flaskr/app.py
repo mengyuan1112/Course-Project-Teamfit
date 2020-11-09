@@ -6,6 +6,7 @@ from .controller.message import message_page
 from .controller.foodSearch import foodSearch_page
 from .controller.news import news_page
 from .controller.profile import profile_page
+from .controller.fitness import fitness_page
 
 app = Flask("__main__")
 app.register_blueprint(nutrition_page)
@@ -15,6 +16,7 @@ app.register_blueprint(foodSearch_page)
 app.register_blueprint(news_page)
 app.register_blueprint(profile_page)
 app.register_blueprint(news_page)
+app.register_blueprint(fitness_page)
 
 
 CORS(app)

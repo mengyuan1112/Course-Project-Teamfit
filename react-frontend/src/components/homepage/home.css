@@ -17,6 +17,38 @@ body {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
+.foodSearchID{
+    /*background-color:  ; !* blue *!*/
+    border: green;
+    color: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding: 8px 8px;
+    display: inline-block;
+    font-size: 0px;
+    background-color: #050505; /* Green */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.foodSearchRecipe{
+    /*background-color:  ; !* blue *!*/
+    border: green;
+    color: rgb(255, 255, 255);
+    border-radius: 12px;
+    padding: 8px 8px;
+    display: inline-block;
+    font-size: 0px;
+    background-color: #050505; /* Green */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
 .context {
     height: 50vh; /* Magic here */
     display: flex;
