@@ -66,12 +66,12 @@ def profile_post():
 # Makes a new post and appends it to the "top" of the list.
 
 @profile_page.route("/profile/makePost", methods=["POST"])
-def make_post():
+def make_post():            
         new_post = request.get_json()
         new_post = new_post['content'] + '|'
         my_string = new_post
         # number = _getUsername()
-        number = 1234567890 # change to _getUsername when DB works
+        number = 3474930254 # change to _getUsername when DB works
         # print('Length of number is:')
         # print(len(number))
         # print(type(number))
@@ -89,13 +89,31 @@ def make_post():
             cur.execute('SELECT * FROM teamfit.user')
             row = cur.fetchall()
             print(row)
-            if number == row[0][0]:
+            # for i in range(len(row)):
+            #     if number in row[i]:
+            #         post = json.dumps(row[i])
+            #         post_data = json.loads(post)
+            #         data = json.dumps(post_data)
+            #         data.append(new_post)
+                    # sql_query = 'INSERT INTO teamfit.user (Posts) VALUES (%s)', (made_post) 
+                    # sql_query = 'UPDATE teamfit.user SET Posts = array_append(Posts, data) WHERE teamfit.user[1] = number'
+            
+                    # query_val = (data, number)
+                    # cur.execute(sql_query)
+                    # conn.commit()
+            # print(type(row[0][0]))
+            # print(row[0][0])
+            # print(row[0])
+            # print(type(row))
+            if number == row[0][0]:  
+                # sql_query = 'INSERT INTO user Posts VALUES (%s)', (my_string)
+                # cur.execute(sql_query)
                 old_string = row[0][11]
-                my_string += old_string
-                # cur.execute("INSERT INTO teamfit.user (Posts) VALUES (%s) WHERE PhoneNumber = 1234567890 ", ('asd',))
-                cur.execute("UPDATE teamfit.user SET Posts = (%s) WHERE PhoneNumber = 1234567890 ", (my_string,))
+                # my_string += old_string
+                # cur.execute('INSERT INTO user Posts VALUES (%s)', (my_string))
+                cur.execute("UPDATE teamfit.user SET Posts = (%s) WHERE PhoneNumber = 3474930254 ", (my_string,))
                 conn.commit()
-
+            
         return "New Post Has Been Added"
 
 
@@ -111,12 +129,24 @@ def display_posts():
                 sslmode='disable'
             )
         with conn.cursor() as cur:
-                cur.execute("SELECT * teamfit.user")
-                col = cur.fetchall()
-                for i in col:
-                    if i[0] == number:
-                        return json.dumps(i[11])
+                cur.execute("SELECT * FROM teamfit.user")
+                row = cur.fetchall()
+                # for i in col:
+                    # if i[0] == number:
+                        # return json.dumps(i[11])
+                if number == row[0][0]:
+                    all_posts = row[0][11]
+                    split_posts = all_posts.split("|")
+                    split_json = []
+                    for i in range(len(row)):
+                        split_json[i] = json.loads(split_posts[i])
+                        return split_json
         return "Returning my posts" 
+
+
+
+
+
                 # for i in range(len(col)):
                 #     if number in col[i]:
                 #         post = json.dumps(col[i])
