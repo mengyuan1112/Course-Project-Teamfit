@@ -88,6 +88,7 @@ def make_post():
             # cur.execute(sql_query1)
             cur.execute('SELECT * FROM teamfit.user')
             row = cur.fetchall()
+            print(row)
             # for i in range(len(row)):
             #     if number in row[i]:
             #         post = json.dumps(row[i])
@@ -100,14 +101,17 @@ def make_post():
                     # query_val = (data, number)
                     # cur.execute(sql_query)
                     # conn.commit()
-            print(type(row[0][0]))
-            print(row[0][0])
+            # print(type(row[0][0]))
+            # print(row[0][0])
             # print(row[0])
             # print(type(row))
             if number == row[0][0]:  
                 # sql_query = 'INSERT INTO user Posts VALUES (%s)', (my_string)
                 # cur.execute(sql_query)
-                cur.execute('INSERT INTO user Posts VALUES (%s)', (my_string))
+                old_string = row[0][11]
+                # my_string += old_string
+                # cur.execute('INSERT INTO user Posts VALUES (%s)', (my_string))
+                cur.execute("UPDATE teamfit.user SET Posts = (%s) WHERE PhoneNumber = 3474930254 ", (my_string,))
                 conn.commit()
             
         return "New Post Has Been Added"
@@ -125,12 +129,24 @@ def display_posts():
                 sslmode='disable'
             )
         with conn.cursor() as cur:
-                cur.execute("SELECT * teamfit.user")
-                col = cur.fetchall()
-                for i in col:
-                    if i[0] == number:
-                        return json.dumps(i[11])
+                cur.execute("SELECT * FROM teamfit.user")
+                row = cur.fetchall()
+                # for i in col:
+                    # if i[0] == number:
+                        # return json.dumps(i[11])
+                if number == row[0][0]:
+                    all_posts = row[0][11]
+                    split_posts = all_posts.split("|")
+                    split_json = []
+                    for i in range(len(row)):
+                        split_json[i] = json.loads(split_posts[i])
+                        return split_json
         return "Returning my posts" 
+
+
+
+
+
                 # for i in range(len(col)):
                 #     if number in col[i]:
                 #         post = json.dumps(col[i])
