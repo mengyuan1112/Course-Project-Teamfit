@@ -3,33 +3,86 @@ import '../post/feed'
 import Upload from '../upload/upload'
 import './profile.css'
 import Feed from '../post/feed';
+import avatar from "../../avatar.jpg";
+import loginImg from "../../TeamFit_logo.png";
+import Axios from 'axios';
+import Button from '@material-ui/core/Button';
+
+
 
 class Profile extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-          name: "Marcos Quan",
-          age: 78,
-          height: 5,
-          weight: 160,
-          gender: "male",
-          number: 7167167167,
-          email: "fit@teamfit.com",
-          isInEditMode: false
+          name: "",
+          age: null,
+          height: "",
+          weight: null,
+          gender: "",
+          number: null,
+          email: "",
+          image: avatar,
+          userInfo: {},
+          formError: {
+              name: "",
+              age: "",
+              height: "",
+              weight: "",
+              gender: "",
+              number: "",
+              email: ""
+          },
+          loading: false,
+          isInEditMode: false,
         };
       }
 
-    componentDidMount(){
-
+    /*GET request to nutrition.py. Updates history to be object with 3 arrays*/
+    componentDidMount() {
+        Axios.get('http://localhost:5000/profile/getinfo').then(response=> { this.setState({userInfo: response.data});})
+        console.log(this.state.userInfo)
     }
+
 
     ChangeEditMode = () => {
         this.setState({
             isInEditMode: !this.state.isInEditMode
         })
     }
+    ChangePPEditMode = () => {
+        this.setState({
+            isPPInEditMode: !this.state.isPPInEditMode
+        })
+    }
 
-    UpdateComponentValue = () => {
+    UpdateComponentValue = e => {
+
+        const {name,value} = e.target;
+        let formErrors = this.state.formErrors;
+        switch (name) {
+            case 'name':
+                formErrors.name = value.length < 1 ? 'Please enter your name':"";
+                break;
+            case 'age':
+                formErrors.age = value.length < 1 ? 'Please enter age':"";
+                break;
+            case 'heighetFT':
+                formErrors.heighetFT = value.length < 1 ? 'Please enter height feet':"";
+                break;
+            case 'heighetIN':
+                formErrors.heighetIN = value.length < 1 ? 'Please enter height inches':"";
+                break;
+            case 'weight':
+                formErrors.weight = value.length < 1 ? "Please enter current weight": "";
+                break;
+            case 'gender':
+                formErrors.gender = value.length < 1 ? "Please enter M for Male and F for Female": "";
+                break;
+            default:
+            break;
+        }
+        this.setState({formErrors, [name]:value}, ()=> console.log(this.state))
+        
         this.setState({
             isInEditMode: false,
             name: this.refs.inputName.value,
@@ -37,94 +90,131 @@ class Profile extends React.Component{
             height: this.refs.inputHeight.value,
             weight: this.refs.inputWeight.value,
             gender: this.refs.inputGender.value,
-            number: this.refs.inputNumber.value,
-            email: this.refs.inputEmail.value,
         })
-
     }
 
     renderEditView = () => {
-        return  (
-        <>
-        <div> 
-            Name: <input type="text" defaultValue={this.state.name} ref="inputName" />
-        </div>
-        <div>
-            Age: <input type="text" defaultValue={this.state.age} ref="inputAge" />    
-        </div>
-        <div>
-            Height: <input type="text" defaultValue={this.state.height} ref="inputHeight" />    
-        </div>
-        <div>
-            Weight:<input type="text" defaultValue={this.state.weight} ref="inputWeight"/>    
-        </div>
-        <div> 
-            Gender: <input type="text" defaultValue={this.state.gender} ref="inputGender" />    
-        </div>
-        <div>
-            Number: <input type="text" defaultValue={this.state.number} ref="inputNumber" />    
-        </div>
-        <div>
-            Email: <input type="text" defaultValue={this.state.email} ref="inputEmail" />    
-        </div>
-        <button onClick={this.ChangeEditMode}>Cancel</button>
-        <button onClick={this.UpdateComponentValue}>Submit</button>
-        </>
-        )
+        
+            return  (
+                <>
+                <div> 
+                    Name: <input type="text" name="name" defaultValue={this.state.userInfo[3]} ref="inputName" />
+                </div>
+                <div>
+                    Age: <input type="text" name="age" defaultValue={this.state.userInfo[4]} ref="inputAge" />    
+                </div>
+                <div>
+                    Height: <input type="text" name="height" defaultValue={this.state.userInfo[5] + "'" + this.state.userInfo[6]} ref="inputHeight" />    
+                </div>
+                <div>
+                    Weight:<input type="text" name="weight" defaultValue={this.state.userInfo[7]} ref="inputWeight"/>    
+                </div>
+                <div> 
+                    Gender: <input type="text" name="gender" defaultValue={this.state.userInfo[8]} ref="inputGender" />    
+                </div>
+                <Button variant="contained" component="label" onClick={this.ChangeEditMode}>Cancel</Button>
+                <Button variant="contained" component="label" onClick={this.UpdateComponentValue}>Submit</Button>
+                </>
+                )
+        
     }
 
     renderDefaultView = () => {
         return (
         <>
-            <div >
-              <p>Name: {this.state.name}</p> 
-            </div>
-            <div >
-              <p>Age: {this.state.age}</p>
-            </div>
-            <div >
-              <p>Height: {this.state.height}</p>
-            </div>
-            <div >
-              <p>Weight: {this.state.weight}</p>
-            </div>
-            <div >
-              <p>Gender: {this.state.gender}</p>
-            </div>
-            <div >
-              <p>Number: {this.state.number}</p>
-            </div>
-            <div >
-              <p>Email: {this.state.email}</p>
-            </div>
-            <button onClick={this.ChangeEditMode}>Edit</button>
+        <div className="name">
+              <h2>{this.state.name}</h2> 
+              <h4>Age: {this.state.age} Height: {this.state.height} Weight: {this.state.weight} Gender: {this.state.gender}</h4>
+              <h4>Number: {this.state.number}</h4>
+              <h4>Email: {this.state.email}</h4>
+        </div>
+            <Button variant="contained" component="label" onClick={this.ChangeEditMode}>Edit</Button>
+            <Button variant="contained" component="label" onClick={this.updateValues}>Refresh</Button>
+            <Button variant="contained" component="label">
+                Update Picture
+            <input
+                style={{display:"none"}}
+                type="file"
+                name="file"
+                placeholder="Upload an image"
+                onChange={this.uploadIamge}
+            />
+            </Button>
+            {this.state.loading ? (<p>Loading...</p>)
+                : (
+                    <b></b>
+                )
+            }
             </>
         )
     }
 
+    updateValues = () => {
+        this.setState({
+            name: this.state.userInfo[3],
+            age: this.state.userInfo[4],
+            height: this.state.userInfo[5] + "'" + this.state.userInfo[6],
+            weight: this.state.userInfo[7],
+            gender: this.state.userInfo[8],
+            number: this.state.userInfo[0],
+            email: this.state.userInfo[2],
+            image: this.state.userInfo[9]
+        })
+     }
+
+    uploadIamge = async e => {
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'teamfit')
+        this.setState({loading: !this.state.loading})
+        const res = await fetch(
+            'https://api.cloudinary.com/v1_1/zayedahm/image/upload',
+            {
+                method: 'POST',
+                body: data
+            }
+        )
+
+        console.log(res)
+
+        const file = await res.json()
+
+        this.setState({image: file.secure_url})
+        this.setState({loading: !this.state.loading})
+
+        /**Save the image URL in the backend */
+        fetch('http://localhost:5000/profile/postimage', {
+        method: "POST",
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(file.secure_url)
+        }).then(response => response.json())
+    }
+
     render() {
         return (
-            
          <>
+        <img src={loginImg} width="180" height="180" alt="LoginImage" className="logo"/>
           <div className="rows">
-                <div className="row">
-                <img className="image" alt="profilepic" src="https://images.unsplash.com/photo-1514218698632-ef079aeae842?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"></img>
-                </div>
-                <div className="row">
+                <div className="details">
+                <img src={this.state.image} width="190" height="190" alt="ProfileImage" className="pp"/>
                 {this.state.isInEditMode ? 
                     this.renderEditView() : this.renderDefaultView()
-                }  
-                </div>
+                }
+                </div>  
                 <div className="row1">
-                <Upload />
+                    <Upload />
                     <Feed />
-
                 </div>
             </div>
-         
         </>
         )
     };
+
 }
 
 

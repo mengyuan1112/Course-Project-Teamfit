@@ -3,6 +3,7 @@ from flask_cors import CORS
 import psycopg2
 import psycopg2.errorcodes
 import time
+import sys
 import logging
 import random
 
@@ -10,7 +11,7 @@ message_page = Blueprint('message_page', __name__, template_folder='templates')
 
 conn = psycopg2.connect(
     database='teamfit',
-    user='teamfit',
+    user='root',
     port='26257',
     host='localhost',
     sslmode='disable'
@@ -29,10 +30,11 @@ def makeMessageTable():
 @message_page.route("/createMessage", methods=["POST"])
 def createMessage():
     data = request.get_json()
+    print(request.get_json(), file=sys.stderr)
     if data.get('userID') == "":
         return jsonify({'Bad request': False, 'message': 'No userID passed'})
     message = Message(data)
-    print(message)
+    print(message, file=sys.stderr)
     insertMessageIntoTable(message)
     # insert a new row into the message table containing this message.
     return jsonify({'ok': True, 'message': 'Message created successfully!'}), 200
@@ -66,26 +68,25 @@ def listParents():
     return json_response(rows)
 
 
-@message_page.route("/deleteMessages", methods=["DELETE"])
+@message_page.route("/deleteMessage", methods=["PUT"])
 def deleteMessage():
     data = request.get_json()
     messageID = data.get('messageID')
     parentMessageID = data.get('parentMessageID')
     if messageID is not None:
-        query = 'DELETE FROM messages WHERE messageID=' + str(messageID)
+        query = 'DELETE  FROM messages WHERE messageID='+ str(messageID)
         cur = conn.cursor()
-        cur.execute(query)
+        cur.execute(query, (messageID))
         conn.commit()
         return json_response("Deleted messageID " + str(messageID))
     if parentMessageID is not None:
         query = 'DELETE FROM messages WHERE parentID=' + str(parentMessageID)
+        cur.execute('DELETE  FROM messages WHERE messageID=() VALUES (%s)')
         cur = conn.cursor()
-        cur.execute(query)
         conn.commit()
         return json_response("Deleted all messages with parentMessageID=" + str(parentMessageID))
     return (json.dumps('There is no messageID how can you expect me to delete this message.'), 400,
             {'content-type': 'application/json'})
-
 
 def insertMessageIntoTable(message):
     with conn.cursor() as cur:
@@ -93,7 +94,6 @@ def insertMessageIntoTable(message):
             'INSERT into messages (header, parentMessageID, sourceID, recieverID, content) VALUES (%s,%s,%s,%s,%s)',
             (message.header, message.parentMessageID, message.sourceID, message.recieverID, message.content))
     conn.commit()
-
 
 def json_response(payload, status=200):
     return (json.dumps(payload), status, {'content-type': 'application/json'})
