@@ -40,7 +40,7 @@ def creat_register():
         )
         print(conn.get_dsn_parameters(), "\n")
         with conn.cursor() as cur:
-            cur.execute("CREATE TABLE IF NOT EXISTS teamfit.user(PhoneNumber INTEGER PRIMARY KEY, PassWord VARCHAR, Email VARCHAR, UserName VARCHAR, Age INT, HeightFt INT , HeightIn INT ,Weight INT , Gender VARCHAR, Image VARCHAR);")
+            cur.execute("CREATE TABLE IF NOT EXISTS teamfit.user(PhoneNumber INTEGER PRIMARY KEY, PassWord VARCHAR, Email VARCHAR, UserName VARCHAR, Age INT, HeightFt INT , HeightIn INT ,Weight INT , Gender VARCHAR, Image VARCHAR, Friends VARCHAR ARRAY);")
             cur.execute("SELECT PhoneNumber from teamfit.user")
             rows = cur.fetchall()
 
@@ -48,11 +48,10 @@ def creat_register():
                 print(type(user_phone))
 
                 if i[0] == int(user_phone):
-                    print("hahaha")
                     cur.close()
                     conn.close()
                     return jsonify({'state': "Account already exist"})
-            cur.execute("INSERT INTO teamfit.user(PhoneNumber, PassWord, Email, UserName, Age, HeightFt , HeightIn, Weight, Gender) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (user_phone, user_password, user_email, user_name, user_age, user_heightFt, user_heightIn, user_weight, user_gender))
+            cur.execute("INSERT INTO teamfit.user(PhoneNumber, PassWord, Email, UserName, Age, HeightFt , HeightIn, Weight, Gender) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (user_phone, user_password, user_email, user_name, user_age, user_heightFt, user_heightIn, user_weight, user_gender,))
             conn.commit()
             return jsonify({'state': "Register successful"}), 200  #or use render to shows the login page  # shows register page
         cur.close()
