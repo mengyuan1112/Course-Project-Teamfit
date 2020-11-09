@@ -68,13 +68,13 @@ def listParents():
     return json_response(rows)
 
 
-@message_page.route("/deleteMessage", methods=["DELETE"])
+@message_page.route("/deleteMessage", methods=["PUT"])
 def deleteMessage():
     data = request.get_json()
     messageID = data.get('messageID')
     parentMessageID = data.get('parentMessageID')
     if messageID is not None:
-        query = 'DELETE FROM messages WHERE messageID=%s'
+        query = 'DELETE  FROM messages WHERE messageID='+ str(messageID)
         cur = conn.cursor()
         cur.execute(query, (messageID))
         conn.commit()
@@ -88,14 +88,12 @@ def deleteMessage():
     return (json.dumps('There is no messageID how can you expect me to delete this message.'), 400,
             {'content-type': 'application/json'})
 
-
 def insertMessageIntoTable(message):
     with conn.cursor() as cur:
         cur.execute(
             'INSERT into messages (header, parentMessageID, sourceID, recieverID, content) VALUES (%s,%s,%s,%s,%s)',
             (message.header, message.parentMessageID, message.sourceID, message.recieverID, message.content))
     conn.commit()
-
 
 def json_response(payload, status=200):
     return (json.dumps(payload), status, {'content-type': 'application/json'})
