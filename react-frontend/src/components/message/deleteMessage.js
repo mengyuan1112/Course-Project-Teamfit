@@ -9,8 +9,7 @@ export default class DeleteMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      messageID:0,
-      error:false
+      messageID: 0,
     }
     this.onInputChange = this.onInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,7 +29,7 @@ export default class DeleteMessage extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        messageID: this.state.messageID,
+        messageID: this.state.messageID.value
       })
     }).then(response => response.data)
     window.location.reload()

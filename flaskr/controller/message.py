@@ -81,8 +81,8 @@ def deleteMessage():
         return json_response("Deleted messageID " + str(messageID))
     if parentMessageID is not None:
         query = 'DELETE FROM messages WHERE parentID=' + str(parentMessageID)
+        cur.execute('DELETE  FROM messages WHERE messageID=() VALUES (%s)')
         cur = conn.cursor()
-        cur.execute(query)
         conn.commit()
         return json_response("Deleted all messages with parentMessageID=" + str(parentMessageID))
     return (json.dumps('There is no messageID how can you expect me to delete this message.'), 400,
