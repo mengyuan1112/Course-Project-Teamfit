@@ -71,6 +71,7 @@ def make_post():
         new_post = new_post['content'] + '|'
         my_string = new_post
         # number = _getUsername()
+        # print('NUMBER:', number)
         number = 3474930254 # change to _getUsername when DB works
         # print('Length of number is:')
         # print(len(number))
@@ -109,7 +110,8 @@ def make_post():
                 # sql_query = 'INSERT INTO user Posts VALUES (%s)', (my_string)
                 # cur.execute(sql_query)
                 old_string = row[0][11]
-                # my_string += old_string
+                print('OLD STRING:',old_string)
+                my_string += old_string
                 # cur.execute('INSERT INTO user Posts VALUES (%s)', (my_string))
                 cur.execute("UPDATE teamfit.user SET Posts = (%s) WHERE PhoneNumber = 3474930254 ", (my_string,))
                 conn.commit()
@@ -120,7 +122,8 @@ def make_post():
 
 @profile_page.route("/profile/getPost", methods=["GET"])
 def display_posts():
-        number = _getUsername()
+        # number = _getUsername()
+        number = 3474930254
         conn = psycopg2.connect(
                 database='teamfit',
                 user='root',
@@ -134,13 +137,21 @@ def display_posts():
                 # for i in col:
                     # if i[0] == number:
                         # return json.dumps(i[11])
+                # if number == row[0][0]:
+                #     all_posts = row[0][11]
+                #     split_posts = all_posts.split("|")
+                #     split_json = []
+                #     for i in range(len(row)):
+                #         split_json[i] = json.loads(split_posts[i])
                 if number == row[0][0]:
                     all_posts = row[0][11]
                     split_posts = all_posts.split("|")
-                    split_json = []
-                    for i in range(len(row)):
-                        split_json[i] = json.loads(split_posts[i])
-                        return split_json
+                    print(split_posts)
+            # split_json = []
+            # for i in range(len(row)):
+            #     split_json[i] = json.loads(split_posts[i])
+                    return jsonify({'state': split_posts})
+                    # return split_json
         return "Returning my posts" 
 
 

@@ -10,15 +10,22 @@ class Feed extends Component {
         super();
         this.state = {
             posts: [
-                {content: ""} 
+                {content: ""},
             ],
             oldPosts: []
-
         }
         this.handleNewPost = this.handleNewPost.bind(this);
     }
     componentWillMount() {
-        this.fetchMyPosts();
+        // this.fetchMyPosts();
+        fetch('http://127.0.0.1:5000/profile/getPost', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        }).then(res =>res.json())
+            .then(data =>
+                this.setState({oldPosts: data['state']},()=>console.log(this.state.oldPosts))
+
+            )
       }      
 
     fetchMyPosts() {
@@ -27,7 +34,7 @@ class Feed extends Component {
             headers: {'Content-Type': 'application/json'}
         }).then((res) =>{
             let response = res.data;
-            this.setState({oldPosts: response});
+            this.setState({posts: response});
             console.log(this.state.posts);
         })//.then((posts) => {
         //     this.setState({posts});
@@ -49,17 +56,17 @@ class Feed extends Component {
         this.setState({posts});
     }
     render() {
-        // const posts = this.state.posts.slice(0).reverse().map((post, index) =>
-        //     <Post key={index} value={post} />
-        // );
-        
+        const posts = this.state.posts.slice(0).reverse().map((post, index) =>
+            <Post key={index} value={post} />
+        );
         return (
             <div className="feed">
                 <Form onSubmit={this.handleNewPost} />
-                {/* {this.state.posts} */}
+                {/* oldPosts: [] */}
                 {this.state.oldPosts.map(response => {
                     return <li>{response}</li>
                 })}
+                {posts}
             </div>
         )
     }
