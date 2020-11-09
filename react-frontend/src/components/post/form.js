@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Post from './post.js';
 import './feed.css';
 import './post.css';
 import './form.css';
@@ -19,6 +20,7 @@ class Form extends Component {
     render() {
         return (
             <div className="form">
+                
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" ref={(input) => this.content = input} />
                     <button className="button">Share!</button>

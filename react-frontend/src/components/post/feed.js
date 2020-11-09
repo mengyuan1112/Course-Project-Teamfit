@@ -26,7 +26,8 @@ class Feed extends Component {
                 this.setState({oldPosts: data['state']},()=>console.log(this.state.oldPosts))
 
             )
-      }      
+    }
+
 
     fetchMyPosts() {
         fetch('http://127.0.0.1:5000/profile/getPost', {
@@ -42,9 +43,9 @@ class Feed extends Component {
     }
     handleNewPost(post) {
         fetch('http://127.0.0.1:5000/profile/makePost', {
-           method: 'POST',
-           body: JSON.stringify(post),
-           headers: {'Content-Type': 'application/json'} 
+            method: 'POST',
+            body: JSON.stringify(post),
+            headers: {'Content-Type': 'application/json'}
         }).then(function(res) {
             return res;
         }).then(function(data) {
@@ -55,18 +56,25 @@ class Feed extends Component {
 
         this.setState({posts});
     }
+
+
     render() {
         const posts = this.state.posts.slice(0).reverse().map((post, index) =>
             <Post key={index} value={post} />
         );
         return (
             <div className="feed">
+    
                 <Form onSubmit={this.handleNewPost} />
-                {/* oldPosts: [] */}
-                {this.state.oldPosts.map(response => {
-                    return <li>{response}</li>
+                
+                {this.state.oldPosts.map((response, index) => {
+                    return <ul>{response}</ul> //If all else fails, this works
+                    // <ul><Post content={response}/></ul>
+                    // return <Post><li>{response}</li></Post>
+                    // <Post key={index} value={response} />
                 })}
-                {posts}
+                {/* {posts} */}
+                
             </div>
         )
     }

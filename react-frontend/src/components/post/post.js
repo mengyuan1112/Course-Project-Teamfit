@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Form from './form.js';
 import './feed.css';
 import './post.css';
 import './form.css';
