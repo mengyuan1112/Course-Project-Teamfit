@@ -10,13 +10,15 @@ class Feed extends Component {
         super();
         this.state = {
             posts: [
-                {content: ""},
-            ]
+                {content: ""} 
+            ],
+            oldPosts: []
+
         }
         this.handleNewPost = this.handleNewPost.bind(this);
     }
     componentWillMount() {
-        // this.fetchMyPosts();
+        this.fetchMyPosts();
       }      
 
     fetchMyPosts() {
@@ -25,7 +27,7 @@ class Feed extends Component {
             headers: {'Content-Type': 'application/json'}
         }).then((res) =>{
             let response = res.data;
-            this.setState({posts: response});
+            this.setState({oldPosts: response});
             console.log(this.state.posts);
         })//.then((posts) => {
         //     this.setState({posts});
@@ -47,13 +49,17 @@ class Feed extends Component {
         this.setState({posts});
     }
     render() {
-        const posts = this.state.posts.slice(0).reverse().map((post, index) =>
-            <Post key={index} value={post} />
-        );
+        // const posts = this.state.posts.slice(0).reverse().map((post, index) =>
+        //     <Post key={index} value={post} />
+        // );
+        
         return (
             <div className="feed">
                 <Form onSubmit={this.handleNewPost} />
-                {posts}
+                {/* {this.state.posts} */}
+                {this.state.oldPosts.map(response => {
+                    return <li>{response}</li>
+                })}
             </div>
         )
     }
