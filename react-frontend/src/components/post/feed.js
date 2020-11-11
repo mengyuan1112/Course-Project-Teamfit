@@ -12,9 +12,7 @@ class Feed extends Component {
             posts: [
                 {content: ""},
             ],
-            oldPosts: [
-                
-            ]
+            oldPosts: []
         }
         this.handleNewPost = this.handleNewPost.bind(this);
     }
