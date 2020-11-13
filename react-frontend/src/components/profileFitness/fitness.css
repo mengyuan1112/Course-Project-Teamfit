@@ -184,3 +184,17 @@ text {
   display: inline;
 }
 
+.good {
+  color: green;
+  font-weight: bold;
+}
+.bad {
+  color: red;
+  font-weight: bold;
+}
+
+.intermediate{
+  color: yellow;
+  font-weight: bold;
+}
+

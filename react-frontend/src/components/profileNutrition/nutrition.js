@@ -62,15 +62,35 @@ export default class Nutrition extends React.Component {
     /*Helper function to add the calorie rows to html render*/
     addCalRows() {
         for (var i = 0; i < this.state.history.calories.length; i++){
-            calRows.push(<tr>{this.state.history.calories[`${i}`]}</tr>)
-            calRows.push(<tr>{'---------'}</tr>)
+            if (this.state.history.calories[`${i}`] > 2000) {
+                calRows.push(<tr className='bad'>{this.state.history.calories[`${i}`]}</tr>)
+                calRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.calories[`${i}`] <= 2000 && this.state.history.calories[`${i}`] >= 1750) {
+                calRows.push(<tr className='intermediate'>{this.state.history.calories[`${i}`]}</tr>)
+                calRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.calories[`${i}`] < 1750) {
+                calRows.push(<tr className='good'>{this.state.history.calories[`${i}`]}</tr>)
+                calRows.push(<tr>{'---------'}</tr>)
+            }
         }
     }
     /*Helper function to add the weight rows to html render*/
     addWeightRows() {
         for (var i = 0; i < this.state.history.weight.length; i++){
-            weightRows.push(<tr>{this.state.history.weight[`${i}`]}</tr>)
-            weightRows.push(<tr>{'---------'}</tr>)
+            if (this.state.history.weight[`${i}`] > 225) {
+                weightRows.push(<tr className='bad'>{this.state.history.weight[`${i}`]}</tr>)
+                weightRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.weight[`${i}`] <= 225 && this.state.history.weight[`${i}`] >= 175) {
+                weightRows.push(<tr className='intermediate'>{this.state.history.weight[`${i}`]}</tr>)
+                weightRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.weight[`${i}`] < 175) {
+                weightRows.push(<tr className='good'>{this.state.history.weight[`${i}`]}</tr>)
+                weightRows.push(<tr>{'---------'}</tr>)
+            }
         }
     }
 

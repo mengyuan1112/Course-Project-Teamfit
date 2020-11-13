@@ -59,8 +59,8 @@ def nutritionSubmit():
                     data = json.dumps(nutHistory)
                     jsonData = json.loads(data)
                     jsonData['date'].append(dateformat)
-                    jsonData['calories'].append(calories)
-                    jsonData['weight'].append(weight)
+                    jsonData['calories'].append(int(calories))
+                    jsonData['weight'].append(int(weight))
                     finishedData = json.dumps(jsonData)
                     sql = 'UPDATE nutrition set history = %s WHERE id =%s'
                     val = (finishedData, number)
@@ -72,8 +72,8 @@ def nutritionSubmit():
             newData = """{"calories": [], "date": [], "weight": []}"""
             newjsonData = json.loads(newData)
             newjsonData['date'].append(dateformat)
-            newjsonData['calories'].append(calories)
-            newjsonData['weight'].append(weight)
+            newjsonData['calories'].append(int(calories))
+            newjsonData['weight'].append(int(weight))
             finaljsonData = json.dumps(newjsonData)
             sql2 = 'INSERT INTO teamfit.nutrition (id, history) VALUES (%s,%s)'
             val2 = (number, finaljsonData)

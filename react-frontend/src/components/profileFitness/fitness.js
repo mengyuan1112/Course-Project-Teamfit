@@ -1,6 +1,10 @@
 import React from "react";
 import './fitness.css';
 import Axios from 'axios';
+import red from "@material-ui/core/colors/red";
+import green from "@material-ui/core/colors/green";
+import yellow from "@material-ui/core/colors/yellow";
+import {color} from "@material-ui/system";
 
 /*Constants that store the table entries for the fitness history table*/
 const dateRows = [];
@@ -59,22 +63,52 @@ export default class Fitness extends React.Component {
     /*Helper function to add the cardio rows to html render*/
     addCardioRows() {
         for (var i = 0; i < this.state.history.cardio.length; i++){
-            cardioRows.push(<tr>{this.state.history.cardio[`${i}`]}</tr>)
-            cardioRows.push(<tr>{'---------'}</tr>)
+            if (this.state.history.cardio[`${i}`] <= 5) {
+                cardioRows.push(<tr className='bad'>{this.state.history.cardio[`${i}`]}</tr>)
+                cardioRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.cardio[`${i}`] > 5 && this.state.history.cardio[`${i}`] < 15) {
+                cardioRows.push(<tr className='intermediate'>{this.state.history.cardio[`${i}`]}</tr>)
+                cardioRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.cardio[`${i}`] >= 15) {
+                cardioRows.push(<tr className='good'>{this.state.history.cardio[`${i}`]}</tr>)
+                cardioRows.push(<tr>{'---------'}</tr>)
+            }
         }
     }
     /*Helper function to add the weights rows to html render*/
     addWeightsRows() {
         for (var i = 0; i < this.state.history.weights.length; i++){
-            weightsRows.push(<tr>{this.state.history.weights[`${i}`]}</tr>)
-            weightsRows.push(<tr>{'---------------'}</tr>)
+            if (this.state.history.weights[`${i}`] <= 5) {
+                weightsRows.push(<tr className='bad'>{this.state.history.weights[`${i}`]}</tr>)
+                weightsRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.weights[`${i}`] > 5 && this.state.history.weights[`${i}`] < 15) {
+                weightsRows.push(<tr className='intermediate'>{this.state.history.weights[`${i}`]}</tr>)
+                weightsRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.weights[`${i}`] >= 15) {
+                weightsRows.push(<tr className='good'>{this.state.history.weights[`${i}`]}</tr>)
+                weightsRows.push(<tr>{'---------'}</tr>)
+            }
         }
     }
     /*Helper function to add the approx. calorie rows to html render*/
     addCalsRows() {
         for (var i = 0; i < this.state.history.cals.length; i++){
-            calRows.push(<tr>{this.state.history.cals[`${i}`]}</tr>)
-            calRows.push(<tr>{'-----------------'}</tr>)
+            if (this.state.history.cals[`${i}`] <= 75) {
+                calRows.push(<tr className='bad'>{this.state.history.cals[`${i}`]}</tr>)
+                calRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.cals[`${i}`] > 75 && this.state.history.cals[`${i}`] <= 200) {
+                calRows.push(<tr className='intermediate'>{this.state.history.cals[`${i}`]}</tr>)
+                calRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.cals[`${i}`] > 200) {
+                calRows.push(<tr className='good'>{this.state.history.cals[`${i}`]}</tr>)
+                calRows.push(<tr>{'---------'}</tr>)
+            }
         }
     }
 

@@ -61,9 +61,9 @@ def fitnessSubmit():
                     data = json.dumps(fitHistory)
                     jsonData = json.loads(data)
                     jsonData['date'].append(dateformat)
-                    jsonData['cardio'].append(cardio)
-                    jsonData['weights'].append(weights)
-                    jsonData['cals'].append(approxCal)
+                    jsonData['cardio'].append(int(cardio))
+                    jsonData['weights'].append(int(weights))
+                    jsonData['cals'].append(int(approxCal))
                     finishedData = json.dumps(jsonData)
                     sql = 'UPDATE fitness set history = %s WHERE id =%s'
                     val = (finishedData, number)
@@ -75,9 +75,9 @@ def fitnessSubmit():
             newData = """{"cardio": [], "date": [], "weights": [], "cals": []}"""
             newjsonData = json.loads(newData)
             newjsonData['date'].append(dateformat)
-            newjsonData['cardio'].append(cardio)
-            newjsonData['weights'].append(weights)
-            newjsonData['cals'].append(approxCal)
+            newjsonData['cardio'].append(int(cardio))
+            newjsonData['weights'].append(int(weights))
+            newjsonData['cals'].append(int(approxCal))
             finaljsonData = json.dumps(newjsonData)
             sql2 = 'INSERT INTO teamfit.fitness (id, history) VALUES (%s,%s)'
             val2 = (number, finaljsonData)
