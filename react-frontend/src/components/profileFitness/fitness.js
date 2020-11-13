@@ -1,10 +1,7 @@
 import React from "react";
 import './fitness.css';
 import Axios from 'axios';
-import red from "@material-ui/core/colors/red";
-import green from "@material-ui/core/colors/green";
-import yellow from "@material-ui/core/colors/yellow";
-import {color} from "@material-ui/system";
+
 
 /*Constants that store the table entries for the fitness history table*/
 const dateRows = [];
