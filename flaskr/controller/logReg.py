@@ -76,7 +76,7 @@ def login():
     try:
         conn = psycopg2.connect(
             database='teamfit',
-            user='root',
+            user='root', # was 'root'
             port='26257',
             host='localhost',
             sslmode='disable'

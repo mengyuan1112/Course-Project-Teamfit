@@ -8,6 +8,7 @@ from .controller.news import news_page
 from .controller.profile import profile_page
 from .controller.fitness import fitness_page
 
+
 app = Flask("__main__")
 app.register_blueprint(nutrition_page)
 app.register_blueprint(logReg_page)
@@ -17,6 +18,7 @@ app.register_blueprint(news_page)
 app.register_blueprint(profile_page)
 app.register_blueprint(news_page)
 app.register_blueprint(fitness_page)
+
 
 
 CORS(app)

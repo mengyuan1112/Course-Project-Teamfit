@@ -10,25 +10,71 @@ class Feed extends Component {
         super();
         this.state = {
             posts: [
-                {content: "Welcome to your feed!"},
-            ]
+                {content: ""},
+            ],
+            oldPosts: []
         }
         this.handleNewPost = this.handleNewPost.bind(this);
     }
+    componentWillMount() {
+        // this.fetchMyPosts();
+        fetch('http://127.0.0.1:5000/profile/getPost', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        }).then(res =>res.json())
+            .then(data =>
+                this.setState({oldPosts: data['state']},()=>console.log(this.state.oldPosts))
 
-    handleNewPost(post) {
-        this.setState({
-            posts: this.state.posts.concat([post]) //Might need to tweak to make sure new posts get pushed to the top as most social media
-        });
+            )
     }
+
+
+    fetchMyPosts() {
+        fetch('http://127.0.0.1:5000/profile/getPost', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        }).then((res) =>{
+            let response = res.data;
+            this.setState({posts: response});
+            console.log(this.state.posts);
+        })//.then((posts) => {
+        //     this.setState({posts});
+        // })
+    }
+    handleNewPost(post) {
+        fetch('http://127.0.0.1:5000/profile/makePost', {
+            method: 'POST',
+            body: JSON.stringify(post),
+            headers: {'Content-Type': 'application/json'}
+        }).then(function(res) {
+            return res;
+        }).then(function(data) {
+            console.log('server respone:', data)
+        });
+
+        const posts = this.state.posts.concat([post]);
+
+        this.setState({posts});
+    }
+
+
     render() {
         const posts = this.state.posts.slice(0).reverse().map((post, index) =>
             <Post key={index} value={post} />
         );
         return (
             <div className="feed">
+    
                 <Form onSubmit={this.handleNewPost} />
-                {posts}
+                
+                {this.state.oldPosts.map(response => {
+                    return <ul>{response}</ul> //If all else fails, this works
+                    // <ul><Post content={response}/></ul>
+                    // return <Post><li>{response}</li></Post>
+                    // <Post key={index} value={response} />
+                })}
+                {/* {posts} */}
+                
             </div>
         )
     }

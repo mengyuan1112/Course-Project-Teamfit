@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 
 class Profile extends React.Component{
     constructor(props) {
-        super(props);
+        super();
         this.state = {
           name: "",
           age: null,
@@ -92,6 +92,7 @@ class Profile extends React.Component{
             gender: this.refs.inputGender.value,
         })
     }
+
 
     renderEditView = () => {
         

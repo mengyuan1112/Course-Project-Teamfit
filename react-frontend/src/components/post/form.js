@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Post from './post.js';
 import './feed.css';
 import './post.css';
 import './form.css';
@@ -15,9 +16,11 @@ class Form extends Component {
         event.preventDefault();
     }
 
+
     render() {
         return (
             <div className="form">
+                
                 <form onSubmit={this.handleSubmit}>
                     <input placeholder="What's up...." type="text" ref={(input) => this.content = input} />
                     <button className="button">Share!</button>

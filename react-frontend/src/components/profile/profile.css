@@ -1,7 +1,7 @@
 body {
     background-color: #58828b;
-    overflow: hidden;
     overflow-y: auto;
+    overflow-x: auto;
 }
 
 .logo {
