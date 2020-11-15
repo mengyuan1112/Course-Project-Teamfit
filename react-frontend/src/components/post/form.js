@@ -22,7 +22,7 @@ class Form extends Component {
             <div className="form">
                 
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" ref={(input) => this.content = input} />
+                    <input placeholder="What's up...." type="text" ref={(input) => this.content = input} />
                     <button className="button">Share!</button>
                 </form>
             </div>
