@@ -95,7 +95,7 @@ def make_post():
         for i in range(len(rows)):
             if number == str(rows[i][0]):
                 print("Inside the if for post")
-                sql_query = 'UPDATE teamfit.user SET posts = array_append(posts, %s) WHERE phonenumber = %s'
+                sql_query = 'UPDATE teamfit.user SET posts = array_append(posts, %s) WHERE PhoneNumber = %s'
                 query_val = (new_post, number)
                 cur.execute(sql_query, query_val)
                 conn.commit()
@@ -124,3 +124,27 @@ def display_posts():
                 all_posts = rows[i][11]
                 return jsonify({'state': all_posts})
     return "Returning my posts"
+
+@profile_page.route("/profile/likePost", methods=["POST"])
+def like_post():
+    liked_post = request.get_json()
+    number = _getUsername()
+    conn = psycopg2.connect(
+        database='teamfit',
+        user='root',
+        port=26257,
+        host='localhost',
+        sslmode='disable'
+    )
+    with conn.cursor() as cur:
+        cur.execute('SELECT * FROM teamfit.user')
+        rows = cur.fetchall()
+        for i in range(len(rows)):
+            if number == str(rows[i][0]):
+                print("Inside the if for like")
+                sql_query = 'UPDATE teamfit.user SET liked = array_append(posts, %s) WHERE PhoneNumber = %s'
+                query_val = (liked_post, number)
+                cur.execute(sql_query, query_val)
+                conn.commit()
+                return "New Post Has Been Added"
+    return "My Liked Posts"
