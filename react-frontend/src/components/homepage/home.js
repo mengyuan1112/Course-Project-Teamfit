@@ -6,6 +6,8 @@ import Articles from "./articles.js";
 import axiosConfig from "axios";
 import loginImg from "../../TeamFit_logo.png";
 import Card from 'react-bootstrap/Card'
+import Feed from '../post/feed';
+
 
 
 
@@ -116,11 +118,11 @@ class Home extends Component{
 
     render() {
         return (
-        <div>
+        <div className="container">
             <img src={loginImg} width="180" height="180" alt="LoginImage" className="logo"/>
             
 
-                <div style={{height: "250px", marginTop: "5%", marginLeft: "5%"}}>
+            <div className="ninfo">
 
                 {/*searchBar for show*/}
                 <h2>Nutrition Info:</h2>
@@ -151,11 +153,16 @@ class Home extends Component{
                         })}
                         { this.state.message}
                         </Card.Body>
-                    </Card>
-                    
-                </div>
+                    </Card> 
+            </div>
+
+            <div className="ffeed"> 
+                <Feed />
+            </div>
+            <div className="aarticles">
                 <Articles />
-        </div>
+            </div>
+    </div>
 
 
         )};
