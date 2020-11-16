@@ -5,6 +5,11 @@ import './post.css';
 import './form.css';
 
 class Post extends Component {
+
+    // likePost = async e =>{
+        
+
+    // }
     
     render() {
         const pattern = new RegExp('^(https?:\\/\\/)?')
@@ -15,7 +20,8 @@ class Post extends Component {
         }else{
             return (
                 <div className="post">
-                <span className="content">{this.props.value.content}</span> 
+                <span className="content">{this.props.value.content}</span>
+                <button>Like</button> 
                 </div>
             )
         }
