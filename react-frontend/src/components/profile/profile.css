@@ -18,10 +18,12 @@ body {
 .row1 {
     position: static;
     padding-left: 40px;
+    height: auto;
 }
 
 .rows .pp {
     border-radius: 70px;
+    height: auto;
 }
 
 .name {
