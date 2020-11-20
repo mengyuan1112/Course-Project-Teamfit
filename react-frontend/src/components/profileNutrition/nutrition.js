@@ -150,6 +150,9 @@ render(){
         <a href="/profile">
             <button className="back-to-profile">Return to Profile</button>
         </a>
+        <a href="/profile/compare">
+            <button className="comp-profile">Compare to Fitness History</button>
+        </a>
         <button className="show-table" ref="historybtn" name="historybtn" onClick={this.handleChange}>Show History</button>
         <div className="nutritionHeader">
             <h1>Nutrition History</h1>
