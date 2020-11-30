@@ -17,7 +17,7 @@ export default class ListMessage extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:5000/listMessages', { headers: { "messageID": this.props.sourceEmail } })
       .then((response) => {
-        console.log(response)Destination Username
+        // console.log(response)Destination Username
 
         this.setState({messageList: response.json})
       })
