@@ -17,8 +17,19 @@ class Feed extends Component {
         }
         this.handleNewPost = this.handleNewPost.bind(this);
     }
-    componentWillMount() {
+    componentDidUpdate() {
         // this.fetchMyPosts();
+        fetch('http://127.0.0.1:5000/profile/getPost', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        }).then(res =>res.json())
+            .then(data =>
+                this.setState({oldPosts: data['state']},()=>console.log(this.state.oldPosts))
+
+            )
+    }
+
+    componentDidMount(){
         fetch('http://127.0.0.1:5000/profile/getPost', {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
