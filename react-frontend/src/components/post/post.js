@@ -21,7 +21,7 @@ class Post extends Component {
             return (
                 <div className="post">
                 <span className="content">{this.props.value.content}</span>
-                <button>Like</button> 
+                {/* <button>Like</button>  */}
                 </div>
             )
         }

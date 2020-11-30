@@ -155,9 +155,9 @@ class Home extends Component{
                         </Card.Body>
                     </Card> 
             </div>
-
             <div className="ffeed"> 
-                <Feed />
+            {/* this component is causing the feed and form to show up on the homepage */}
+                <Feed />         
             </div>
             <div className="aarticles">
                 <Articles />
