@@ -1,4 +1,15 @@
 .feed {
     position: relative;
     top: 120px; left: 40px;
+    /* display: flex; */
+    /* justify-content: center; */
+    height: auto;
+    width: 600px;
   }
+
+  /* .feed ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+  } */
