@@ -13,11 +13,7 @@ export default class CreateMessage extends React.Component {
       messageList: [],
       parentCounter: 0,
       content:"",
-      formErrors: {
-        sourceEmail: "",
-        destEmail: "",
-        header: "",
-      }
+      errorList:""
     }
     this.onInputChange = this.onInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,12 +49,17 @@ export default class CreateMessage extends React.Component {
       body: JSON.stringify({
         header: this.state.header,
         parentMessageID: "2",
-        userID: "hello",
+        userID: this.props.sourceEmail,
         recieverID: "hello",
         data: "hello"
       })
-    }).then(response => response.json())
-    window.location.reload()
+    }).then(function(response){
+      if(response.statusCode === 200){
+        this.state.append("was not able to recieve a 200 for creating a message from flask")        
+      }
+    }).catch((error) => {
+      this.setState({errorList: error.message})
+    })
   }
   componentDidMount() {
 
@@ -92,7 +93,8 @@ export default class CreateMessage extends React.Component {
     }));
     return (
       <div>
-          <h1>Send a Message!</h1>
+        <h1>Send a Message!</h1>
+        <div>{this.state.errorList}</div>
         <form onSubmit={this.handleSubmit}>
           <input
             placeholder="Destination Username"

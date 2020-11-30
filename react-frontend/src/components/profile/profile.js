@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 
 class Profile extends React.Component{
     constructor(props) {
-        super(props);
+        super();
         this.state = {
           name: "",
           age: null,
@@ -93,6 +93,7 @@ class Profile extends React.Component{
         })
     }
 
+
     renderEditView = () => {
         
             return  (
@@ -129,7 +130,6 @@ class Profile extends React.Component{
               <h4>Email: {this.state.email}</h4>
         </div>
             <Button variant="contained" component="label" onClick={this.ChangeEditMode}>Edit</Button>
-            <Button variant="contained" component="label" onClick={this.updateValues}>Refresh</Button>
             <Button variant="contained" component="label">
                 Update Picture
             <input
@@ -149,18 +149,6 @@ class Profile extends React.Component{
         )
     }
 
-    updateValues = () => {
-        this.setState({
-            name: this.state.userInfo[3],
-            age: this.state.userInfo[4],
-            height: this.state.userInfo[5] + "'" + this.state.userInfo[6],
-            weight: this.state.userInfo[7],
-            gender: this.state.userInfo[8],
-            number: this.state.userInfo[0],
-            email: this.state.userInfo[2],
-            image: this.state.userInfo[9]
-        })
-     }
 
     uploadIamge = async e => {
         const files = e.target.files
@@ -196,6 +184,14 @@ class Profile extends React.Component{
     }
 
     render() {
+        this.state.name= this.state.userInfo[3]
+        this.state.age= this.state.userInfo[4]
+        this.state.height= this.state.userInfo[5] + "'" + this.state.userInfo[6]
+        this.state.weight= this.state.userInfo[7]
+        this.state.gender= this.state.userInfo[8]
+        this.state.number= this.state.userInfo[0]
+        this.state.email= this.state.userInfo[2]
+        this.state.image= this.state.userInfo[9]
         return (
          <>
         <img src={loginImg} width="180" height="180" alt="LoginImage" className="logo"/>

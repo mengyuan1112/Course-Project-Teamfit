@@ -1,6 +1,29 @@
 body {
     overflow: hidden;
 }
+
+.container {
+    margin: 0 auto;
+}
+
+.ninfo {
+    height: 250px;
+    width: 600px;
+    margin-Top: 5%; 
+    margin-left: 5%;
+    margin-right: 100px;
+}
+
+.aarticles {
+    display: inline-flex;
+    margin-left: 10%;
+}
+
+.ffeed {
+    display: inline-flex;
+}
+
+
 .foodSearch{
     /*background-color:  ; !* blue *!*/
     border: green;
@@ -15,6 +38,11 @@ body {
     display: inline-block;
     font-size: 16px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.logo {
+    float: right;
+    margin: 10px;
 }
 
 .foodSearchID{
@@ -49,6 +77,63 @@ body {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
+.storeCal{
+    border: green;
+    color: rgb(255,0,0);
+    border-radius: 12px;
+    padding: 8px 8px;
+    display: inline-block;
+    font-size: 0px;
+    background-color: #8A2BE2; /* Green */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.updateCal{
+    border: green;
+    color: rgb(255,0,0);
+    border-radius: 12px;
+    padding: 8px 8px;
+    display: inline-block;
+    font-size: 0px;
+    background-color: #8A2BE2; /* Green */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.getAllCal{
+    border: green;
+    color: rgb(255,0,0);
+    border-radius: 12px;
+    padding: 8px 8px;
+    display: inline-block;
+    font-size: 0px;
+    background-color: #8A2BE2; /* Green */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.getDateCal{
+    border: green;
+    color: rgb(255,0,0);
+    border-radius: 12px;
+    padding: 8px 8px;
+    display: inline-block;
+    font-size: 0px;
+    background-color: #8A2BE2; /* Green */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
 .context {
     height: 50vh; /* Magic here */
     display: flex;
@@ -67,5 +152,9 @@ body {
     font-size: 16px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     overflow: hidden;
+}
+
+.clear {
+    clear: both;
 }
 

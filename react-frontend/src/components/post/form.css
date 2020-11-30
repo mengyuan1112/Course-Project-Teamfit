@@ -2,10 +2,20 @@
     background: #58828b; 
     padding: 20px;
     margin: 5px 100px 10px 5px;
+    min-width: 1.5em;
+    display: flex;
+    width: 600px;
+    /* width: 1.5em;
+    height: 1.5em; */
   }
   
   .content {
     margin-left: 5px;
+  }
+
+
+  body {
+    overflow: auto;
   }
 
   .button {
@@ -20,3 +30,4 @@
     border-radius: 12px;
     overflow: hidden;
 }
+
