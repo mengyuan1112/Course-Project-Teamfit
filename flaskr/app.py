@@ -9,6 +9,7 @@ from .controller.profile import profile_page
 from .controller.fitness import fitness_page
 from .controller.caloriesHistory import caloriesHistory_page
 
+
 app = Flask("__main__")
 app.register_blueprint(nutrition_page)
 app.register_blueprint(logReg_page)
@@ -19,6 +20,7 @@ app.register_blueprint(profile_page)
 app.register_blueprint(news_page)
 app.register_blueprint(fitness_page)
 app.register_blueprint(caloriesHistory_page)
+
 
 
 CORS(app)
