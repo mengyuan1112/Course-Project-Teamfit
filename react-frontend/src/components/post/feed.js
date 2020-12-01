@@ -23,7 +23,7 @@ class Feed extends Component {
         this.handleNewPost = this.handleNewPost.bind(this);
         // this.likeAPost = this.likeAPost.bind(this);
     }
-    componentWillMount() {
+    componentDidUpdate() {
         // this.fetchMyPosts();
         fetch('http://127.0.0.1:5000/profile/getPost', {
             method: 'GET',
@@ -34,9 +34,18 @@ class Feed extends Component {
 
             )
     }
-    componentDidMount() {
-        // this.likeAPost();
+
+    componentDidMount(){
+        fetch('http://127.0.0.1:5000/profile/getPost', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}
+        }).then(res =>res.json())
+            .then(data =>
+                this.setState({oldPosts: data['state']},()=>console.log(this.state.oldPosts))
+
+            )
     }
+
 
     fetchMyPosts() {
         fetch('http://127.0.0.1:5000/profile/getPost', {

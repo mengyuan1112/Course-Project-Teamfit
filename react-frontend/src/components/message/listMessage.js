@@ -8,7 +8,7 @@ export default class ListMessage extends React.Component {
     super(props)
     this.state = {
       randomCounter:0,
-      
+      errorMessage: "",
       messageList: []
     }
     this.listMessages = this.listMessages.bind(this);
@@ -17,7 +17,8 @@ export default class ListMessage extends React.Component {
   componentDidMount() {
     axios.get('http://localhost:5000/listMessages', { headers: { "messageID": this.props.sourceEmail } })
       .then((response) => {
-        console.log(response)
+        // console.log(response)Destination Username
+
         this.setState({messageList: response.json})
       })
       console.log("In List Message component" + this.props.sourceEmail)
@@ -29,6 +30,8 @@ export default class ListMessage extends React.Component {
       .then((response) => {
         console.log(response)
         self.setState({messageList: response.data})
+      }).catch((error) => {
+        this.setState({errorMessage: error.message})
       })
   }
 
@@ -48,6 +51,7 @@ export default class ListMessage extends React.Component {
             onChange={this.onInputChange}
             required
           />
+        <div>{this.state.errorMessage}</div>
         <Button onClick={this.listMessages} variant="contained">List</Button>
 
         <div>

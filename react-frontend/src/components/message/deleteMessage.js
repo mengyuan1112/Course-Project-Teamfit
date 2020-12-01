@@ -1,7 +1,6 @@
 import { List, ListItem, ListItemText, ListSubheader, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from "react";
-import Popup from 'react-popup'
 import style from './message.css'
 const axios = require('axios');
 export default class DeleteMessage extends React.Component {
@@ -10,6 +9,7 @@ export default class DeleteMessage extends React.Component {
     super(props);
     this.state = {
       messageID: 0,
+      errorMessage: ""
     }
     this.onInputChange = this.onInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,8 +31,9 @@ export default class DeleteMessage extends React.Component {
       body: JSON.stringify({
         messageID: this.state.messageID.value
       })
-    }).then(response => response.data)
-    window.location.reload()
+    }).catch((error) => {
+      this.setState({errorMessage: "Unable to connect to the Internet EW! UwU "})
+    })
   }
   componentDidMount() {
 
@@ -66,7 +67,8 @@ export default class DeleteMessage extends React.Component {
     }));
     return (
       <div>
-          <h2>Delete the message!</h2>
+        <h2>Delete the message!</h2>
+    <div>{this.state.errorMessage}</div>
         <form onSubmit={this.handleSubmit}>
           <input
             placeholder="MessageID"
