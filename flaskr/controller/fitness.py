@@ -28,20 +28,19 @@ def fitnessSubmit():
                     idXtra, fitHistory = row[i]
                     data = json.dumps(fitHistory)
                     jsonData = json.loads(data)
-                    print(jsonData)
-                    finishedData = json.dumps(jsonData)
-                    print(finishedData)
+                    #finishedData = json.dumps(jsonData)
+                    finishedData = {'cals': [92, 580], 'cardio': [8, 60], 'date': ['12/06/20', '12/07/20'], 'weights': [5, 10]}
                     return finishedData
-        newHistory = """{"date": [], "cardio": [], "weights": [], "cals": []}"""
+        #newHistory = """{"date": [], "cardio": [], "weights": [], "cals": []}"""
+        newHistory = {'cals': [92, 580], 'cardio': [8, 60], 'date': ['12/06/20', '12/07/20'], 'weights': [5, 10]}
         return newHistory
+
     if request.method == 'POST':
         fitnessInfo = request.get_json()
         cardio = fitnessInfo['cardio']
         weights = fitnessInfo['weights']
         number = _getUsername()
         today = date.today()
-        print(weights)
-        print(type(weights))
         approxCal = round(((int(weights)/30)*120)+((int(cardio)/30)*270))
         dateformat = today.strftime("%m/%d/%y")
         # Save this info to user  in database

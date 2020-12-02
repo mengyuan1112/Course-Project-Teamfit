@@ -39,6 +39,7 @@ export default class Compare extends React.Component {
             dateFRows.push(<tr>{'---------'}</tr>)
         }
     }
+
     /*Helper function to add the cardio rows to html render*/
     addCardioRows() {
         for (var i = 0; i < this.state.fitnessHistory.cardio.length; i++){
@@ -56,6 +57,7 @@ export default class Compare extends React.Component {
             }
         }
     }
+
     /*Helper function to add the weights rows to html render*/
     addWeightsRows() {
         for (var i = 0; i < this.state.fitnessHistory.weights.length; i++){
@@ -73,6 +75,7 @@ export default class Compare extends React.Component {
             }
         }
     }
+
     /*Helper function to add the approx. calorie rows to html render*/
     addCalFRows() {
         for (var i = 0; i < this.state.fitnessHistory.cals.length; i++){
@@ -98,6 +101,7 @@ export default class Compare extends React.Component {
             dateNRows.push(<tr>{'---------'}</tr>)
         }
     }
+
     /*Helper function to add the calorie rows to html render*/
     addCalNRows() {
         for (var i = 0; i < this.state.nutritionHistory.calories.length; i++){
@@ -115,6 +119,7 @@ export default class Compare extends React.Component {
             }
         }
     }
+
     /*Helper function to add the weight rows to html render*/
     addWeightRows() {
         for (var i = 0; i < this.state.nutritionHistory.weight.length; i++){
