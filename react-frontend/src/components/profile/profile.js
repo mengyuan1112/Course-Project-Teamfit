@@ -183,6 +183,8 @@ class Profile extends React.Component{
         }).then(response => response.json())
     }
 
+
+
     render() {
         this.state.name= this.state.userInfo[3]
         this.state.age= this.state.userInfo[4]

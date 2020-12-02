@@ -2,7 +2,7 @@ from flask import (Flask)
 from flask_cors import CORS
 from .controller.nutrition import nutrition_page
 from .controller.logReg import logReg_page
-# from .controller.message import message_page
+from .controller.message import message_page
 from .controller.foodSearch import foodSearch_page
 from .controller.news import news_page
 from .controller.profile import profile_page

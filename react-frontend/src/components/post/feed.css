@@ -5,11 +5,26 @@
     /* justify-content: center; */
     height: auto;
     width: 600px;
+    margin: auto;
   }
 
-  /* .feed ul {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-  } */
+.like {
+  background-color: whitesmoke;
+  border-radius: 10px;
+  margin-left: auto;
+}
+
+.like:focus {
+  background-color: darkslateblue;
+}
+
+.entries {
+  background-color: darkslategray;
+  border-radius: 25px;
+  
+}
+
+p {
+  margin-top: 10px;
+  margin: auto;
+}
