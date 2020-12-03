@@ -28,6 +28,7 @@ class Home extends Component{
             calories: "",
             ListOfCal: []
         }
+        const row = [];
     }
 
     handleChange = e => {
@@ -172,6 +173,7 @@ class Home extends Component{
             }
         )
     }
+
     handlesUpdateCal =e=>{
         e.preventDefault()
         const key = this.state.date
@@ -249,7 +251,7 @@ class Home extends Component{
                     <div classNme = "calorieSection">
                         <input className = "dateBar"
                                type = "text"
-                               placeholder="date:DD/MM"
+                               placeholder="date:MM/DD"
                                onChange = {this.handleDateChange}
                         />
                         <input className = "calBar"
@@ -259,8 +261,8 @@ class Home extends Component{
                         />
                         <button onClick={this.handlesStoreCal} className = "storeCal">Store Calories!</button>
                         <button onClick={this.handlesUpdateCal} className="updateCal">Update Calories!</button>
-                        <button onClick={this.handlesGetAllCal} className="getAllCal">Get all Calories!</button>
-                        <button onClick={this.handlesGetDateCall} className="getDateCal">Get Date Calories!</button>
+                        <button onClick={this.handlesGetAllCal} className="getAllCal">Get all History!</button>
+                        <button onClick={this.handlesGetDateCall} className="getDateCal">Get Date History!</button>
                     </div>
 
                 {/*display the context*/}

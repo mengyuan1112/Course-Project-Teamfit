@@ -1,4 +1,5 @@
 from flask import request, jsonify, Blueprint
+import datetime
 
 caloriesHistory_page = Blueprint('caloriesHistory.py', __name__, template_folder='templates')
 
@@ -8,14 +9,17 @@ calories_dict = {}
 @caloriesHistory_page.route("/home/storeCalories", methods=['POST'])
 def store_calories():
     data = request.get_json()
-    print(data)
     body = data['body']
     date = body['key']
+    currDate = datetime.datetime.now()
+    if len(date) == 0:
+        date = str(currDate.month) + "/" + str(currDate.day)
     if date in calories_dict.keys():
-        return jsonify({'state': 'the date already exist please do update'})
+        calories = body['value']
+        calories_dict[date] = calories_dict[date] + calories
+        return jsonify({'state': 'successful stored'})
     calories = body['value']
     calories_dict[date] = calories
-    print(calories_dict)
     return jsonify({'state': 'successful stored'})
 
 
