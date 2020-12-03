@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Post from './post.js';
-import './feed.css';
-import './post.css';
 import './form.css';
 
 class Form extends Component {
@@ -17,6 +15,7 @@ class Form extends Component {
         this.props.onSubmit({content: this.content.value});
         this.content.value = "";
         event.preventDefault();
+        <form />
     }
 
     uploadIamge = async e => {
@@ -54,7 +53,7 @@ class Form extends Component {
 
     render() {
         return (
-            <div className="form">
+            <div>
                 
                 <form onSubmit={this.handleSubmit}>
                     <input placeholder="What's up...." type="text" ref={(input) => this.content = input} />
