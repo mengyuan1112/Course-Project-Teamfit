@@ -94,30 +94,28 @@ class Profile extends React.Component{
     }
 
 
-    renderEditView = () => {
-        
-            return  (
-                <>
-                <div> 
-                    Name: <input type="text" name="name" defaultValue={this.state.userInfo[3]} ref="inputName" />
-                </div>
-                <div>
-                    Age: <input type="text" name="age" defaultValue={this.state.userInfo[4]} ref="inputAge" />    
-                </div>
-                <div>
-                    Height: <input type="text" name="height" defaultValue={this.state.userInfo[5] + "'" + this.state.userInfo[6]} ref="inputHeight" />    
-                </div>
-                <div>
-                    Weight:<input type="text" name="weight" defaultValue={this.state.userInfo[7]} ref="inputWeight"/>    
-                </div>
-                <div> 
-                    Gender: <input type="text" name="gender" defaultValue={this.state.userInfo[8]} ref="inputGender" />    
-                </div>
-                <Button variant="contained" component="label" onClick={this.ChangeEditMode}>Cancel</Button>
-                <Button variant="contained" component="label" onClick={this.UpdateComponentValue}>Submit</Button>
-                </>
-                )
-        
+    renderEditView = () => { 
+        return  (
+            <>
+            <div> 
+                Name: <input type="text" name="name" defaultValue={this.state.userInfo[3]} ref="inputName" />
+            </div>
+            <div>
+                Age: <input type="text" name="age" defaultValue={this.state.userInfo[4]} ref="inputAge" />    
+            </div>
+            <div>
+                Height: <input type="text" name="height" defaultValue={this.state.userInfo[5] + "'" + this.state.userInfo[6]} ref="inputHeight" />    
+            </div>
+            <div>
+                Weight:<input type="text" name="weight" defaultValue={this.state.userInfo[7]} ref="inputWeight"/>    
+            </div>
+            <div> 
+                Gender: <input type="text" name="gender" defaultValue={this.state.userInfo[8]} ref="inputGender" />    
+            </div>
+            <Button variant="contained" component="label" onClick={this.ChangeEditMode}>Cancel</Button>
+            <Button variant="contained" component="label" onClick={this.UpdateComponentValue}>Submit</Button>
+            </>
+            )
     }
 
     renderDefaultView = () => {

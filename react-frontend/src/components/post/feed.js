@@ -3,8 +3,6 @@ import Post from './post.js';
 import Form from './form.js';
 import LikeButton from '../likeButton/likeButton.js';
 import './feed.css';
-import './post.css';
-import './form.css';
 import '../likeButton/likeButton.css';
 import Comment from '../comments/comment.js';
 // import { v4 as uuidv4 } from 'uuid';
@@ -23,19 +21,7 @@ class Feed extends Component {
         this.handleNewPost = this.handleNewPost.bind(this);
         // this.likeAPost = this.likeAPost.bind(this);
     }
-    componentDidUpdate() {
-        // this.fetchMyPosts();
-        fetch('http://127.0.0.1:5000/profile/getPost', {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        }).then(res =>res.json())
-            .then(data =>
-                this.setState({oldPosts: data['state']},()=>console.log(this.state.oldPosts))
-
-            )
-    }
-
-    componentDidMount(){
+    componentWillMount() {
         fetch('http://127.0.0.1:5000/profile/getPost', {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
@@ -47,16 +33,6 @@ class Feed extends Component {
     }
 
 
-    fetchMyPosts() {
-        fetch('http://127.0.0.1:5000/profile/getPost', {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        }).then((res) =>{
-            let response = res.data;
-            this.setState({posts: response});
-            console.log(this.state.posts);
-        })
-    }
     handleNewPost(post) {
         fetch('http://127.0.0.1:5000/profile/makePost', {
             method: 'POST',
@@ -88,6 +64,7 @@ class Feed extends Component {
     //     });
         
     // }
+
 
 
 
