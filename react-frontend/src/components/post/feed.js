@@ -5,7 +5,16 @@ import LikeButton from '../likeButton/likeButton.js';
 import './feed.css';
 import '../likeButton/likeButton.css';
 import Comment from '../comments/comment.js';
+import axiosConfig from 'axios';
+
 // import { v4 as uuidv4 } from 'uuid';
+
+const pattern = new RegExp('^(https?:\\/\\/)?'+
+'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+
+'((\\d{1,3}\\.){3}\\d{1,3}))'+ 
+'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ 
+'(\\?[;&a-z\\d%_.~+=-]*)?'+ 
+'(\\#[-a-z\\d_]*)?$','i'); 
 
 class Feed extends Component {
     constructor(props) {
@@ -14,13 +23,15 @@ class Feed extends Component {
             posts: [
                 {content: ""},
             ],
-            oldPosts: [],
+            oldPosts: {},
+            message: '',
             loading: false
 
         }
         this.handleNewPost = this.handleNewPost.bind(this);
         // this.likeAPost = this.likeAPost.bind(this);
     }
+
     componentWillMount() {
         fetch('http://127.0.0.1:5000/profile/getPost', {
             method: 'GET',
@@ -30,18 +41,22 @@ class Feed extends Component {
                 this.setState({oldPosts: data['state']},()=>console.log(this.state.oldPosts))
 
             )
+            console.log(this.state.oldPosts)
     }
 
 
     handleNewPost(post) {
-        fetch('http://127.0.0.1:5000/profile/makePost', {
+        axiosConfig.post('http://127.0.0.1:5000/profile/makePost', {
             method: 'POST',
-            body: JSON.stringify(post),
+            body: post,
             headers: {'Content-Type': 'application/json'}
-        }).then(function(res) {
-            return res;
-        }).then(function(data) {
-            console.log('server respone:', data)
+        }).then(response => {
+            let res = response.data
+            console.log(res)
+            this.setState({message: res['state']})
+            alert(this.state.message)
+            console.log(this.state.message)
+            console.log(this.state.friends)
         });
 
         const posts = this.state.posts.concat([post]);
@@ -65,6 +80,13 @@ class Feed extends Component {
         
     // }
 
+    renderIt(p,key,index) {
+        const posts = p[key]
+        for(var i=0; i < posts.length;i++){
+
+            }
+    }
+
 
 
 
@@ -73,57 +95,50 @@ class Feed extends Component {
             <Post key={index} value={post} />
             // Can try to 
         );
-        const pattern = new RegExp('^(https?:\\/\\/)?'+
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+
-        '((\\d{1,3}\\.){3}\\d{1,3}))'+ 
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ 
-        '(\\?[;&a-z\\d%_.~+=-]*)?'+ 
-        '(\\#[-a-z\\d_]*)?$','i'); 
-        return (
-            <div className="feed">
-    
-                <Form onSubmit={this.handleNewPost} />
-                
-                {this.state.oldPosts.reverse().map((response,index)=> {
-                    console.log(response)
-                    console.log('In feed')
-                    if(!!pattern.test(response)){
-                        console.log('Found an image')
-                        return (
-                            <div className="entries" itemId={index}>
-                            <img src={response} width="190" height="190" alt="postImage" itemId={index}/>
-                            <LikeButton itemId={index} /*onClick={this.likeAPost}*//>
-                            <div className="comments">
-                            <LikeButton/>
-                            <Comment/>
-                            </div>
 
+      
+        const p = this.state.oldPosts
+        return (
+            <>
+            <Form onSubmit={this.handleNewPost} />
+
+            {Object.keys(p).map((key, i) => ( 
+                p[key].slice(0).reverse().map((post, index)=> {
+                    if(!!pattern.test(post)){
+                        return(
+                            <div className="feed">
+                                <div className="entries" itemId={index}>
+                                        <h4>{key}</h4>
+                                    <img src={post} width="190" height="190" alt="postImage" itemId={index}/>
+                                    <LikeButton itemId={index} />
+                                    <div className="comments">
+                                        <LikeButton/>
+                                        <Comment/>
+                                    </div>
+                                </div>
                             </div>
-                        )
-                    }else{
-                        return (
-                            // Complete working with the button in the div below
-                            <div className="entries" itemId={index}>
-                            <span itemId={index}><p className="post">{response}</p></span> 
-                            <LikeButton itemId={index} /*onClick={this.likeAPost}*//>
-                            <div className="comments">
-                            {/* <LikeButton/> */}
-                            <Comment/>
-                            </div>
-                            </div>
-                        )
-                    }
-                    // <button className="like">LIKE!</button>
-                    //If all else fails, this works
-                    // <ul><Post content={response}/></ul>
-                    // return <Post><li>{response}</li></Post>
-                    // <Post key={index} value={response} />
-                })}
-                {/* {posts} */}
-                
-            </div>
+                        )}else{
+                            return (
+                                // Complete working with the button in the div below
+                                <div className="feed">
+                                    <div className="entries" itemId={index}>
+                                        <h4>{key}</h4>
+                                        <span itemId={index}><p className="post">{post}</p></span> 
+                                        <LikeButton itemId={index} />
+                                        <div className="comments">
+                                        <Comment/>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                })            
+            ))}
+            </>
         )
     }
 }
 
+
 export default Feed;
+

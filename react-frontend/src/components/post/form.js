@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Post from './post.js';
 import './form.css';
+import Button from '@material-ui/core/Button';
 
 class Form extends Component {
     constructor(props) {
@@ -54,21 +55,19 @@ class Form extends Component {
     render() {
         return (
             <div>
-                
                 <form onSubmit={this.handleSubmit}>
                     <input placeholder="What's up...." type="text" ref={(input) => this.content = input} />
                     <button className="button">Share!</button>
                 </form>
-                <button className="button">
+                    <Button >
                         Share a Photo
                         <input
                         // style={{display:"none"}}
                         type="file"
-                        name="file"
                         placeholder="Upload an image"
                         onChange={this.uploadIamge}
                         />
-                </button>
+                    </Button>
                 {this.state.loading ? (<p>Loading...</p>)
                 : (
                     <b></b>
