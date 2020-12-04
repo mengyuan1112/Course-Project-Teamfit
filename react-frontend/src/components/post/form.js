@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Post from './post.js';
 import './form.css';
 import Button from '@material-ui/core/Button';
+import axiosConfig from 'axios';
+
 
 class Form extends Component {
     constructor(props) {
@@ -41,15 +43,16 @@ class Form extends Component {
         this.setState({loading: !this.state.loading})
 
         /**Save the image URL in the backend */
-        fetch('http://localhost:5000/profile/makePost', {
-        method: "POST",
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        },
-        body: JSON.stringify(file.secure_url)
-        }).then(response => response.json())
+        axiosConfig.post('http://127.0.0.1:5000/profile/makePost', {
+            method: 'POST',
+            body: file.secure_url,
+            headers: {'Content-Type': 'application/json'}
+        }).then(response => {
+            let res = response.data
+            console.log(res)
+            this.setState({message: res['state']})
+            alert(this.state.message)
+        });
     }
 
     render() {
@@ -59,7 +62,7 @@ class Form extends Component {
                     <input placeholder="What's up...." type="text" ref={(input) => this.content = input} />
                     <button className="button">Share!</button>
                 </form>
-                    <Button >
+                    <button >
                         Share a Photo
                         <input
                         // style={{display:"none"}}
@@ -67,7 +70,7 @@ class Form extends Component {
                         placeholder="Upload an image"
                         onChange={this.uploadIamge}
                         />
-                    </Button>
+                    </button>
                 {this.state.loading ? (<p>Loading...</p>)
                 : (
                     <b></b>
