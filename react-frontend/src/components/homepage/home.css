@@ -20,7 +20,8 @@ body {
 }
 
 .ffeed {
-    display: inline-flex;
+    float: left;
+    display: inline;
 }
 
 
