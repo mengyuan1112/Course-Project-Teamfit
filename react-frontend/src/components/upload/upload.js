@@ -33,6 +33,9 @@ class Upload extends Component{
             <Button variant="contained" href="/profile/fitness">
                 Exercise History
             </Button>
+            <Button variant="contained" href="/profile/compare">
+                Compare History
+            </Button>
         </div>
         )};}
 export default Upload;

@@ -2,10 +2,12 @@ import React from "react";
 import './fitness.css';
 import Axios from 'axios';
 
+
 /*Constants that store the table entries for the fitness history table*/
 const dateRows = [];
 const cardioRows = [];
 const weightsRows = [];
+const calRows = [];
 
 /* Function to check whether a form is valid or not*/
 const formValid = ({ formErrors, ...rest }) => {
@@ -58,15 +60,52 @@ export default class Fitness extends React.Component {
     /*Helper function to add the cardio rows to html render*/
     addCardioRows() {
         for (var i = 0; i < this.state.history.cardio.length; i++){
-            cardioRows.push(<tr>{this.state.history.cardio[`${i}`]}</tr>)
-            cardioRows.push(<tr>{'---------'}</tr>)
+            if (this.state.history.cardio[`${i}`] <= 5) {
+                cardioRows.push(<tr className='bad'>{this.state.history.cardio[`${i}`]}</tr>)
+                cardioRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.cardio[`${i}`] > 5 && this.state.history.cardio[`${i}`] < 15) {
+                cardioRows.push(<tr className='intermediate'>{this.state.history.cardio[`${i}`]}</tr>)
+                cardioRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.cardio[`${i}`] >= 15) {
+                cardioRows.push(<tr className='good'>{this.state.history.cardio[`${i}`]}</tr>)
+                cardioRows.push(<tr>{'---------'}</tr>)
+            }
         }
     }
     /*Helper function to add the weights rows to html render*/
     addWeightsRows() {
         for (var i = 0; i < this.state.history.weights.length; i++){
-            weightsRows.push(<tr>{this.state.history.weights[`${i}`]}</tr>)
-            weightsRows.push(<tr>{'---------'}</tr>)
+            if (this.state.history.weights[`${i}`] <= 5) {
+                weightsRows.push(<tr className='bad'>{this.state.history.weights[`${i}`]}</tr>)
+                weightsRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.weights[`${i}`] > 5 && this.state.history.weights[`${i}`] < 15) {
+                weightsRows.push(<tr className='intermediate'>{this.state.history.weights[`${i}`]}</tr>)
+                weightsRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.weights[`${i}`] >= 15) {
+                weightsRows.push(<tr className='good'>{this.state.history.weights[`${i}`]}</tr>)
+                weightsRows.push(<tr>{'---------'}</tr>)
+            }
+        }
+    }
+    /*Helper function to add the approx. calorie rows to html render*/
+    addCalsRows() {
+        for (var i = 0; i < this.state.history.cals.length; i++){
+            if (this.state.history.cals[`${i}`] <= 75) {
+                calRows.push(<tr className='bad'>{this.state.history.cals[`${i}`]}</tr>)
+                calRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.cals[`${i}`] > 75 && this.state.history.cals[`${i}`] <= 200) {
+                calRows.push(<tr className='intermediate'>{this.state.history.cals[`${i}`]}</tr>)
+                calRows.push(<tr>{'---------'}</tr>)
+            }
+            if (this.state.history.cals[`${i}`] > 200) {
+                calRows.push(<tr className='good'>{this.state.history.cals[`${i}`]}</tr>)
+                calRows.push(<tr>{'---------'}</tr>)
+            }
         }
     }
 
@@ -96,6 +135,7 @@ export default class Fitness extends React.Component {
             this.addDateRows();
             this.addCardioRows();
             this.addWeightsRows();
+            this.addCalsRows();
             this.refs.fitHistorybtn.setAttribute("disabled", "disabled");
         }
         const {name,value} = e.target;
@@ -119,6 +159,9 @@ render(){
     return <div className="fitnessWrapper">
         <a href="/profile">
             <button className="back-to-profile">Return to Profile</button>
+        </a>
+        <a href="/profile/compare">
+            <button className="comp-profile">Compare to Nutrition History</button>
         </a>
         <button className="show-table" ref="fitHistorybtn" name="fitHistorybtn" onClick={this.handleChange}>Show History</button>
         <div className="fitnessHeader">
@@ -173,6 +216,14 @@ render(){
                             </thead>
                             <tbody>
                             {weightsRows}
+                            </tbody>
+                        </table>
+                        <table className="cals-table" id="table">
+                            <thead>
+                            Calories Burned:
+                            </thead>
+                            <tbody>
+                            {calRows}
                             </tbody>
                         </table>
                     </div>

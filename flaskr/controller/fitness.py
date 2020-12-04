@@ -28,18 +28,20 @@ def fitnessSubmit():
                     idXtra, fitHistory = row[i]
                     data = json.dumps(fitHistory)
                     jsonData = json.loads(data)
-                    print(jsonData)
-                    finishedData = json.dumps(jsonData)
-                    print(finishedData)
+                    #finishedData = json.dumps(jsonData)
+                    finishedData = {'cals': [92, 580], 'cardio': [8, 60], 'date': ['12/06/20', '12/07/20'], 'weights': [5, 10]}
                     return finishedData
-        newHistory = """{"date": [], "cardio": [], "weights": []}"""
+        #newHistory = """{"date": [], "cardio": [], "weights": [], "cals": []}"""
+        newHistory = {'cals': [92, 580], 'cardio': [8, 60], 'date': ['12/06/20', '12/07/20'], 'weights': [5, 10]}
         return newHistory
+
     if request.method == 'POST':
         fitnessInfo = request.get_json()
         cardio = fitnessInfo['cardio']
         weights = fitnessInfo['weights']
         number = _getUsername()
         today = date.today()
+        approxCal = round(((int(weights)/30)*120)+((int(cardio)/30)*270))
         dateformat = today.strftime("%m/%d/%y")
         # Save this info to user  in database
         conn = psycopg2.connect(
@@ -58,8 +60,9 @@ def fitnessSubmit():
                     data = json.dumps(fitHistory)
                     jsonData = json.loads(data)
                     jsonData['date'].append(dateformat)
-                    jsonData['cardio'].append(cardio)
-                    jsonData['weights'].append(weights)
+                    jsonData['cardio'].append(int(cardio))
+                    jsonData['weights'].append(int(weights))
+                    jsonData['cals'].append(int(approxCal))
                     finishedData = json.dumps(jsonData)
                     sql = 'UPDATE fitness set history = %s WHERE id =%s'
                     val = (finishedData, number)
@@ -68,16 +71,17 @@ def fitnessSubmit():
                     return "Info has been processed"
         with conn.cursor() as cur:
             cur.execute("SELECT * FROM teamfit.nutrition")
-            newData = """{"cardio": [], "date": [], "weights": []}"""
+            newData = """{"cardio": [], "date": [], "weights": [], "cals": []}"""
             newjsonData = json.loads(newData)
             newjsonData['date'].append(dateformat)
-            newjsonData['cardio'].append(cardio)
-            newjsonData['weights'].append(weights)
+            newjsonData['cardio'].append(int(cardio))
+            newjsonData['weights'].append(int(weights))
+            newjsonData['cals'].append(int(approxCal))
             finaljsonData = json.dumps(newjsonData)
             sql2 = 'INSERT INTO teamfit.fitness (id, history) VALUES (%s,%s)'
             val2 = (number, finaljsonData)
             cur.execute(sql2, val2)
             conn.commit()
         return "User added to database with new info"
-    newHistory = """{"cardio": [], "date": [], "weights": []}"""
+    newHistory = """{"cardio": [], "date": [], "weights": [], "cals": []}"""
     return newHistory

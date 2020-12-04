@@ -14,6 +14,7 @@ import Feed from './components/post/feed.js';
 import Message from './components/message/message.js';
 import Nutrition from "./components/profileNutrition/nutrition";
 import Fitness from "./components/profileFitness/fitness";
+import Compare from "./components/profileCompare/compare"
 
 
 /**
@@ -72,6 +73,7 @@ class App extends React.Component {
           <Route path="/login" render={() => <Login />} />
           <Route path="/profile/nutrition" render={() => <Nutrition />}/>
           <Route path="/profile/fitness" render={() => <Fitness />}/>
+          <Route path="/profile/compare" render={() => <Compare />}/>
           <Route path="/profile" render={() => <Profile />} />
           <Route path="/register" render={() => <Register />} />
           <Route path="/feed" render={() => <Feed />} />
