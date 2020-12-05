@@ -40,28 +40,23 @@ export default class Messages extends React.Component {
   }
 
   render() {
-    const renderList = this.state.sourceEmail;
     let list;
     let del;
-    let create = <CreateMessage sourceEmail={this.state.sourceEmail}/>;
+    let create;
     if(this.state.sourceEmail.length > 0){
+      create = <CreateMessage sourceEmail={this.state.sourceEmail}/>;
       list = <ListMessage sourceEmail={this.state.sourceEmail}/>
       del = <DeleteMessage sourceEmail={this.state.sourceEmail}/>
-    }else{
-      create = <CreateMessage sourceEmail={this.state.sourceEmail}/>
     }
     return (
       <React.Fragment>
       <div>
         <h2>Enter your Username below before proceeding</h2>
-        <form>
-          <input type="email" name="sourceEmail" value={this.state.sourceEmail} onChange={this.handleChange}/>
-        </form>
+        <TextField type="email" name="sourceEmail" label="Enter email address" value={this.state.sourceEmail} onChange={this.handleChange} variant="outlined" color="primary"/>
       </div>
       <div>{create}</div>
       <div>{list}</div>
-    <div>{del}</div>
-      <h2>Your username is: {this.state.sourceEmail}</h2>
+      <div>{del}</div>
       </React.Fragment>
     )
   }
