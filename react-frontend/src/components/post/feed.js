@@ -25,14 +25,15 @@ class Feed extends Component {
             ],
             oldPosts: {},
             message: '',
-            loading: false
+            loading: false,
+            post: ''
 
         }
         this.handleNewPost = this.handleNewPost.bind(this);
         // this.likeAPost = this.likeAPost.bind(this);
     }
 
-    componentWillUnmount() {
+    componentWillMount() {
         fetch('http://127.0.0.1:5000/profile/getPost', {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
@@ -103,13 +104,12 @@ class Feed extends Component {
                     if(!!pattern.test(post)){
                         return(
                             <div className="feed">
-                                <div className="entries" itemId={index}>
+                                <div className="entries" >
                                         <h4>{key}</h4>
-                                    <img src={post} width="190" height="190" alt="postImage" itemId={index}/>
-                                    <LikeButton itemId={index} />
+                                    <img src={post} width="190" height="190" alt="postImage" />
+                                    <LikeButton post={post}/>
                                     <div className="comments">
-                                        <LikeButton/>
-                                        <Comment/>
+                                    <Comment/>
                                     </div>
                                 </div>
                             </div>
@@ -117,10 +117,10 @@ class Feed extends Component {
                             return (
                                 // Complete working with the button in the div below
                                 <div className="feed">
-                                    <div className="entries" itemId={index}>
+                                    <div className="entries" >
                                         <h4>{key}</h4>
-                                        <span itemId={index}><p className="post">{post}</p></span> 
-                                        <LikeButton itemId={index} />
+                                        <span ><p className="post">{post}</p></span> 
+                                        <LikeButton post={post}/>
                                         <div className="comments">
                                         <Comment/>
                                         </div>
