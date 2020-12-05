@@ -118,8 +118,11 @@ def display_posts():
         host='localhost',
         sslmode='disable'
     )
-
+    # {"zayed": ["post","post"], "second user": ["post"]...}
+    # {"zayed": [["{post:[comments]}","post"],[0,1]], "second user": ["post"]...}
+    
     all_posts = {}
+    posts_and_liked = []
     friends_nums = []
     with conn.cursor() as cur:
         cur.execute("SELECT * FROM teamfit.user")
@@ -134,6 +137,7 @@ def display_posts():
                 sql_query = 'SELECT * FROM teamfit.user WHERE PhoneNumber = '+str(j)
                 cur.execute(sql_query)
                 rows = cur.fetchall()
+                print(rows)
                 name = rows[0][3]
                 all_posts[name] = rows[0][11]
         return {'state': all_posts}, 200
@@ -142,6 +146,9 @@ def display_posts():
 @profile_page.route("/profile/likePost", methods=["POST"])
 def like_post():
     liked_post = request.get_json()
+    liked_post = liked_post['body']
+    print(liked_post)
+
     number = _getUsername()
     conn = psycopg2.connect(
         database='teamfit',
@@ -150,15 +157,33 @@ def like_post():
         host='localhost',
         sslmode='disable'
     )
+
     with conn.cursor() as cur:
-        cur.execute('SELECT * FROM teamfit.user')
+        sql_query = 'SELECT * FROM teamfit.user WHERE PhoneNumber = %s' % str(number)
+        cur.execute(sql_query)
         rows = cur.fetchall()
-        for i in range(len(rows)):
-            if number == str(rows[i][0]):
-                print("Inside the if for like")
-                sql_query = 'UPDATE teamfit.user SET liked = array_append(posts, %s) WHERE PhoneNumber = %s'
-                query_val = (liked_post, number)
-                cur.execute(sql_query, query_val)
+
+        friends_nums = rows[0][10]
+        posts = rows[0][11]
+        for i in range(len(posts)):
+            if posts[i] == liked_post:
+                print("Updating for user")
+                sql_query = 'UPDATE teamfit.user SET liked = array_append(liked, %i) WHERE PhoneNumber = %s' % (i,str(number))
+                cur.execute(sql_query)
                 conn.commit()
-                return "New Post Has Been Added"
+
+        for friend_num in friends_nums:
+            sql_query = 'SELECT * FROM teamfit.user WHERE PhoneNumber = %s' % str(friend_num)
+            cur.execute(sql_query)
+            rows = cur.fetchall()
+            posts = rows[0][11]
+            for j in range(len(posts)):
+                if posts[j] == liked_post:
+                    print("Updating for friend")
+                    sql_query = 'UPDATE teamfit.user SET liked = array_append(liked, %i) WHERE PhoneNumber = %s' % (i,str(number))
+                    cur.execute(sql_query)
+                    conn.commit()
+                    return {"state": "Post liked"}, 200
+
+            return {"state": "Not liked"}, 200
     return "My Liked Posts"
