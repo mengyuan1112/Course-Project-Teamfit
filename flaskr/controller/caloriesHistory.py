@@ -14,10 +14,12 @@ def store_calories():
     currDate = datetime.datetime.now()
     if len(date) == 0:
         date = str(currDate.month) + "/" + str(currDate.day)
+    if(body['value'] == ''):
+        return jsonify({'state': 'Please type in Calories or Search food'})
     if date in calories_dict.keys():
         calories = body['value']
-        calories_dict[date] = calories_dict[date] + calories
-        return jsonify({'state': 'successful stored'})
+        calories_dict[date] = int(calories_dict[date]) + int(calories)
+        return jsonify({'state': 'successful updated'})
     calories = body['value']
     calories_dict[date] = calories
     return jsonify({'state': 'successful stored'})
@@ -40,18 +42,4 @@ def get_date_calories():
         print(calories_dict)
         return jsonify({'state': calories_dict[date]})
     else:
-        return jsonify({'state': 'please store data first'})
-
-@caloriesHistory_page.route("/home/updateCalories", methods=['POST'])
-def update_calories():
-    data = request.get_json()
-    body = data['body']
-    print(body)
-    date = body['key']
-    calories = body['value']
-    if date in calories_dict:
-        calories_dict[date] = int(calories_dict[date]) + int(calories)
-        print(calories_dict)
-        return jsonify({'state': 'successful updated'})
-    else:
-        return jsonify({'state': 'please store data first'})
+        return jsonify({'state': 'please enter date or store data first'})
