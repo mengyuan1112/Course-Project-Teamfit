@@ -32,7 +32,7 @@ class Feed extends Component {
         // this.likeAPost = this.likeAPost.bind(this);
     }
 
-    componentWillMount() {
+    componentWillUnmount() {
         fetch('http://127.0.0.1:5000/profile/getPost', {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
@@ -41,7 +41,6 @@ class Feed extends Component {
                 this.setState({oldPosts: data['state']},()=>console.log(this.state.oldPosts))
 
             )
-            console.log(this.state.oldPosts)
     }
 
 
@@ -52,11 +51,8 @@ class Feed extends Component {
             headers: {'Content-Type': 'application/json'}
         }).then(response => {
             let res = response.data
-            console.log(res)
             this.setState({message: res['state']})
             alert(this.state.message)
-            console.log(this.state.message)
-            console.log(this.state.friends)
         });
 
         const posts = this.state.posts.concat([post]);
