@@ -14,7 +14,7 @@ export default class CreateMessage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      destEmail: "destination@gmail.com",
+      destEmail: "example@gmail.com",
       header: "Good day sir!",
       messageList: [],
       parentCounter: 0,
@@ -64,10 +64,10 @@ export default class CreateMessage extends React.Component {
       },
       body: JSON.stringify({
         header: this.state.header,
-        parentMessageID: "2",
+        parentMessageID: this.state.parentCounter,
         userID: this.props.sourceEmail,
-        recieverID: "hello",
-        data: "hello"
+        recieverID: this.state.destEmail,
+        data: this.state.content.value
       })
     }).then(function(response){
       if(response.statusCode === 200){
@@ -105,8 +105,9 @@ export default class CreateMessage extends React.Component {
           <TextField
             autoFocus
             margin="dense"
+            defaultValue={this.state.destEmail}
             name="destEmail"
-            id="recieverEmail"
+            id="destEmail"
             label="Destination Email Address"
             type="email"
             onChange={this.onInputChange}
@@ -116,9 +117,8 @@ export default class CreateMessage extends React.Component {
             autoFocus
             margin="dense"
             name="content"
-            id="message-data"
+            id="content"
             label="Your Message"
-            type="text"
             fullWidth
             onChange={this.onInputChange}
           />
