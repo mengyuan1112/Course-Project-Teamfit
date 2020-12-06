@@ -10,20 +10,15 @@ class Post extends Component {
 
     // }
     
-    render() {
-        const pattern = new RegExp('^(https?:\\/\\/)?')
-        if(!pattern.test(this.props.value.content)){
-            return (
-                <img src={this.props.value.content} width="190" height="190" alt="postImage"/>
-            )
-        }else{
-            return (
-                <div className="post">
-                <span className="content">{this.props.value.content}</span>
-                {/* <button>Like</button>  */}
-                </div>
-            )
-        }
+    render(){
+        return (
+            <>
+            <div className="post">
+                {console.log(this.props.value)}
+            <span className="content">{this.props.value}</span>
+            </div>
+            </>
+        )
     }
 }
 

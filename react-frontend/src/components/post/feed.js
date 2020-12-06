@@ -21,8 +21,9 @@ class Feed extends Component {
         super();
         this.state = {
             posts: [
-                {content: ""},
+                {content: ""}
             ],
+            // comments:
             oldPosts: {},
             message: '',
             loading: false,
@@ -61,21 +62,7 @@ class Feed extends Component {
         this.setState({posts});
     }
 
-    // likeAPost(post){
-    //     // this.state.oldPosts.reverse().map((index =>
-            
-    //         )
-    //     fetch('http://127.0.0.1:5000/profile/likePost', {
-    //         method: 'POST',
-    //         body: JSON.stringify(post),
-    //         headers: {'Content-Type': 'application/json'}
-    //     }).then(function(res) {
-    //         return res;
-    //     }).then(function(data) {
-    //         console.log('server respone:', data)
-    //     });
-        
-    // }
+
 
     renderIt(p,key,index) {
         const posts = p[key]
@@ -88,10 +75,10 @@ class Feed extends Component {
 
 
     render() {
-        const posts = this.state.posts.slice(0).reverse().map((post, index) =>
-            <Post key={index} value={post} />
-            // Can try to 
-        );
+        // const posts = this.state.posts.slice(0).reverse().map((post, index) =>
+        //     <Post key={index} value={post} />
+        //     // Can try to 
+        // );
 
       
         const p = this.state.oldPosts
@@ -138,3 +125,18 @@ class Feed extends Component {
 
 export default Feed;
 
+    // likeAPost(post){
+    //     // this.state.oldPosts.reverse().map((index =>
+            
+    //         )
+    //     fetch('http://127.0.0.1:5000/profile/likePost', {
+    //         method: 'POST',
+    //         body: JSON.stringify(post),
+    //         headers: {'Content-Type': 'application/json'}
+    //     }).then(function(res) {
+    //         return res;
+    //     }).then(function(data) {
+    //         console.log('server respone:', data)
+    //     });
+        
+    // }
