@@ -28,7 +28,6 @@ class Home extends Component{
             calories: "",
             ListOfCal: []
         }
-        const row = [];
     }
 
     handleChange = e => {
@@ -174,34 +173,6 @@ class Home extends Component{
         )
     }
 
-    handlesUpdateCal =e=>{
-        e.preventDefault()
-        const key = this.state.date
-        const value = this.state.calories
-        var dict = {
-            key:key,
-            value:value
-        }
-        axiosConfig.post('http://127.0.0.1:5000/home/updateCalories',{
-            body: dict,
-            headers: {"Content-Type":"application/json",},
-            cache: "no-cache",
-        }).then(
-            response=>{
-                let res = response.data
-                this.setState({
-                    foodInfo: [],
-                    foodId: [],
-                    foodNutrition: [],
-                    recipeInfo: [],
-                    articles: [],
-                    ListOfCal: [],
-                    message: res['state']
-                })
-            }
-        )
-
-    }
     handlesGetDateCall=e=>{
         e.preventDefault()
         axiosConfig.post('http://127.0.0.1:5000/home/getCalories',{
@@ -260,7 +231,6 @@ class Home extends Component{
                                onChange = {this.handleCalChange}
                         />
                         <button onClick={this.handlesStoreCal} className = "storeCal">Store Calories!</button>
-                        <button onClick={this.handlesUpdateCal} className="updateCal">Update Calories!</button>
                         <button onClick={this.handlesGetAllCal} className="getAllCal">Get all History!</button>
                         <button onClick={this.handlesGetDateCall} className="getDateCal">Get Date History!</button>
                     </div>
