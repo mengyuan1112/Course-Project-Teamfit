@@ -7,7 +7,7 @@ class Comment extends Component{
     constructor(props) {
         super();
         this.state = {
-            comments: ["First comment"],
+            comments: [],
             comment: "",
         }
         this.handleChange = this.handleChange.bind(this);
@@ -17,7 +17,8 @@ class Comment extends Component{
     handleChange(event) { 
         this.setState({
             comment: event.target.value,
-        }); 
+        });
+        
     }
 
     componentDidUpdate() {
@@ -28,7 +29,11 @@ class Comment extends Component{
         event.preventDefault();
         this.setState({
             comments: this.state.comments.concat(this.state.comment)
-        })
+        });
+
+        this.setState({
+            comment: ''
+        });
         this.renderComments()
  
         console.log(this.state.comments)
