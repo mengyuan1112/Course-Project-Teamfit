@@ -98,6 +98,10 @@ class Feed extends Component {
                                     <div className="comments">
                                     <Comment/>
                                     </div>
+                                    <div>
+
+                                        
+                                    </div>
                                 </div>
                             </div>
                         )}else{
