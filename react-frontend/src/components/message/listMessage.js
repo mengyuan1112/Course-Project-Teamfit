@@ -5,6 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
 import Grid from '@material-ui/core/Grid';
+import Card from "react-bootstrap/Card";
 
 
 export default class ListMessage extends React.Component {
@@ -26,24 +27,26 @@ export default class ListMessage extends React.Component {
     padding: 8
   };
   
-  componentDidMount() {
-    axios.get('http://localhost:5000/listMessages', { headers: { "messageID": this.props.sourceEmail } })
-      .then((response) => {
-        // console.log(response)Destination Username
-        this.setState({messageList: response.json})
-      })
-      console.log("In List Message component" + this.props.sourceEmail)
-  }
+  // componentDidMount() {
+  //   axios.get('http://localhost:5000/listMessages', { headers: { "messageID": this.props.sourceEmail } })
+  //     .then((response) => {
+  //       // console.log(response)Destination Username
+  //       this.setState({messageList: response.json})
+  //     })
+  //     console.log("In List Message component" + this.props.sourceEmail)
+  // }
 
   listMessages = () => {
     var self = this
     axios.get('http://localhost:5000/listMessages', { headers: { "messageID": this.props.sourceEmail } })
       .then((response) => {
         console.log(response)
-        self.setState({messageList: response.data})
+        this.setState({messageList: response.data})
+        console.log(this.state.messageList)
       }).catch((error) => {
         this.setState({errorMessage: error.message})
       })
+
   }
   
   handleChange = (e) => this.setState({
@@ -63,10 +66,19 @@ export default class ListMessage extends React.Component {
       <div className="messageList">
           <div>{alert}</div>
           <Button onClick={this.listMessages} variant="contained">List</Button>
-        <div>{this.state.messageList.map((elem, idx) => {
-          <b>{elem}</b>
+        {/*<div>{this.state.messageList.map((elem, idx) => {*/}
+        {/*  <b>{elem}</b>*/}
+        {/*})}*/}
+        {/*</div>*/}
+
+        {/*<div>*/}
+        {/*  {this.state.messageList}*/}
+        {/*</div>*/}
+        <body>
+        {this.state.messageList.map(response=>{
+          return <body>{response}</body>;
         })}
-        </div>
+        </body>
       </div>
     )
   }
