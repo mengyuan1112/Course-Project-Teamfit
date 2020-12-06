@@ -21,8 +21,9 @@ class Feed extends Component {
         super();
         this.state = {
             posts: [
-                {content: ""},
+                {content: ""}
             ],
+            // comments:
             oldPosts: {},
             message: '',
             loading: false,
@@ -74,10 +75,10 @@ class Feed extends Component {
 
 
     render() {
-        const posts = this.state.posts.slice(0).reverse().map((post, index) =>
-            <Post key={index} value={post} />
-            // Can try to 
-        );
+        // const posts = this.state.posts.slice(0).reverse().map((post, index) =>
+        //     <Post key={index} value={post} />
+        //     // Can try to 
+        // );
 
       
         const p = this.state.oldPosts

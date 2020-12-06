@@ -1,0 +1,27 @@
+.comment {
+    position: relative;
+    top: 120px; left: 40px;
+    height: auto;
+    width: 400px;
+    margin: auto;
+    border-style: ridge;
+    border-radius: 90%;
+    background-color: aliceblue;
+  }
+
+.like {
+  background-color: whitesmoke;
+  border-radius: 10px;
+  margin-left: auto;
+}
+
+.like:focus {
+  background-color: darkslateblue;
+}
+
+.entries {
+  background-color: darkslategray;
+  border-radius: 25px;
+  
+}
+
