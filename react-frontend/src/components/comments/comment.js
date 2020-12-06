@@ -1,30 +1,35 @@
 import React, { Component } from 'react';
 import Post from '../post/post.js';
-import Axios from 'axios';
+// import Axios from 'axios';
 
 class Comment extends Component{
     constructor(props) {
         super();
         this.state = {
-            comments: [],
-            comment: ""
+            comments: [
+                {comment: ""}
+            ],
+            
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) { 
-        event.preventDefault();
+        // event.preventDefault();
+        // const comments = this.state.comments.concat([event]);
         this.setState({
-            comment: event.target.value,
-            comments: this.state.comments.concat(this.state.comments)
+            // comment: event.target.value,
+            // comments: this.state.comments.concat(this.state.comments)
+            [event.target.name] : event.target.value
         }); 
     }
 
     handleSubmit(event) {
         event.preventDefault();
-
-        console.log(this.state.comments)
+        const comments = this.state.comments.concat([event]);
+        this.setState({comments});
+        // console.log(this.state.comments)
         
 
     }
@@ -39,9 +44,10 @@ class Comment extends Component{
                     <form onSubmit={this.handleSubmit}>
                     <label style={{ fontWeight: 'bold' }}>
                     Add a Comment: 
-                    <input type="text" value={this.state.comment} onChange={this.handleChange}/>
+                    <input type="text" name="comment" defaultValue={this.state.comments.comment || ''} onChange={this.handleChange}/>
                     </label>
-                    <input type="submit" value="Submit"/>
+                    {/* <input type="submit" value="Submit"/> */}
+                    <button type="submit">Submit</button>
                     </form>  
                 </>
         )
