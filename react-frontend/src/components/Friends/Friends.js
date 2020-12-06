@@ -5,7 +5,6 @@ import axiosConfig from 'axios';
 import Axios from 'axios';
 import React, { Component } from "react";
 import 'semantic-ui-css/semantic.min.css'
-import "./App.css";
 
 const Person = ({ img, name, occupation, children }) => {
   const url = `https://randomuser.me/api/portraits/thumb/men/${img}.jpg`;
@@ -102,24 +101,19 @@ class friends extends React.Component{
       return (
             <div >               
                <h2 className='title'>Friends:</h2>
-               
-               
-               <PersonList />;
-               
-               
-               
                {Object.keys(folks).map((key,id) => {
                   return <h2 key={id} className="friend">{this.state.friends[key]} | {key}</h2>
                })}
-              
-              <form onSubmit={this.handleSubmit}>
-            <label style={{ fontWeight: 'bold' }}>
-               Add a friend: 
-               <input type="text" value={this.state.friendNum} onChange={this.handleChange}/>
-            </label>
-            <input type="submit" value="Submit"/>
-            </form>  
-            </div>      
+                             <form onSubmit={this.handleSubmit}>
+                <label style={{ fontWeight: 'bold' }}>
+                  Add a friend: 
+                  <input type="text" value={this.state.friendNum} onChange={this.handleChange}/>
+                </label>
+                <input type="submit" value="Submit"/>
+                <h1> </h1>
+              </form>  
+               <div><PersonList />;</div>
+              </div>    
          )
          
             
