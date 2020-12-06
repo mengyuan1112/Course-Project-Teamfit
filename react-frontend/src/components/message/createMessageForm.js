@@ -1,13 +1,9 @@
 import { TextField, Button, Dialog } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import React from "react";
-import style from './message.css'
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import SendIcon from '@material-ui/icons/Send';
-import Icon from '@material-ui/core/Icon';
-import Send from '@material-ui/icons/Send';
+import Alert from '@material-ui/lab/Alert';
 const axios = require('axios');
 export default class CreateMessage extends React.Component {
 
@@ -15,7 +11,7 @@ export default class CreateMessage extends React.Component {
     super(props);
     this.state = {
       destEmail: "example@gmail.com",
-      header: "Good day sir!",
+      header: "Headers should not be set by the user b/c I said so hahaha :)",
       messageList: [],
       parentCounter: 0,
       content:"",
@@ -54,7 +50,7 @@ export default class CreateMessage extends React.Component {
   }
   
   handleSubmit = e => {
-    this.setState({parentMessageID: this.state.parentCounter++})
+    this.setState({parentMessageID: this.state.parentCounter+=1})
     e.preventDefault();
     fetch('http://localhost:5000/createMessage', {
       method: "POST",
@@ -71,68 +67,35 @@ export default class CreateMessage extends React.Component {
       })
     }).then(function(response){
       if(response.statusCode === 200){
-        this.state.append("was not able to recieve a 200 for creating a message from flask")        
+        console.log("made request to the backend flask app")
       }
     }).catch((error) => {
       this.setState({errorList: error.message})
     })
     this.handleClose();
   }
-  componentDidMount() {
-
-  }
 
   render() {
+    let alert;
+    if(this.state.errorList.length > 1){
+      alert = <Alert severity="error">{this.state.errorList}</Alert>
+    }
     return (
       <div>
+        <div>{alert}</div>
         <Button variant="outlined" color="primary" onClick={this.handleOpen}>
           Send a Message
         </Button>
         <Dialog open={this.state.diaglogSwitch} onClose={this.handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="createMessageTitle">Send a message!</DialogTitle>
-          <TextField
-            autoFocus
-            disabled
-            margin="dense"
-            name="sourceEmail"
-            defaultValue={this.props.sourceEmail}
-            id="senderEmail"
-            label="Your Email Address"
-            type="email"
-            onChange={this.onInputChange}
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            defaultValue={this.state.destEmail}
-            name="destEmail"
-            id="destEmail"
-            label="Destination Email Address"
-            type="email"
-            onChange={this.onInputChange}
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            name="content"
-            id="content"
-            label="Your Message"
-            fullWidth
-            onChange={this.onInputChange}
-          />
+          <TextField autoFocus disabled margin="dense" name="sourceEmail" defaultValue={this.props.sourceEmail} id="senderEmail" label="Your Email Address" type="email" onChange={this.onInputChange} fullWidth/>
+          <TextField autoFocus margin="dense" defaultValue={this.state.destEmail} name="destEmail" id="destEmail" label="Destination Email Address" type="email" onChange={this.onInputChange} fullWidth/>
+          <TextField autoFocus margin="dense" name="content" id="content" label="Your Message" fullWidth onChange={this.onInputChange}/>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleSubmit} color="primary" endIcon={<SendIcon/>}> 
-              Send
-            </Button>
+            <Button onClick={this.handleClose} color="primary"> Cancel </Button>
+            <Button onClick={this.handleSubmit} color="primary" endIcon={<SendIcon/>}> Send</Button>
           </DialogActions>
-
         </Dialog>
-        <div>{this.state.errorList}</div>
       </div>
     );
   }
