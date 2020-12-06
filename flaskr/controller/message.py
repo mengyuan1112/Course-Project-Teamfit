@@ -55,6 +55,7 @@ def listMessages():
     if rows:
         return json_response(retList)
     else:
+        print("printing the json stuff bc the email is not good i think", file=sys.stderr)
         return json_response(["this", "is", "empty", "list"])
 
 
