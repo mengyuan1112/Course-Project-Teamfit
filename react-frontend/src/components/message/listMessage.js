@@ -2,13 +2,18 @@ import { ListItem, ListItemText, ListSubheader, List, TextField, Button } from '
 import axios from 'axios'
 import React, { useState } from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
+import IconButton from '@material-ui/core/IconButton';
+import Alert from '@material-ui/lab/Alert';
+import Grid from '@material-ui/core/Grid';
+
+
 export default class ListMessage extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
       errorMessage: "",
-      messageList: [],
+      messageList: ["empty", "list", "of messages"],
       messageObjectList: []
     }
     this.listMessages = this.listMessages.bind(this);
@@ -25,7 +30,6 @@ export default class ListMessage extends React.Component {
     axios.get('http://localhost:5000/listMessages', { headers: { "messageID": this.props.sourceEmail } })
       .then((response) => {
         // console.log(response)Destination Username
-
         this.setState({messageList: response.json})
       })
       console.log("In List Message component" + this.props.sourceEmail)
@@ -37,9 +41,6 @@ export default class ListMessage extends React.Component {
       .then((response) => {
         console.log(response)
         self.setState({messageList: response.data})
-        this.state.messageList.map((element, idx) => {
-          this.state.messageObjectList.push({element})
-        })
       }).catch((error) => {
         this.setState({errorMessage: error.message})
       })
@@ -49,25 +50,23 @@ export default class ListMessage extends React.Component {
     sourceEmail: e.target.sourceEmail
   })
 
-  render() {
-    this.listMessages.bind(this);
-    var renderedOutput = this.state.messageObjectList.map(item => <div> {item} </div>)
-    return (
-        <div className="message">
-        <h2>Which of your messages do you want to list</h2>
-        <input
-            placeholder="Destination Username"
-            name="destEmail"
-            type="email"
-            onChange={this.onInputChange}
-            required
-          />
-        <div>{this.state.errorMessage}</div>
-        <Button onClick={this.listMessages} variant="contained">List</Button>
-        <div>
-        <ul>{this.state.messageList}</ul>
-        </div>
+  handleTogge = () => {
 
+  }
+
+  render() {
+    let alert;
+    if(this.state.errorMessage.length > 1){
+      alert = <Alert severity="error">{this.state.errorMessage}</Alert>
+    }
+    return (
+      <div className="messageList">
+          <div>{alert}</div>
+          <Button onClick={this.listMessages} variant="contained">List</Button>
+        <div>{this.state.messageList.map((elem, idx) => {
+          <b>{elem}</b>
+        })}
+        </div>
       </div>
     )
   }

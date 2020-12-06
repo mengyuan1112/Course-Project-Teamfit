@@ -36,16 +36,9 @@ export default class CreateMessage extends React.Component {
     this.setState({diaglogSwitch: false});
   }
 
-  listMessages() {
-    axios.get('http://localhost:5000/listMessages', { headers: { "userID": this.props.sourceEmail } })
-      .then(function (data) {
-        this.state.messageList.push(data)
-      });
-  }
-  
   onInputChange(event) {
     this.setState({
-      [event.target.name]: { value: event.target.value }
+      [event.target.name]: event.target.value 
     });
   }
   
@@ -63,7 +56,7 @@ export default class CreateMessage extends React.Component {
         parentMessageID: this.state.parentCounter,
         userID: this.props.sourceEmail,
         recieverID: this.state.destEmail,
-        data: this.state.content.value
+        data: this.state.content
       })
     }).then(function(response){
       if(response.statusCode === 200){

@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, json, request, render_template, Blueprint, Response
+import json
 from flask_cors import CORS
 import psycopg2
 import psycopg2.errorcodes
@@ -33,8 +34,7 @@ def createMessage():
     print(request.get_json(), file=sys.stderr)
     if data.get('userID') == "":
         return jsonify({'Bad request': False, 'message': 'No userID passed'})
-    message = Message(data)
-    print(message, file=sys.stderr)
+    message = Message("", data['header'], data['parentMessageID'], data['userID'], data['recieverID'], data['data'])
     insertMessageIntoTable(message)
     # insert a new row into the message table containing this message.
     return jsonify({'ok': True, 'message': 'Message created successfully!'}), 200
@@ -51,7 +51,11 @@ def listMessages():
     cur.execute(query)
     rows = cur.fetchall()  # make call to db to list all of the Message rows that have the userId as the source
     conn.commit()
-    return json_response(rows)
+    retList = convertSqlToObj(rows)
+    if rows:
+        return json_response(retList)
+    else:
+        return json_response(["this", "is", "empty", "list"])
 
 
 @message_page.route("/listParentMessages", methods=["GET"])
@@ -64,8 +68,9 @@ def listParents():
     cur = conn.cursor()
     cur.execute(query)
     rows = cur.fetchall()
+    retList = convertSqlToObj(rows)
     conn.commit()
-    return json_response(rows)
+    return json_response(retList)
 
 
 @message_page.route("/deleteMessage", methods=["PUT"])
@@ -97,14 +102,22 @@ def insertMessageIntoTable(message):
 
 def json_response(payload, status=200):
     return (json.dumps(payload), status, {'content-type': 'application/json'})
+    
+def convertSqlToObj(rows):
+    retList = []
+    for row in rows:
+        message = (Message(row[0], row[1], row[2], row[3], row[4], row[5]))
+        retList.append(json.dumps(message.__dict__))
+        print(message, file=sys.stderr)
+    return retList
 
 
 class Message:
 
-    def __init__(self, data):
-        self.messageID = ""
-        self.header = data['header']
-        self.parentMessageID = data['parentMessageID']
-        self.sourceID = data['userID']  # email address of user that is sending message
-        self.recieverID = data['recieverID']  # email address of user that is recieving the message.
-        self.content = data['data']  # the actual message data
+    def __init__(self, messageID,header, parentMessageID, userID, recieverID, data):
+        self.messageID = messageID
+        self.header = header
+        self.parentMessageID = parentMessageID
+        self.sourceID = userID  # email address of user that is sending message
+        self.recieverID = recieverID  # email address of user that is recieving the message.
+        self.content = data  # the actual message data
