@@ -38,7 +38,7 @@ export default class ListMessage extends React.Component {
 
   listMessages = () => {
     var self = this
-    axios.get('http://localhost:5000/listMessages', { headers: { "messageID": this.props.sourceEmail } })
+    axios.get('http://18.223.214.126:5000/listMessages', { headers: { "messageID": this.props.sourceEmail } })
       .then((response) => {
         console.log(response)
         this.setState({messageList: response.data})

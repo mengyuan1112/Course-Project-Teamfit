@@ -54,21 +54,21 @@ class friends extends React.Component{
      }
 
   componentWillMount() {
-   Axios('http://localhost:5000/friends/get_friends', {method: "GET"}).then(response => this.setState({friends: response.data}));
+   Axios('http://18.223.214.126:5000/friends/get_friends', {method: "GET"}).then(response => this.setState({friends: response.data}));
    console.log(this.state.friends)
   }
       
      
   handleChange(event) { 
    this.setState({friendNum: event.target.value}); 
-   Axios('http://localhost:5000/friends/get_friends', {method: "GET"}).then(response => this.setState({friends: response.data}));
+   Axios('http://18.223.214.126:5000/friends/get_friends', {method: "GET"}).then(response => this.setState({friends: response.data}));
    console.log(this.state.message)
    console.log(this.state.friends)
   }
   handleSubmit(event) {
    event.preventDefault();
 
-     axiosConfig.post('http://127.0.0.1:5000/friends/addfriend',{
+     axiosConfig.post('http://18.223.214.126:5000/friends/addfriend',{
       body : this.state.friendNum,
       headers:{"Content-Type":"application/json",
       "Access-Control-Allow-Origin": "*",},

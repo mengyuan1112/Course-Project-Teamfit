@@ -28,7 +28,7 @@ export default class Messages extends React.Component {
   }
 
   listParents() {
-    axios.get('http://localhost:5000/listParentMessages', { headers: { "parentID": this.state.parentCounter } })
+    axios.get('http://18.223.214.126:5000/listParentMessages', { headers: { "parentID": this.state.parentCounter } })
       .then(function (data) {
         this.state.parentList.push(data)
       })

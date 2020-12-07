@@ -39,7 +39,7 @@ class Profile extends React.Component{
 
     /*GET request to nutrition.py. Updates history to be object with 3 arrays*/
     componentDidMount() {
-        Axios.get('http://localhost:5000/profile/getinfo').then(response=> { this.setState({userInfo: response.data});})
+        Axios.get('http://18.223.214.126:5000/profile/getinfo').then(response=> { this.setState({userInfo: response.data});})
         console.log(this.state.userInfo)
     }
 
@@ -170,7 +170,7 @@ class Profile extends React.Component{
         this.setState({loading: !this.state.loading})
 
         /**Save the image URL in the backend */
-        fetch('http://localhost:5000/profile/postimage', {
+        fetch('http://18.223.214.126:5000/profile/postimage', {
         method: "POST",
             headers: {
             'Accept': 'application/json',
