@@ -7,7 +7,7 @@ import DeleteMessage from './deleteMessage.js'
 import Grid from '@material-ui/core/Grid';
 
 const axios = require('axios');
-
+const host = "http://localhost:5000/"
 export default class Messages extends React.Component {
 
   constructor(props) {

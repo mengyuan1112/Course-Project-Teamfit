@@ -5,6 +5,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import SendIcon from '@material-ui/icons/Send';
 import Alert from '@material-ui/lab/Alert';
 const axios = require('axios');
+const host = "http://localhost:5000/"
 export default class CreateMessage extends React.Component {
 
   constructor(props) {

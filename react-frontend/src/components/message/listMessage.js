@@ -7,6 +7,7 @@ import Alert from '@material-ui/lab/Alert';
 import Grid from '@material-ui/core/Grid';
 import Card from "react-bootstrap/Card";
 
+const host = "http://localhost:5000/"
 
 export default class ListMessage extends React.Component {
 
@@ -26,15 +27,6 @@ export default class ListMessage extends React.Component {
     margin: 6,
     padding: 8
   };
-  
-  // componentDidMount() {
-  //   axios.get('http://localhost:5000/listMessages', { headers: { "messageID": this.props.sourceEmail } })
-  //     .then((response) => {
-  //       // console.log(response)Destination Username
-  //       this.setState({messageList: response.json})
-  //     })
-  //     console.log("In List Message component" + this.props.sourceEmail)
-  // }
 
   listMessages = () => {
     var self = this

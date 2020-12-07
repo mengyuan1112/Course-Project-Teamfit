@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import React from "react";
 import style from './message.css'
 const axios = require('axios');
+const host = "http://localhost:5000/"
 export default class DeleteMessage extends React.Component {
 
   constructor(props) {

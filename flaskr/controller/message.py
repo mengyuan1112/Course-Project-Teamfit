@@ -9,6 +9,7 @@ import logging
 import random
 
 message_page = Blueprint('message_page', __name__, template_folder='templates')
+deletedMessages = {}
 
 conn = psycopg2.connect(
     database='teamfit',
@@ -44,7 +45,7 @@ def createMessage():
 def listMessages():
     userID = request.headers.get('messageID')
     if userID == None or userID == '':
-        return (json.dumps('There is no parentID how can you expect me to list these messages.'), 400,
+        return (json.dumps('There is no messageId how can you expect me to list these messages.'), 400,
                 {'content-type': 'application/json'})
     query = 'SELECT * FROM messages WHERE sourceid=\'' + userID + '\''
     cur = conn.cursor()
@@ -80,14 +81,16 @@ def deleteMessage():
     messageID = data.get('messageID')
     parentMessageID = data.get('parentMessageID')
     if messageID is not None:
-        query = 'DELETE  FROM messages WHERE messageID='+ str(messageID)
+        deletedMessages[messageID] = "we got deleted ;("
+        query = 'DELETE FROM messages WHERE messageID='+ str(messageID)
         cur = conn.cursor()
         cur.execute(query, (messageID))
         conn.commit()
         return json_response("Deleted messageID " + str(messageID))
     if parentMessageID is not None:
+        deletedMessages[messageID] = "we got deleted ;("
         query = 'DELETE FROM messages WHERE parentID=' + str(parentMessageID)
-        cur.execute('DELETE  FROM messages WHERE messageID=() VALUES (%s)')
+        cur.execute(query, (parentMessageID))
         cur = conn.cursor()
         conn.commit()
         return json_response("Deleted all messages with parentMessageID=" + str(parentMessageID))
@@ -107,7 +110,9 @@ def json_response(payload, status=200):
 def convertSqlToObj(rows):
     retList = []
     for row in rows:
-        message = (Message(row[0], row[1], row[2], row[3], row[4], row[5]))
+        message = Message(row[0], row[1], row[2], row[3], row[4], row[5])
+        if message.messageID in deletedMessages or message.parentMessageID in deletedMessages:
+            continue
         retList.append(json.dumps(message.__dict__))
         print(message, file=sys.stderr)
     return retList
