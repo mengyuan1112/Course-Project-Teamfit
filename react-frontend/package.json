@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -14,6 +15,7 @@
     "react-bootstrap": "^1.4.0",
     "react-dom": "^16.13.1",
     "react-grid-layout": "^1.1.1",
+    "react-infinite-scroll-component": "^5.1.0",
     "react-masonry-css": "^1.0.14",
     "react-popup": "^0.10.0",
     "react-router-dom": "^5.2.0",
