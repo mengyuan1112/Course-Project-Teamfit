@@ -7,7 +7,7 @@ import DeleteMessage from './deleteMessage.js'
 import Grid from '@material-ui/core/Grid';
 
 const axios = require('axios');
-
+const host = "http://localhost:5000/"
 export default class Messages extends React.Component {
 
   constructor(props) {
@@ -28,7 +28,7 @@ export default class Messages extends React.Component {
   }
 
   listParents() {
-    axios.get('http://localhost:5000/listParentMessages', { headers: { "parentID": this.state.parentCounter } })
+    axios.get(host+'listParentMessages', { headers: { "parentID": this.state.parentCounter } })
       .then(function (data) {
         this.state.parentList.push(data)
       })

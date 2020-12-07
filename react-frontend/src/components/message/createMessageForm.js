@@ -5,6 +5,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import SendIcon from '@material-ui/icons/Send';
 import Alert from '@material-ui/lab/Alert';
 const axios = require('axios');
+const host = "http://localhost:5000/"
 export default class CreateMessage extends React.Component {
 
   constructor(props) {
@@ -45,7 +46,7 @@ export default class CreateMessage extends React.Component {
   handleSubmit = e => {
     this.setState({parentMessageID: this.state.parentCounter+=1})
     e.preventDefault();
-    fetch('http://localhost:5000/createMessage', {
+    fetch(host+'createMessage', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
