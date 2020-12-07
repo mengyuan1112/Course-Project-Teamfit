@@ -51,7 +51,7 @@ export default class Login extends React.Component {
             `)
             axiosConfig.post('http://127.0.0.1:5000/login',{
                 body : this.state,
-                headers:{"Content-Type":"application/json",},
+                headers:{"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
                 cache: "no-cache",
             })
                 .then(response => {

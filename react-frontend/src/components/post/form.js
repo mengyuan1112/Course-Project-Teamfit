@@ -46,7 +46,7 @@ class Form extends Component {
         axiosConfig.post('http://127.0.0.1:5000/profile/makePost', {
             method: 'POST',
             body: file.secure_url,
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json',"Access-Control-Allow-Origin": "*",}
         }).then(response => {
             let res = response.data
             console.log(res)

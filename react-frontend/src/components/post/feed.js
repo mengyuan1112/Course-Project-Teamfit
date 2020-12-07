@@ -37,7 +37,7 @@ class Feed extends Component {
     componentWillMount() {
         fetch('http://127.0.0.1:5000/profile/getPost', {
             method: 'GET',
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json',"Access-Control-Allow-Origin": "*",}
         }).then(res =>res.json())
             .then(data =>
                 this.setState({oldPosts: data['state']},()=>console.log(this.state.oldPosts))
@@ -50,7 +50,7 @@ class Feed extends Component {
         axiosConfig.post('http://127.0.0.1:5000/profile/makePost', {
             method: 'POST',
             body: post,
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json',"Access-Control-Allow-Origin": "*",}
         }).then(response => {
             let res = response.data
             this.setState({message: res['state']})

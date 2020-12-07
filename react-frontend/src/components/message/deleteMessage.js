@@ -26,7 +26,7 @@ export default class DeleteMessage extends React.Component {
     fetch('http://localhost:5000/deleteMessage', {
       method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json',"Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
         messageID: this.state.messageID.value

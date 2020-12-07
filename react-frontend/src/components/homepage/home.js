@@ -57,7 +57,7 @@ class Home extends Component{
         e.preventDefault()
         axiosConfig.post('http://127.0.0.1:5000/home/food',{
             body : this.state.foodName,
-            headers:{"Content-Type":"application/json",},
+            headers:{"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         })
             .then(response => {
@@ -93,7 +93,7 @@ class Home extends Component{
         e.preventDefault()
         axiosConfig.post('http://127.0.0.1:5000/home/foodRecipe',{
             body : this.state.foodName,
-            headers:{"Content-Type":"application/json",},
+            headers:{"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         }).then(
             response => {
@@ -136,7 +136,7 @@ class Home extends Component{
         console.log(this.state)
         axiosConfig.post('http://127.0.0.1:5000/home/storeCalories',{
             body: dict,
-            headers: {"Content-Type":"application/json",},
+            headers: {"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         }).then(
             response =>{
@@ -177,7 +177,7 @@ class Home extends Component{
         e.preventDefault()
         axiosConfig.post('http://127.0.0.1:5000/home/getCalories',{
             body: this.state.date,
-            headers: {"Content-Type":"application/json",},
+            headers: {"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         }).then(
             response=>{

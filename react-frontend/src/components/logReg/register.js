@@ -88,7 +88,7 @@ export default class Register extends React.Component {
             //this.componentDidMount()
             axiosConfig.post('http://127.0.0.1:5000/register',{
                 body : this.state,
-                headers:{"Content-Type":"application/json",},
+                headers:{"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
                 cache: "no-cache",
             })
                 .then(response => {
