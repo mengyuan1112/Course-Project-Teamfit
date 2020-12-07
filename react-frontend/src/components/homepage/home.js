@@ -55,9 +55,9 @@ class Home extends Component{
 
     handleSubmit = e => {
         e.preventDefault()
-        axiosConfig.post('http://127.0.0.1:5000/home/food',{
+        axiosConfig.post('http://18.223.214.126:5000/home/food',{
             body : this.state.foodName,
-            headers:{"Content-Type":"application/json",},
+            headers:{"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         })
             .then(response => {
@@ -91,9 +91,9 @@ class Home extends Component{
     }
     handleSubmitRecipe =e=>{
         e.preventDefault()
-        axiosConfig.post('http://127.0.0.1:5000/home/foodRecipe',{
+        axiosConfig.post('http://18.223.214.126/home/foodRecipe',{
             body : this.state.foodName,
-            headers:{"Content-Type":"application/json",},
+            headers:{"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         }).then(
             response => {
@@ -134,9 +134,9 @@ class Home extends Component{
             value: value,
         }
         console.log(this.state)
-        axiosConfig.post('http://127.0.0.1:5000/home/storeCalories',{
+        axiosConfig.post('http://18.223.214.126:5000/home/storeCalories',{
             body: dict,
-            headers: {"Content-Type":"application/json",},
+            headers: {"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         }).then(
             response =>{
@@ -156,7 +156,7 @@ class Home extends Component{
     }
     handlesGetAllCal=e=>{
         e.preventDefault()
-        axiosConfig.get('http://127.0.0.1:5000/home/getAllCalories')
+        axiosConfig.get('http://18.223.214.126:5000/home/getAllCalories')
             .then(
             response=>{
                 let res = response.data
@@ -175,9 +175,9 @@ class Home extends Component{
 
     handlesGetDateCall=e=>{
         e.preventDefault()
-        axiosConfig.post('http://127.0.0.1:5000/home/getCalories',{
+        axiosConfig.post('http://18.223.214.126:5000/home/getCalories',{
             body: this.state.date,
-            headers: {"Content-Type":"application/json",},
+            headers: {"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         }).then(
             response=>{

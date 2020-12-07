@@ -22,7 +22,7 @@ class Newsfeed extends Component {
     
 
     componentDidMount() {
-    Axios.get('http://localhost:3000//home')
+    Axios.get('http://18.223.214.126:3000//home')
         .then(response => {
             let res = response.data
             this.setState({articles: res['article']})

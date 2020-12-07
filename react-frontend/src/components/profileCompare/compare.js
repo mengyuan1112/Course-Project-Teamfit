@@ -24,8 +24,8 @@ export default class Compare extends React.Component {
     }
     /*GET request to fitness.py and nutrition.py. Makes both histories to be object with 3 arrays*/
     componentDidMount() {
-        Axios.get('http://localhost:5000/profile/nutrition/submit').then(response=> { this.setState({nutritionHistory: response.data});})
-        Axios.get('http://localhost:5000/profile/fitness/submit').then(response=> { this.setState({fitnessHistory: response.data});})
+        Axios.get('http://18.223.214.126:5000/profile/nutrition/submit').then(response=> { this.setState({nutritionHistory: response.data});})
+        Axios.get('http://18.223.214.126:5000/profile/fitness/submit').then(response=> { this.setState({fitnessHistory: response.data});})
     }
 
     componentWillUnmount() {

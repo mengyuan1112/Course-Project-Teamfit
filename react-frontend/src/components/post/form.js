@@ -43,10 +43,10 @@ class Form extends Component {
         this.setState({loading: !this.state.loading})
 
         /**Save the image URL in the backend */
-        axiosConfig.post('http://127.0.0.1:5000/profile/makePost', {
+        axiosConfig.post('http://18.223.214.126:5000/profile/makePost', {
             method: 'POST',
             body: file.secure_url,
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json',"Access-Control-Allow-Origin": "*",}
         }).then(response => {
             let res = response.data
             console.log(res)
