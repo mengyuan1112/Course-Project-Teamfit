@@ -21,11 +21,13 @@ class Feed extends Component {
         super();
         this.state = {
             posts: [
-                {content: ""},
+                {content: ""}
             ],
+            // comments:
             oldPosts: {},
             message: '',
-            loading: false
+            loading: false,
+            post: ''
 
         }
         this.handleNewPost = this.handleNewPost.bind(this);
@@ -33,30 +35,26 @@ class Feed extends Component {
     }
 
     componentWillMount() {
-        fetch('http://127.0.0.1:5000/profile/getPost', {
+        fetch('http://18.223.214.126:5000/profile/getPost', {
             method: 'GET',
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json',"Access-Control-Allow-Origin": "*",}
         }).then(res =>res.json())
             .then(data =>
                 this.setState({oldPosts: data['state']},()=>console.log(this.state.oldPosts))
 
             )
-            console.log(this.state.oldPosts)
     }
 
 
     handleNewPost(post) {
-        axiosConfig.post('http://127.0.0.1:5000/profile/makePost', {
+        axiosConfig.post('http://18.223.214.126:5000/profile/makePost', {
             method: 'POST',
             body: post,
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json',"Access-Control-Allow-Origin": "*",}
         }).then(response => {
             let res = response.data
-            console.log(res)
             this.setState({message: res['state']})
             alert(this.state.message)
-            console.log(this.state.message)
-            console.log(this.state.friends)
         });
 
         const posts = this.state.posts.concat([post]);
@@ -64,21 +62,7 @@ class Feed extends Component {
         this.setState({posts});
     }
 
-    // likeAPost(post){
-    //     // this.state.oldPosts.reverse().map((index =>
-            
-    //         )
-    //     fetch('http://127.0.0.1:5000/profile/likePost', {
-    //         method: 'POST',
-    //         body: JSON.stringify(post),
-    //         headers: {'Content-Type': 'application/json'}
-    //     }).then(function(res) {
-    //         return res;
-    //     }).then(function(data) {
-    //         console.log('server respone:', data)
-    //     });
-        
-    // }
+
 
     renderIt(p,key,index) {
         const posts = p[key]
@@ -91,10 +75,10 @@ class Feed extends Component {
 
 
     render() {
-        const posts = this.state.posts.slice(0).reverse().map((post, index) =>
-            <Post key={index} value={post} />
-            // Can try to 
-        );
+        // const posts = this.state.posts.slice(0).reverse().map((post, index) =>
+        //     <Post key={index} value={post} />
+        //     // Can try to 
+        // );
 
       
         const p = this.state.oldPosts
@@ -107,13 +91,16 @@ class Feed extends Component {
                     if(!!pattern.test(post)){
                         return(
                             <div className="feed">
-                                <div className="entries" itemId={index}>
+                                <div className="entries" >
                                         <h4>{key}</h4>
-                                    <img src={post} width="190" height="190" alt="postImage" itemId={index}/>
-                                    <LikeButton itemId={index} />
+                                    <img src={post} width="190" height="190" alt="postImage" />
+                                    <LikeButton post={post}/>
                                     <div className="comments">
-                                        <LikeButton/>
-                                        <Comment/>
+                                    <Comment/>
+                                    </div>
+                                    <div>
+
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -121,10 +108,10 @@ class Feed extends Component {
                             return (
                                 // Complete working with the button in the div below
                                 <div className="feed">
-                                    <div className="entries" itemId={index}>
+                                    <div className="entries" >
                                         <h4>{key}</h4>
-                                        <span itemId={index}><p className="post">{post}</p></span> 
-                                        <LikeButton itemId={index} />
+                                        <span ><p className="post">{post}</p></span> 
+                                        <LikeButton post={post}/>
                                         <div className="comments">
                                         <Comment/>
                                         </div>
@@ -142,3 +129,18 @@ class Feed extends Component {
 
 export default Feed;
 
+    // likeAPost(post){
+    //     // this.state.oldPosts.reverse().map((index =>
+            
+    //         )
+    //     fetch('http://127.0.0.1:5000/profile/likePost', {
+    //         method: 'POST',
+    //         body: JSON.stringify(post),
+    //         headers: {'Content-Type': 'application/json'}
+    //     }).then(function(res) {
+    //         return res;
+    //     }).then(function(data) {
+    //         console.log('server respone:', data)
+    //     });
+        
+    // }

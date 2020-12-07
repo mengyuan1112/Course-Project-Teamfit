@@ -101,8 +101,7 @@ def friends_post():
                     cur.execute(sql, val)
                     conn.commit()
                     return {'state': "Friend has been added"}, 200
-                else:
-                    return {'state': "User with number: "+str(friend_num)+" doesn't exist!"}, 200 
+            return {'state': "User with number: "+str(friend_num)+" doesn't exist!"}, 200 
     else:
         return {'state': "Please login first"}, 200 
     return {'state': "Friend added to database"}, 200

@@ -28,7 +28,6 @@ class Home extends Component{
             calories: "",
             ListOfCal: []
         }
-        const row = [];
     }
 
     handleChange = e => {
@@ -56,9 +55,9 @@ class Home extends Component{
 
     handleSubmit = e => {
         e.preventDefault()
-        axiosConfig.post('http://127.0.0.1:5000/home/food',{
+        axiosConfig.post('http://18.223.214.126:5000/home/food',{
             body : this.state.foodName,
-            headers:{"Content-Type":"application/json",},
+            headers:{"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         })
             .then(response => {
@@ -92,9 +91,9 @@ class Home extends Component{
     }
     handleSubmitRecipe =e=>{
         e.preventDefault()
-        axiosConfig.post('http://127.0.0.1:5000/home/foodRecipe',{
+        axiosConfig.post('http://18.223.214.126/home/foodRecipe',{
             body : this.state.foodName,
-            headers:{"Content-Type":"application/json",},
+            headers:{"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         }).then(
             response => {
@@ -135,9 +134,9 @@ class Home extends Component{
             value: value,
         }
         console.log(this.state)
-        axiosConfig.post('http://127.0.0.1:5000/home/storeCalories',{
+        axiosConfig.post('http://18.223.214.126:5000/home/storeCalories',{
             body: dict,
-            headers: {"Content-Type":"application/json",},
+            headers: {"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         }).then(
             response =>{
@@ -157,7 +156,7 @@ class Home extends Component{
     }
     handlesGetAllCal=e=>{
         e.preventDefault()
-        axiosConfig.get('http://127.0.0.1:5000/home/getAllCalories')
+        axiosConfig.get('http://18.223.214.126:5000/home/getAllCalories')
             .then(
             response=>{
                 let res = response.data
@@ -174,39 +173,11 @@ class Home extends Component{
         )
     }
 
-    handlesUpdateCal =e=>{
-        e.preventDefault()
-        const key = this.state.date
-        const value = this.state.calories
-        var dict = {
-            key:key,
-            value:value
-        }
-        axiosConfig.post('http://127.0.0.1:5000/home/updateCalories',{
-            body: dict,
-            headers: {"Content-Type":"application/json",},
-            cache: "no-cache",
-        }).then(
-            response=>{
-                let res = response.data
-                this.setState({
-                    foodInfo: [],
-                    foodId: [],
-                    foodNutrition: [],
-                    recipeInfo: [],
-                    articles: [],
-                    ListOfCal: [],
-                    message: res['state']
-                })
-            }
-        )
-
-    }
     handlesGetDateCall=e=>{
         e.preventDefault()
-        axiosConfig.post('http://127.0.0.1:5000/home/getCalories',{
+        axiosConfig.post('http://18.223.214.126:5000/home/getCalories',{
             body: this.state.date,
-            headers: {"Content-Type":"application/json",},
+            headers: {"Content-Type":"application/json","Access-Control-Allow-Origin": "*",},
             cache: "no-cache",
         }).then(
             response=>{
@@ -260,7 +231,6 @@ class Home extends Component{
                                onChange = {this.handleCalChange}
                         />
                         <button onClick={this.handlesStoreCal} className = "storeCal">Store Calories!</button>
-                        <button onClick={this.handlesUpdateCal} className="updateCal">Update Calories!</button>
                         <button onClick={this.handlesGetAllCal} className="getAllCal">Get all History!</button>
                         <button onClick={this.handlesGetDateCall} className="getDateCal">Get Date History!</button>
                     </div>

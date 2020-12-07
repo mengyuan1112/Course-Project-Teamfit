@@ -1,11 +1,46 @@
-import React from 'react';
+// import React from 'react';
 import '../post/feed'
 import './Friends.css'
 import axiosConfig from 'axios';
 import Axios from 'axios';
+import React, { Component } from "react";
+import 'semantic-ui-css/semantic.min.css'
+
+const Person = ({ img, name, occupation, children }) => {
+  const url = `https://randomuser.me/api/portraits/thumb/men/${img}.jpg`;
+  return (
+    <div className="person">
+      <img src={url} alt="person img" />
+      <div>
+        <h4>{name}</h4>
+        <h4>{occupation}</h4>
+        {children}
+      </div>
+    </div>
+  );
+};
+const PersonList = () => {
+   
+   
+  return (
+   
+    <section className="person-list" >
+        <h1 className="person-list">Suggested Friends:</h1>
+      <Person img="34" name="john" >
+
+         </Person>
+      <Person img="22" name="bob" >
+      
+      </Person>
+      <Person img="56" name="david"  >
+         </Person>
+    </section>
+  );
+};
 
 class friends extends React.Component{
 
+  
     constructor(props) {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = { //state is by default an object
@@ -19,23 +54,24 @@ class friends extends React.Component{
      }
 
   componentWillMount() {
-   Axios('http://localhost:5000/friends/get_friends', {method: "GET"}).then(response => this.setState({friends: response.data}));
+   Axios('http://18.223.214.126:5000/friends/get_friends', {method: "GET"}).then(response => this.setState({friends: response.data}));
    console.log(this.state.friends)
   }
       
      
   handleChange(event) { 
    this.setState({friendNum: event.target.value}); 
-   Axios('http://localhost:5000/friends/get_friends', {method: "GET"}).then(response => this.setState({friends: response.data}));
+   Axios('http://18.223.214.126:5000/friends/get_friends', {method: "GET"}).then(response => this.setState({friends: response.data}));
    console.log(this.state.message)
    console.log(this.state.friends)
   }
   handleSubmit(event) {
    event.preventDefault();
 
-     axiosConfig.post('http://127.0.0.1:5000/friends/addfriend',{
+     axiosConfig.post('http://18.223.214.126:5000/friends/addfriend',{
       body : this.state.friendNum,
-      headers:{"Content-Type":"application/json",},
+      headers:{"Content-Type":"application/json",
+      "Access-Control-Allow-Origin": "*",},
       cache: "no-cache",
       })
       .then(response => {
@@ -57,16 +93,24 @@ class friends extends React.Component{
                {Object.keys(folks).map((key,id) => {
                   return <h2 key={id} className="friend">{this.state.friends[key]} | {key}</h2>
                })}
-            <form onSubmit={this.handleSubmit}>
-            <label style={{ fontWeight: 'bold' }}>
-               Add a friend: 
-               <input type="text" value={this.state.friendNum} onChange={this.handleChange}/>
-            </label>
-            <input type="submit" value="Submit"/>
-            </form>  
-            </div>      
+                             <form onSubmit={this.handleSubmit}>
+                <label style={{ fontWeight: 'bold' }}>
+                  Add a friend: 
+                  <input type="text" value={this.state.friendNum} onChange={this.handleChange}/>
+                </label>
+                <input type="submit" value="Submit"/>
+                <h1> </h1>
+              </form>  
+               <div><PersonList />;</div>
+              </div>    
          )
+         
+            
+          
+         
     };
+    
+     
 }
 
 

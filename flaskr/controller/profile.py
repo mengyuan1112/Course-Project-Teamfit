@@ -76,11 +76,15 @@ def profile_post():
 @profile_page.route("/profile/makePost", methods=["POST"])
 def make_post():
     new_post = request.get_json()
+    new_post = new_post['body']
+
     valid=False
     if isinstance(new_post,str):
         valid=re.match(regex, new_post)
     if not valid:
         new_post = new_post['content']
+        if new_post == "" or len(new_post) == 0 or new_post == None:
+            return {"state": "Empty post"}, 200
     number = _getUsername()
     conn = psycopg2.connect(
         database='teamfit',
@@ -94,12 +98,11 @@ def make_post():
         rows = cur.fetchall()
         for i in range(len(rows)):
             if number == str(rows[i][0]):
-                print("Inside the if for post")
                 sql_query = 'UPDATE teamfit.user SET posts = array_append(posts, %s) WHERE PhoneNumber = %s'
                 query_val = (new_post, number)
                 cur.execute(sql_query, query_val)
                 conn.commit()
-                return "New Post Has Been Added"
+                return {"state": "New Post Has Been Added"},200
 
     return "New Post Has Been Added"
 
@@ -115,19 +118,37 @@ def display_posts():
         host='localhost',
         sslmode='disable'
     )
-
+    # {"zayed": ["post","post"], "second user": ["post"]...}
+    # {"zayed": [["{post:[comments]}","post"],[0,1]], "second user": ["post"]...}
+    
+    all_posts = {}
+    posts_and_liked = []
+    friends_nums = []
     with conn.cursor() as cur:
         cur.execute("SELECT * FROM teamfit.user")
         rows = cur.fetchall()
         for i in range(len(rows)):
             if number == str(rows[i][0]):
-                all_posts = rows[i][11]
-                return jsonify({'state': all_posts})
+                name = rows[i][3]
+                all_posts[name] = rows[i][11]
+                friends_nums = rows[i][10]
+        if len(friends_nums) != 0:
+            for j in friends_nums:
+                sql_query = 'SELECT * FROM teamfit.user WHERE PhoneNumber = '+str(j)
+                cur.execute(sql_query)
+                rows = cur.fetchall()
+                print(rows)
+                name = rows[0][3]
+                all_posts[name] = rows[0][11]
+        return {'state': all_posts}, 200
     return "Returning my posts"
 
 @profile_page.route("/profile/likePost", methods=["POST"])
 def like_post():
     liked_post = request.get_json()
+    liked_post = liked_post['body']
+    print(liked_post)
+
     number = _getUsername()
     conn = psycopg2.connect(
         database='teamfit',
@@ -136,15 +157,33 @@ def like_post():
         host='localhost',
         sslmode='disable'
     )
+
     with conn.cursor() as cur:
-        cur.execute('SELECT * FROM teamfit.user')
+        sql_query = 'SELECT * FROM teamfit.user WHERE PhoneNumber = %s' % str(number)
+        cur.execute(sql_query)
         rows = cur.fetchall()
-        for i in range(len(rows)):
-            if number == str(rows[i][0]):
-                print("Inside the if for like")
-                sql_query = 'UPDATE teamfit.user SET liked = array_append(posts, %s) WHERE PhoneNumber = %s'
-                query_val = (liked_post, number)
-                cur.execute(sql_query, query_val)
+
+        friends_nums = rows[0][10]
+        posts = rows[0][11]
+        for i in range(len(posts)):
+            if posts[i] == liked_post:
+                print("Updating for user")
+                sql_query = 'UPDATE teamfit.user SET liked = array_append(liked, %i) WHERE PhoneNumber = %s' % (i,str(number))
+                cur.execute(sql_query)
                 conn.commit()
-                return "New Post Has Been Added"
+
+        for friend_num in friends_nums:
+            sql_query = 'SELECT * FROM teamfit.user WHERE PhoneNumber = %s' % str(friend_num)
+            cur.execute(sql_query)
+            rows = cur.fetchall()
+            posts = rows[0][11]
+            for j in range(len(posts)):
+                if posts[j] == liked_post:
+                    print("Updating for friend")
+                    sql_query = 'UPDATE teamfit.user SET liked = array_append(liked, %i) WHERE PhoneNumber = %s' % (i,str(number))
+                    cur.execute(sql_query)
+                    conn.commit()
+                    return {"state": "Post liked"}, 200
+
+            return {"state": "Not liked"}, 200
     return "My Liked Posts"
