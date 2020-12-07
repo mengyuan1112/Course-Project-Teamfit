@@ -27,24 +27,12 @@ const PersonList = () => {
     <section className="person-list" >
         <h1 className="person-list">Suggested Friends:</h1>
       <Person img="34" name="john" >
-      <button class="mini ui button"  >
-  <i class="icon user"></i>
-  Add Friend
-</button>
+
          </Person>
       <Person img="22" name="bob" >
       
-      <button class="mini ui button" >
-  <i class="icon user"></i>
-  Add Friend
-</button>
-
       </Person>
       <Person img="56" name="david"  >
-      <button class="mini ui button">
-  <i class="icon user"></i>
-  Add Friend
-</button>
          </Person>
     </section>
   );
