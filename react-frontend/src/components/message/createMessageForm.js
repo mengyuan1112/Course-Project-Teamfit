@@ -1,48 +1,49 @@
-import { List, ListItem, ListItemText, ListSubheader, TextField, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { TextField, Button, Dialog } from '@material-ui/core';
 import React from "react";
-import style from './message.css'
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import SendIcon from '@material-ui/icons/Send';
+import Alert from '@material-ui/lab/Alert';
 const axios = require('axios');
 export default class CreateMessage extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      destEmail: "destination@gmail.com",
-      header: "Good day sir!",
+      destEmail: "example@gmail.com",
+      header: "Headers should not be set by the user b/c I said so hahaha :)",
       messageList: [],
       parentCounter: 0,
       content:"",
-      formErrors: {
-        sourceEmail: "",
-        destEmail: "",
-        header: "",
-      }
+      errorList:"",
+      diaglogSwitch: false
     }
     this.onInputChange = this.onInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.createBody = this.createBody.bind(this);
   }
 
-  listMessages() {
-    axios.get('http://localhost:5000/listMessages', { headers: { "userID": this.props.sourceEmail } })
-      .then(function (data) {
-        this.state.messageList.push(data)
-      })
+  setOpen(binary){
+    this.setState({
+      diaglogSwitch: binary
+    })
   }
 
-  //handles form button being clicked.
-  createBody = (n) => {
-    return 
-
+  handleOpen = () => {
+    this.setOpen({diaglogSwitch: true});
   }
+
+  handleClose = () => {
+    this.setState({diaglogSwitch: false});
+  }
+
   onInputChange(event) {
     this.setState({
-      [event.target.name]: { value: event.target.value }
+      [event.target.name]: event.target.value 
     });
   }
-    
+  
   handleSubmit = e => {
+    this.setState({parentMessageID: this.state.parentCounter+=1})
     e.preventDefault();
     fetch('http://localhost:5000/createMessage', {
       method: "POST",
@@ -52,64 +53,42 @@ export default class CreateMessage extends React.Component {
       },
       body: JSON.stringify({
         header: this.state.header,
-        parentMessageID: "2",
-        userID: "hello",
-        recieverID: "hello",
-        data: "hello"
+        parentMessageID: this.state.parentCounter,
+        userID: this.props.sourceEmail,
+        recieverID: this.state.destEmail,
+        data: this.state.content
       })
-    }).then(response => response.json())
-    window.location.reload()
-  }
-  componentDidMount() {
-
+    }).then(function(response){
+      if(response.statusCode === 200){
+        console.log("made request to the backend flask app")
+      }
+    }).catch((error) => {
+      this.setState({errorList: error.message})
+    })
+    this.handleClose();
   }
 
   render() {
-    const classesList = makeStyles((theme) => ({
-      root: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-        position: 'relative',
-        overflow: 'auto',
-        maxHeight: 300,
-      },
-      listSection: {
-        backgroundColor: 'inherit',
-      },
-      ul: {
-        backgroundColor: 'inherit',
-        padding: 0,
-      },
-    }));
-    const useStyles = makeStyles((theme) => ({
-      root: {
-        '& .MuiTextField-root': {
-          margin: theme.spacing(1),
-          width: 200,
-        },
-      },
-    }));
+    let alert;
+    if(this.state.errorList.length > 1){
+      alert = <Alert severity="error">{this.state.errorList}</Alert>
+    }
     return (
       <div>
-          <h1>Send a Message!</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            placeholder="Destination Username"
-            name="destEmail"
-            type="email"
-            onChange={this.onInputChange}
-            required
-          />
-          <input
-            placeholder="Content"
-            name="content"
-            type="text"
-            onChange={this.onInputChange}
-            required
-          />
-          <button>Submit Message</button>
-        </form>
+        <div>{alert}</div>
+        <Button variant="outlined" color="primary" onClick={this.handleOpen}>
+          Send a Message
+        </Button>
+        <Dialog open={this.state.diaglogSwitch} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="createMessageTitle">Send a message!</DialogTitle>
+          <TextField autoFocus disabled margin="dense" name="sourceEmail" defaultValue={this.props.sourceEmail} id="senderEmail" label="Your Email Address" type="email" onChange={this.onInputChange} fullWidth/>
+          <TextField autoFocus margin="dense" defaultValue={this.state.destEmail} name="destEmail" id="destEmail" label="Destination Email Address" type="email" onChange={this.onInputChange} fullWidth/>
+          <TextField autoFocus margin="dense" name="content" id="content" label="Your Message" fullWidth onChange={this.onInputChange}/>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary"> Cancel </Button>
+            <Button onClick={this.handleSubmit} color="primary" endIcon={<SendIcon/>}> Send</Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

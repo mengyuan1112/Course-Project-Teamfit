@@ -1,38 +1,65 @@
 .title {
     text-align: center;
     font-family: arial, sans-serif;
+    background-color: #4564e0;
+    height: 10%;
+    width: 10%;
+    border-radius: 40%;
   }
   
-  .students {
-    text-align: center;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    border: 3px solid #ddd;
-    width: 100%;
+.friend {
+  text-align: center;
+  font-family: arial, sans-serif;
+  background-color: #4564e0;
+  height: 10%;
+  width: 20%;
+  border-radius: 40%;
+}
+
+
+
+.person {
+  background: #585757;
+  width: 10rem;
+  padding: 1rem;
+  margin: 2rem auto;
+  transition: all 0.3 linear;
+  border-radius: 0.3rem;
+  text-align: center;
+}
+.person img {
+  border-radius: 0.3rem;
+  border-radius: 50%;
+  margin-right: 1.5rem;
+  margin-left: 1rem;
+  border: 0.1rem solid teal;
+}
+.person h4 {
+  text-transform: capitalize;
+  margin: 0.5rem 0;
+  letter-spacing: 0.15rem;
+  color: teal;
+}
+.person:hover {
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
+}
+.social-icons {
+  display: flex;
+  justify-content: space-around;
+  color: blue;
+}
+
+@media screen and (min-width: 768px) {
+  .person-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
   }
-  
-  .students td, .students th {
-    border: 1px solid #ddd;
-    padding: 8px;
+}
+@media screen and (min-width: 992px) {
+  .person-list {
+    grid-template-columns: repeat(1, 6fr);
   }
+}
   
-  .students tr:nth-child(even){background-color: #f2f2f2;}
-  
-  .students tr:hover {background-color: #ddd;}
-  
-  students th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: #4CAF50;
-    color: white;
-  }
-  h1 {
-    text-align: center;
-    width: 100%;
-    color: #111;
-    font-weight: lighter;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  }
   

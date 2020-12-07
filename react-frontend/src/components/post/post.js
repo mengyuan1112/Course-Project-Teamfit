@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
-import './feed.css';
+import Form from './form.js';
 import './post.css';
-import './form.css';
+
 
 class Post extends Component {
-    render() {
+
+    // likePost = async e =>{
+        
+
+    // }
+    
+    render(){
         return (
+            <>
             <div className="post">
-                <span className="content">{this.props.value.content}</span>
+                {console.log(this.props.value)}
+            <span className="content">{this.props.value}</span>
             </div>
+            </>
         )
     }
 }

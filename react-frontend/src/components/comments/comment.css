@@ -1,11 +1,12 @@
-.feed {
+.comment {
     position: relative;
     top: 120px; left: 40px;
-    /* display: flex; */
-    /* justify-content: center; */
     height: auto;
-    width: 600px;
+    width: 400px;
     margin: auto;
+    border-style: ridge;
+    border-radius: 90%;
+    background-color: aliceblue;
   }
 
 .like {
@@ -24,7 +25,3 @@
   
 }
 
-p {
-  margin-top: 10px;
-  margin: auto;
-}

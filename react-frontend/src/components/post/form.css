@@ -2,12 +2,30 @@
     background: #58828b; 
     padding: 20px;
     margin: 5px 100px 10px 5px;
+    min-width: 1.5em;
+    display: flex;
+    width: 600px;
+    /* width: 1.5em;
+    height: 1.5em; */
   }
   
   .content {
     margin-left: 5px;
   }
 
+
+  body {
+    overflow: auto;
+  }
+
+  
+   input[name="file"] {
+    padding: 2px;
+    margin-left: 10px; 
+    background-color: whitesmoke;
+  } 
+
+  
   .button {
     background-color: #050505; /* Green */
     border: none;
@@ -18,5 +36,8 @@
     font-size: 16px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     border-radius: 12px;
-    overflow: hidden;
+    
+    /* overflow: auto; */
+    /* position: fixed; */
 }
+

@@ -6,9 +6,12 @@
   overflow-y: hidden;
   background-color: #f8b878;
 }
-
+.comp-profile{
+  position: absolute;
+  left: 45%;
+}
 .show-table{
-  margin-left: 85%;
+position: absolute;
 }
 .fitness-form-wrapper {
   width: 500px;
@@ -175,5 +178,26 @@ text {
   border-color: black;
   border-width: thin;
   display: inline;
+}
+.cals-table{
+  vertical-align: top;
+  border-style: solid;
+  border-color: black;
+  border-width: thin;
+  display: inline;
+}
+
+.good {
+  color: green;
+  font-weight: bold;
+}
+.bad {
+  color: red;
+  font-weight: bold;
+}
+
+.intermediate{
+  color: yellow;
+  font-weight: bold;
 }
 

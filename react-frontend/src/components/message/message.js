@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import CreateMessage from './createMessageForm.js';
 import ListMessage from './listMessage'
 import DeleteMessage from './deleteMessage.js'
+import Grid from '@material-ui/core/Grid';
+
 const axios = require('axios');
 
 export default class Messages extends React.Component {
@@ -34,35 +36,34 @@ export default class Messages extends React.Component {
 
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
- };
+  };
   componentDidMount() {
     console.log(this.state.sourceEmail)
   }
 
   render() {
-    const renderList = this.state.sourceEmail;
     let list;
     let del;
-    let create = <CreateMessage sourceEmail={this.state.sourceEmail}/>;
-    if(this.state.sourceEmail.length > 0){
+    let create;
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(re.test(this.state.sourceEmail)){
+      create = <CreateMessage sourceEmail={this.state.sourceEmail}/>;
       list = <ListMessage sourceEmail={this.state.sourceEmail}/>
       del = <DeleteMessage sourceEmail={this.state.sourceEmail}/>
-    }else{
-      create = <CreateMessage sourceEmail={this.state.sourceEmail}/>
+    }
+else{
+
     }
     return (
-      <React.Fragment>
+      <Grid container direction="column" justify="center" alignItems="center">
       <div>
         <h2>Enter your Username below before proceeding</h2>
-        <form>
-          <input type="email" name="sourceEmail" value={this.state.sourceEmail} onChange={this.handleChange}/>
-        </form>
+        <TextField type="email" name="sourceEmail" label="Enter email address" value={this.state.sourceEmail} onChange={this.handleChange} variant="outlined" color="primary"/>
       </div>
       <div>{create}</div>
       <div>{list}</div>
-    <div>{del}</div>
-      <h2>Your username is: {this.state.sourceEmail}</h2>
-      </React.Fragment>
+      <div>{del}</div>
+      </Grid>
     )
   }
 }
