@@ -23,7 +23,7 @@ export default class DeleteMessage extends React.Component {
     
   handleSubmit = e => {
     e.preventDefault();
-    fetch('http://localhost:5000/deleteMessage', {
+    fetch('http://18.223.214.126:5000/deleteMessage', {
       method: "PUT",
       headers: {
         'Content-Type': 'application/json',"Access-Control-Allow-Origin": "*",

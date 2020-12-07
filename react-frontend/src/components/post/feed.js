@@ -35,7 +35,7 @@ class Feed extends Component {
     }
 
     componentWillMount() {
-        fetch('http://127.0.0.1:5000/profile/getPost', {
+        fetch('http://18.223.214.126:5000/profile/getPost', {
             method: 'GET',
             headers: {'Content-Type': 'application/json',"Access-Control-Allow-Origin": "*",}
         }).then(res =>res.json())
@@ -47,7 +47,7 @@ class Feed extends Component {
 
 
     handleNewPost(post) {
-        axiosConfig.post('http://127.0.0.1:5000/profile/makePost', {
+        axiosConfig.post('http://18.223.214.126:5000/profile/makePost', {
             method: 'POST',
             body: post,
             headers: {'Content-Type': 'application/json',"Access-Control-Allow-Origin": "*",}

@@ -43,7 +43,7 @@ export default class Fitness extends React.Component {
     }
     /*GET request to fitness.py. Updates history to be object with 3 arrays*/
     componentDidMount() {
-    Axios.get('http://localhost:5000/profile/fitness/submit').then(response=> { this.setState({history: response.data});})
+    Axios.get('http://18.223.214.126:5000/profile/fitness/submit').then(response=> { this.setState({history: response.data});})
     }
 
     componentWillUnmount() {
@@ -113,7 +113,7 @@ export default class Fitness extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         if (formValid(this.state)){
-            fetch('http://localhost:5000/profile/fitness/submit', {
+            fetch('http://18.223.214.126:5000/profile/fitness/submit', {
             method: "POST",
                 headers: {
                 'Accept': 'application/json',

@@ -45,7 +45,7 @@ export default class CreateMessage extends React.Component {
   handleSubmit = e => {
     this.setState({parentMessageID: this.state.parentCounter+=1})
     e.preventDefault();
-    fetch('http://localhost:5000/createMessage', {
+    fetch('http://18.223.214.126:5000/createMessage', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
