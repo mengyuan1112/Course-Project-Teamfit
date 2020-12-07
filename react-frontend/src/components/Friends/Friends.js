@@ -70,7 +70,8 @@ class friends extends React.Component{
 
      axiosConfig.post('http://127.0.0.1:5000/friends/addfriend',{
       body : this.state.friendNum,
-      headers:{"Content-Type":"application/json",},
+      headers:{"Content-Type":"application/json",
+      "Access-Control-Allow-Origin": "*",},
       cache: "no-cache",
       })
       .then(response => {
